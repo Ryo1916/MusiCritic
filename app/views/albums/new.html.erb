@@ -1,0 +1,8 @@
+<div class="row">
+  <h1>New Album</h1>
+  <%= render 'form', album: @album %>
+  <hr>
+  <div class="col-md-8 col-md-offset-2">
+    <%= link_to 'Back', albums_path, class: "btn btn-default btn-block", style: "margin-bottom:20px;" %>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="form-group">
+      <%= form_with(model: artist, local: true, multipart: true) do |form| %>
+        <% if artist.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(artist.errors.count, "error") %> prohibited this artist from being saved:</h2>
+
+            <ul>
+            <% artist.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= form.label :artist %><br />
+          <%= form.text_field :artist, autofocus: true, placeholder: "Enter artist name", class: "form-control" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :artist_image %><br />
+          <%= form.file_field :artist_image, class: "form-control" %>
+        </div>
+
+        <div class="actions">
+          <%= form.submit %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

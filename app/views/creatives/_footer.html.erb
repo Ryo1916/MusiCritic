@@ -1,0 +1,30 @@
+<footer id="footer" class="container-fluid" style="background-color:black;">
+  <div class="row footer-top">
+    <div class="col-md-12">
+    <% if !current_user.blank? %>
+      <!-- <span><a href="/posts">Home</a></span> -->
+      <span><a href="/">Home</a></span>
+    <% else %>
+      <span><a href="/">Home</a></span>
+    <% end %>
+      <span><a href="/mains/about">About</a></span>
+      <span><a href="/mains/contact">Contact</a></span>
+    </div>
+  </div>
+
+  <div class="row footer-middle">
+    <div class="col-md-12">
+      <span class="fa fa-facebook"></span>
+      <span class="fa fa-twitter"></span>
+      <span class="fa fa-google"></span>
+      <span class="fa fa-github"></span>
+      <span class="fa fa-linkedin"></span>
+    </div>
+  </div>
+
+  <div class="row footer-bottom">
+    <div class="col-md-12">
+      <span style="text-align:center;">© Copyright <% now = Time.current %> <%= now.year %> Music Review - All Rights Reserved</span>
+    </div>
+  </div>
+</footer>
