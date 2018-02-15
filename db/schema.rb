@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180213165141) do
+ActiveRecord::Schema.define(version: 20180215083242) do
 
   create_table "albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "album_name"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20180213165141) do
 
   create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
-    t.integer "grade"
+    t.float "rating", limit: 24
     t.text "text"
     t.bigint "user_id"
     t.bigint "album_id"

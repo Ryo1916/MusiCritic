@@ -12,6 +12,15 @@ class AlbumsController < ApplicationController
   # GET /albums/1.json
   def show
     @album = Album.find(params[:id])
+    @reviews = Review.where(album_id: @album.id).order("created_at desc")
+
+    if @reviews.blank?
+      @avg_rating = 0
+    else
+      @avg_rating = @reviews.average(:rating).round(2)
+      # average: tooutput average rating
+      # round(2): round off to two decimal places
+    end
   end
 
   # GET /albums/new

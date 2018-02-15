@@ -11,18 +11,19 @@
 
   <div class="row no-gutter">
     <% @albums.each do |album| %>
-    <div class="col-lg-4 col-sm-6">
+    <div class="col-lg-3 col-sm-6">
       <%= link_to album_path(album.id), class: "portfolio-box" do %>
-      <!-- <a href="/album/" class="portfolio-box"> -->
         <%= image_tag album.album_image, class: "img-responsive", style: "", alt: album.album_name %>
         <div class="portfolio-box-caption">
           <div class="portfolio-box-caption-content">
             <div class="project-category text-faded">
+              <%= album.artist.artist %>
+            </div>
+            <div class="project-name">
               <%= album.album_name %>
             </div>
           </div>
         </div>
-      <!-- </a> -->
       <% end %>
     </div>
     <% end %>

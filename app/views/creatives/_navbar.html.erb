@@ -28,7 +28,6 @@
                 <a class="page-scroll" href="#contact" style="color:#fff;">Contact</a>
               </li>
             <% else %>
-              <li><%= link_to "Best Albums", "#", style: "color:#fff;" %></li>
               <li><%= link_to "About", "#", style: "color:#fff;" %></li>
               <li><%= link_to "Contact", "#", style: "color:#fff;" %></li>
             <% end %>
@@ -42,12 +41,8 @@
                 <%= link_to "Register", new_user_registration_path, class: "page-scroll", style: "color:white;" %>
               </li>
             <% else %>
-              <li>
-                <a class="page-scroll" href="/" style="color:#fff;">Home</a>
-              </li>
-              <li>
-                <%= link_to "Reviews", reviews_path, class: "page-scroll", style: "color:#fff;" %>
-              </li>
+              <li><%= link_to "Artist", artists_path, style: "color:#fff" %></li>
+              <li><%= link_to "Albums", albums_path, style: "color:#fff;" %></li>
               <li>
                 <%= link_to user_path(current_user.id), class: "page-scroll", style: "color:#fff;" do %>
                   <%= current_user.email %>

@@ -1,14 +1,14 @@
 <div class="row" style="margin-top:20px;">
   <div class="col-md-4">
     <%= image_tag(@album.album_image, style: "width:300px; height:300px;") %>
-  </div>
-  <div class="col-md-8">
+    <div class="star-rating" style="margin-top:10px;" data-score= <%= @avg_rating %> ></div>
+    <em><%= "#{@reviews.length} reviews" %></em>
     <h3> <%= @album.artist.artist %> </h3>
     <span>
       <h4><%= @album.album_name %></h4>
       <p>
-        <% t = @album.release %>
-        <%= t.strftime(" %Y %b %d") %> /
+        <% released = @album.release %>
+        <%= released.strftime(" %Y %b %d") %> /
         <%= @album.genre %>
       </p>
     </span>
@@ -23,9 +23,51 @@
         <% end %>
       </tbody>
     </table>
-    <%= link_to 'Write a Review', new_review_path(@album.id), name: @album.id , class: "btn btn-primary btn-block", style: "color:white; margin-bottom:20px;" %>
-    <%= link_to 'Edit', edit_album_path(@album), class: "btn btn-success btn-block", style: "color:white;" %>
+
+    <%= @album.description %>
+  </div>
+
+  <div class="col-md-8">
+    <% if @reviews.blank? %>
+      <h3 style="border-bottom:solid 1px #eee;">No results just yet, would you like to add the first!</h3>
+    <% else %>
+      <% @reviews.each do |review| %>
+        <div class="review" style="border-bottom:solid 1px #eee;">
+          <div class="star-rating" style="display:inline;" data-score= <%= review.rating %> ></div>
+          <%= review.user.email %>
+          <% commented = review.created_at %> /
+          <span style="font-style:italic;"><%= commented.strftime(" %Y %b %d") %></span>
+          <div class="review-comment" style="display:block;">
+            <%= review.text %>
+          </div>
+          <% if current_user.id == review.user_id %>
+            <ul style="float:right;">
+              <li><%= link_to 'Edit', edit_review_path(review) %></li>
+              <%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </ul>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <script>
+      $('.star-rating').raty({
+        path: '/assets/',
+        readOnly: true,
+        size: 6,
+        half: true,
+        score: function() {
+          return $(this).attr('data-score');
+        }
+      });
+    </script>
+
+    <h3>Post your review</h3>
+    <%= render 'reviews/form', review: @review %>
+
     <hr>
+
+    <%= link_to 'Edit', edit_album_path(@album), class: "btn btn-success btn-block", style: "color:white;" %>
     <%= link_to 'Back', albums_path, class: "btn btn-default btn-block" %>
   </div>
 

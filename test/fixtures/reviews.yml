@@ -2,12 +2,12 @@
 
 one:
   title: MyString
-  grade: 1
+  rating: 1
   text: MyString
   user: one
 
 two:
   title: MyString
-  grade: 1
+  rating: 1
   text: MyString
   user: two

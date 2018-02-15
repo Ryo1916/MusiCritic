@@ -21,20 +21,22 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/1/edit
   def edit
+    @album = Album.find(@review.album_id)
   end
 
   # POST /reviews
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
+    @album = Album.find(params[:album_id])
 
     respond_to do |format|
       if @review.save
-        format.html { redirect_to @review, notice: 'Review was successfully created.' }
-        format.json { render :show, status: :created, location: @review }
+        format.html { redirect_to @album, notice: 'Review was successfully created.' }
+        format.json { render :show, status: :created, location: @album }
       else
         format.html { render :new }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
+        format.json { render json: @album.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,6 +73,8 @@ class ReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_params
-      params.require(:review).permit(:title, :grade, :text, :user_id)
+      params.permit(:title, :rating, :text, :user_id, :album_id)
+      # params.require(:review).permit(:title, :rating, :text, :user_id, :album_id)
+      # params.fetch(:review, {}).permit(:title, :rating, :text, :user_id, :album_id)
     end
 end

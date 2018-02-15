@@ -12,8 +12,8 @@
   <div class="row no-gutter">
     <% @artists.each do |artist| %>
     <div class="col-lg-4 col-sm-6">
-      <a href="#" class="portfolio-box">
-        <%= image_tag artist.artist_image, class: "img-responsive", style: "height:250px;", alt: artist.artist %>
+      <%= link_to albums_path, class: "portfolio-box" do %>
+        <%= image_tag artist.artist_image, class: "img-responsive", style: "width:380px; height:250px;", alt: artist.artist %>
         <div class="portfolio-box-caption">
           <div class="portfolio-box-caption-content">
             <div class="project-category text-faded">
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-      </a>
+      <% end %>
     </div>
     <% end %>
   </div>

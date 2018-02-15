@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'users/show'
-
-  get 'users/index'
-
   root 'creatives#index'
   get 'creatives/index'
   get 'mains/top'
