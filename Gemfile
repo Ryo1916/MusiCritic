@@ -41,6 +41,7 @@ gem 'devise',            '4.5'
 gem 'omniauth',          '1.8.1'
 gem 'omniauth-facebook', '5.0.0'
 gem 'omniauth-twitter',  '1.4.0'
+gem 'letter_opener_web', '1.3.4'
 
 # others
 gem 'faker',     '1.7.3'
