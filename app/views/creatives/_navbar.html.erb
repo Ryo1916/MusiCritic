@@ -45,7 +45,7 @@
               <li><%= link_to "Albums", albums_path, style: "color:#fff;" %></li>
               <li>
                 <%= link_to user_path(current_user.id), class: "page-scroll", style: "color:#fff;" do %>
-                  <%= current_user.email %>
+                  <%= current_user.name %>
                 <% end %>
                 <!-- <a class="page-scroll" href="" style="color:#fff;"> <%= current_user.email %> </a> -->
               </li>
