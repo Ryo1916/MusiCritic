@@ -15,59 +15,8 @@
  *= require_tree .
  *= require_self
  */
+
 @import "bootstrap";
-
-// common settings
-ul, li {
-  list-style:none;
-  margin: 0;
-  padding: 0;
-}
-
-.form-group {
-
-  h2 {
-    text-align: center;
-  }
-  p {
-    font-family: sans-serif;
-  }
-}
-
-.buttons {
-  text-align: center;
-
-  h2 {
-    // text-align: center;
-  }
-
-  ul {
-    margin: 0 auto;
-    display: -webkit-inline-flex;
-
-    li {
-      float:left;
-      margin-right: 10px;
-    }
-  }
-}
-
-.btn-facebook {
-  color: white;
-  background-color: #3b5998;
-}
-
-.btn-twitter {
-  color: white;
-  background-color: #00aced;
-}
-
-.btn-google {
-  color: white;
-  background-color: #dd4b39;
-}
-
-.bootstrap-date {
-  display: inline-block;
-  width: auto;
-}
+@import "base";
+@import "form";
+@import "buttons";

@@ -1,0 +1,28 @@
+.buttons {
+  text-align: center;
+
+  ul {
+    margin: 0 auto;
+    display: -webkit-inline-flex;
+
+    li {
+      float:left;
+      margin-right: 10px;
+    }
+  }
+}
+
+.btn-facebook {
+  color: white;
+  background-color: #3b5998;
+}
+
+.btn-twitter {
+  color: white;
+  background-color: #00aced;
+}
+
+.btn-google {
+  color: white;
+  background-color: #dd4b39;
+}
