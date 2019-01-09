@@ -5,12 +5,15 @@ Rails.application.routes.draw do
 
   devise_for :users,
               controllers: { omniauth_callbacks: "users/omniauth_callbacks",
-                                         passwords: "users/passwords",
-                                         registrations: 'users/registrations',
-                                         sessions: 'users/sessions' }
-  resources :users, :only => [:show, :index]
+                             passwords: "users/passwords",
+                             registrations: 'users/registrations',
+                             sessions: 'users/sessions' }
   resources :reviews
   resources :artists
   resources :albums
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
 end

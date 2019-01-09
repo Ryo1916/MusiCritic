@@ -15,21 +15,15 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
           <ul class="nav navbar-nav navbar-left">
             <% if current_page?(root_path) %>
-              <!-- <li>
-                  <a class="page-scroll" href="#about" style="color:#fff;">About</a>
-              </li> -->
               <li>
-                <a class="page-scroll" href="#portfolio" style="color:#fff;">Best Albums</a>
+                <%= link_to "Best Albums", "#portfolio", class: "page-scroll", style: "color:white" %>
               </li>
               <li>
-                <a class="page-scroll" href="#services" style="color:#fff;">About</a>
+                <%= link_to "About", "#services", class: "page-scroll", style: "color:white" %>
               </li>
               <li>
-                <a class="page-scroll" href="#contact" style="color:#fff;">Contact</a>
+                <%= link_to "Contact", "#contact", class: "page-scroll", style: "color:white;" %>
               </li>
-            <% else %>
-              <li><%= link_to "About", "#", style: "color:#fff;" %></li>
-              <li><%= link_to "Contact", "#", style: "color:#fff;" %></li>
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -44,8 +38,8 @@
               <li><%= link_to "Artist", artists_path, style: "color:#fff" %></li>
               <li><%= link_to "Albums", albums_path, style: "color:#fff;" %></li>
               <li>
-                <%= link_to user_path(current_user.id), class: "page-scroll", style: "color:#fff;" do %>
-                  <%= current_user.email %>
+                <%= link_to edit_user_registration_path, class: "page-scroll", style: "color:#fff;" do %>
+                  <%= current_user.name %>
                 <% end %>
                 <!-- <a class="page-scroll" href="" style="color:#fff;"> <%= current_user.email %> </a> -->
               </li>
