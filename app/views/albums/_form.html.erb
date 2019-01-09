@@ -15,7 +15,7 @@
 
       <div class="field">
         <%= form.label :album_name %><br />
-        <%= form.text_field :album_name, autofocus: true, placeholder: "Enter artist name", class: "form-control" %>
+        <%= form.text_field :album_name, autofocus: true, placeholder: "Enter an album name", class: "form-control" %>
       </div>
 
       <div class="field">
@@ -56,11 +56,6 @@
 <div class="col-md-6">
   <div class="field">
     <%= form.label :songs %><br />
-    <%= form.add_nested_fields_link :songs, 'Add New Song',
-                                    id: "add_song",
-                                    class: "btn btn-warning btn-block",
-                                    style: "color:white; margin-bottom:20px;",
-                                    role: "button" %>
     <table class="table bordered-table table-hover">
       <thead>
         <th>No.</th>
@@ -74,13 +69,25 @@
               <!-- count input tag or any other way to set track number -->
               <%= song.number_field :track_num, { id: "first_track", class: "form-control" } %>
             </td>
-            <td> <%= song.text_field :song_name, class: "form-control" %> </td>
-                 <%= song.hidden_field :artist_id, class: "artist_id" %>
-            <td> <%= song.remove_nested_fields_link 'Delete', class: "delete-song form-control btn btn-danger", style: "color:white;" %> </td>
+            <td>
+              <%= song.text_field :song_name, class: "form-control" %>
+            </td>
+            <%= song.hidden_field :artist_id, class: "artist_id" %>
+            <td> <%= song.remove_nested_fields_link 'Delete',
+                                                    class: "delete-song form-control btn btn-danger",
+                                                    style: "color:white;" %>
+            </td>
           <% end %>
         </tr>
       </tbody>
     </table>
+    <%= form.add_nested_fields_link :songs,
+                                    'Add New Song',
+                                    id: "add_song",
+                                    class: "btn btn-warning btn-block",
+                                    style: "color:white; margin-bottom:20px;",
+                                    role: "button"
+                                     %>
   </div>
 
   <script>
@@ -132,7 +139,7 @@
       });
     });
   </script>
-  
+
 </div>
 
 <div class="col-md-8 col-md-offset-2">
