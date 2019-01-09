@@ -27,8 +27,7 @@ Rails.application.configure do
   end
 
   # ActionMailer and letter_opener
-  config.action_mailer.raise_delivery_errors = true    # development
-  # config.action_mailer.raise_delivery_errors = false # production
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3003 }
   config.action_mailer.delivery_method = :letter_opener_web
