@@ -16,9 +16,6 @@ gem 'turbolinks',         '5.0.1'
 gem 'jbuilder',           '2.8.0'
 gem 'responders',         '2.4.0'
 
-# db
-
-
 # css
 gem 'bootstrap',           '4.1.3'
 gem 'sass-rails',          '5.0.7'
