@@ -4,8 +4,5 @@ class Song < ApplicationRecord
   belongs_to :album, optional: true
 
   # Validations
-  validates_presence_of :song_name
-  validates_presence_of :track_num
-  validates_presence_of :artist_id
-  validates_presence_of :album_id
+  validates_presence_of :song_name, :track_num, :artist_id, :album_id
 end
