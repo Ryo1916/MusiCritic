@@ -1,2 +1,6 @@
-{:versioni:suites[{	:	nameI"#./spec/models/album_spec.rb[1]:ET:	pathI"E/Users/ryo/workspace/Rails/MusicReview/spec/models/album_spec.rb;T:durationf0.000145:last_seen_atl+6\{	;I"$./spec/models/artist_spec.rb[1];T;	I"F/Users/ryo/workspace/Rails/MusicReview/spec/models/artist_spec.rb;T;
-f0.745892;l+6\
+{:versioni:suites[
+{	:	nameI"#./spec/models/album_spec.rb[1]:ET:	pathI"E/Users/ryo/workspace/Rails/MusicReview/spec/models/album_spec.rb;T:durationf1.922909:last_seen_atl+a«<\{	;I"$./spec/models/artist_spec.rb[1];T;	I"F/Users/ryo/workspace/Rails/MusicReview/spec/models/artist_spec.rb;T;
+f1.737942;l+`«<\{	;I"$./spec/models/review_spec.rb[1];T;	I"F/Users/ryo/workspace/Rails/MusicReview/spec/models/review_spec.rb;T;
+f1.859501;l+a«<\{	;I""./spec/models/song_spec.rb[1];T;	I"D/Users/ryo/workspace/Rails/MusicReview/spec/models/song_spec.rb;T;
+f1.945474;l+a«<\{	;I"'./spec/requests/artists_spec.rb[1];T;	I"I/Users/ryo/workspace/Rails/MusicReview/spec/requests/artists_spec.rb;T;
+f0.594399;l+a«<\
