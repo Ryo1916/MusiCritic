@@ -7,8 +7,15 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
-# require database cleaner at the top level
+require 'capybara/rspec'
+require 'capybara/rails'
 require 'database_cleaner'
+require 'simplecov'
+require 'devise'
+
+SimpleCov.start 'rails'
+
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 # configure shoulda matchers to use rspec as the test framework and full matcher libraries for rails
 Shoulda::Matchers.configure do |config|
@@ -16,6 +23,21 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+Capybara.default_driver = :selenium_chrome
+
+# chromedriverを登録
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+# chromeのheadlessモードを登録（ブラウザ起動なし）
+Capybara.register_driver :selenium_chrome_headless do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument('headless')
+  options.add_argument('--disable-gpu')
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -73,6 +95,10 @@ RSpec.configure do |config|
   # add `FactoryBot` methods
   config.include FactoryBot::Syntax::Methods
 
+  # add `Devise`
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.extend Authentication
+
   # start by truncating all the tables but then use the faster transaction strategy the rest of the time.
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
@@ -85,5 +111,5 @@ RSpec.configure do |config|
       example.run
     end
   end
-  
+
 end
