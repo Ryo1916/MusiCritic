@@ -27,4 +27,10 @@ RSpec.describe 'Artist', type: :request do
       end
     end
   end
+
+  # TODO: Test suite for POST /artists
+
+  # TODO: Test suite for PATCH /artists
+
+  # TODO: Test suite for DELETE /artists
 end
