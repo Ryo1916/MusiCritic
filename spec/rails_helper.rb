@@ -96,6 +96,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   # add `Devise`
+  config.include Warden::Test::Helpers
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.extend Authentication
 
@@ -110,6 +111,10 @@ RSpec.configure do |config|
     DatabaseCleaner.cleaning do
       example.run
     end
+  end
+
+  config.after :each do
+    Warden.test_reset!
   end
 
 end
