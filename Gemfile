@@ -46,15 +46,17 @@ gem 'faker', '1.7.3'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara',           '~> 2.13'
-  gem 'mysql2',             '0.4.10'
-  gem 'selenium-webdriver', '3.141.0'
-  gem 'rspec-rails',        '3.8.1'
-  gem 'factory_bot_rails',  '4.11.1'
-  gem 'shoulda-matchers',   '3.1.2'
-  gem 'database_cleaner',   '1.7.0'
-  gem 'simplecov',          '0.16.1'
-  gem 'test-queue',         '0.4.2'
+  gem 'capybara',                 '~> 2.13'
+  gem 'mysql2',                   '0.4.10'
+  gem 'selenium-webdriver',       '3.141.0'
+  gem 'chromedriver-helper',      '2.1.0'
+  gem 'rspec-rails',              '3.8.1'
+  gem 'rails-controller-testing', '1.0.4'
+  gem 'factory_bot_rails',        '4.11.1'
+  gem 'shoulda-matchers',         '3.1.2'
+  gem 'database_cleaner',         '1.7.0'
+  gem 'simplecov',                '0.16.1'
+  gem 'test-queue',               '0.4.2'
 end
 
 group :development do

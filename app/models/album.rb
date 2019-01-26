@@ -8,9 +8,7 @@ class Album < ApplicationRecord
   has_many :reviews, dependent: :destroy
 
   # Validations
-  # validates :album, presence: true
-  # validates :release, presence: true
-  # validates :genre, presence: true
-  # validates :description, presence: true
-  # validates :artist_id, presence: true
+  validates_presence_of :album_name, :release, :genre,
+                        :description, :artist_id, uniqueness: true
+  validates_presence_of :album_image
 end

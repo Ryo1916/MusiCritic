@@ -6,5 +6,5 @@ class Artist < ApplicationRecord
   has_many :songs, dependent: :destroy
 
   # Validation
-  validates :artist, presence: true, uniqueness: true
+  validates_presence_of :artist, uniquness: true
 end
