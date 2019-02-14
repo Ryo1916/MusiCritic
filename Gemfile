@@ -45,6 +45,7 @@ gem 'faker', '1.7.3'
 
 
 group :development, :test do
+  gem 'annotate', '2.7.4'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara',                 '~> 2.13'
   gem 'mysql2',                   '0.4.10'
