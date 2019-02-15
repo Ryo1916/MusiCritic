@@ -5,10 +5,12 @@
       <div class="buttons" style="margin-top: 20px;">
         <ul>
           <li>
+            <%= link_to user_facebook_omniauth_authorize_path do %>
               <div class="btn btn-default btn-facebook">
                 <span class="fa fa-facebook"></span>
                 Facebook
               </div>
+            <% end %>
           </li>
           <li>
               <div class="btn btn-default btn-twitter">
