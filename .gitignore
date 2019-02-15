@@ -67,3 +67,6 @@ yarn-debug.log*
 
 
 # End of https://www.gitignore.io/api/rails
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key
