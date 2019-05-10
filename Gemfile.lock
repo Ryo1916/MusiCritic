@@ -43,8 +43,6 @@ GEM
     annotate (2.7.4)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
-    archive-zip (0.11.0)
-      io-like (~> 0.3.0)
     arel (8.0.0)
     autoprefixer-rails (9.4.3)
       execjs
@@ -77,9 +75,6 @@ GEM
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
-    chromedriver-helper (2.1.0)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -126,7 +121,6 @@ GEM
     hashie (3.5.7)
     i18n (0.9.3)
       concurrent-ruby (~> 1.0)
-    io-like (0.3.0)
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -332,6 +326,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webdrivers (3.9.1)
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (~> 3.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -351,7 +349,6 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   carrierwave (= 1.2.3)
-  chromedriver-helper (= 2.1.0)
   coffee-rails (= 4.2.2)
   database_cleaner (= 1.7.0)
   devise (= 4.5)
@@ -392,6 +389,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (= 3.2.0)
   web-console (= 3.5.1)
+  webdrivers (= 3.9.1)
 
 BUNDLED WITH
    1.16.3
