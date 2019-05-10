@@ -2,30 +2,7 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="form-group">
       <h2>Create Your Account</h2>
-      <div class="buttons" style="margin-top: 20px;">
-        <ul>
-          <li>
-            <%= link_to user_facebook_omniauth_authorize_path do %>
-              <div class="btn btn-default btn-facebook">
-                <span class="fa fa-facebook"></span>
-                Facebook
-              </div>
-            <% end %>
-          </li>
-          <li>
-              <div class="btn btn-default btn-twitter">
-                <span class="fa fa-twitter"></span>
-                Twitter
-              </div>
-          </li>
-          <li>
-              <div class="btn btn-default btn-google">
-                <span class="fa fa-google"></span>
-                Google
-              </div>
-          </li>
-        </ul>
-      </div>
+      <%= render 'devise/shared/omniauth_providers' %>
 
       <hr>
 
@@ -42,22 +19,34 @@
           <%= f.email_field :email, autofocus: true, placeholder: "Enter email", class: "form-control" %>
         </div>
 
-        <div class="field">
-          <%= f.label :password %>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %><br />
-          <%= f.password_field :password, autocomplete: "off", placeholder: "Enter password", class: "form-control" %>
-        </div>
+        <% unless session["devise.facebook_data"] %>
+          <div class="field">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "off", placeholder: "Enter password", class: "form-control" %>
+          </div>
 
-        <div class="field">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Enter password again", class: "form-control" %>
-        </div>
+          <div class="field">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Enter password again", class: "form-control" %>
+          </div>
+        <% end %>
 
         <div class="actions">
           <%= f.submit "Create your account", class: "btn btn-success btn-block" %>
         </div>
+
+        <% if session["devise.facebook_data"] %>
+          <div class="field">
+            <%= link_to cancel_user_registration_path do %>
+              <div class="btn btn-warning">
+                Cancel sign up with Facebook
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
 
       <hr>

@@ -2,28 +2,7 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="form-group">
       <h2>Log in</h2>
-      <div class="buttons" style="margin-top: 20px;">
-        <ul>
-          <li>
-              <div class="btn btn-default btn-facebook">
-                <span class="fa fa-facebook"></span>
-                Facebook
-              </div>
-          </li>
-          <li>
-              <div class="btn btn-default btn-twitter">
-                <span class="fa fa-twitter"></span>
-                Twitter
-              </div>
-          </li>
-          <li>
-              <div class="btn btn-default btn-google">
-                <span class="fa fa-google"></span>
-                Google
-              </div>
-          </li>
-        </ul>
-      </div>
+      <%= render 'devise/shared/omniauth_providers' %>
 
       <hr>
 
