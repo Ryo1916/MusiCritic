@@ -31,7 +31,8 @@ class User < ApplicationRecord
   # Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :timeoutable, :omniauthable, :confirmable, :lockable
+         :timeoutable, :confirmable, :lockable,
+         :omniauthable, omniauth_providers: %i[facebook]
 
   # Validations
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
