@@ -23,6 +23,8 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  provider               :string(255)
+#  uid                    :string(255)
 #
 
 class User < ApplicationRecord
