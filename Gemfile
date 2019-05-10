@@ -40,6 +40,9 @@ gem 'omniauth-facebook', '5.0.0'
 gem 'omniauth-twitter',  '1.4.0'
 gem 'letter_opener_web', '1.3.4'
 
+# API
+gem 'rspotify', '2.6.0'
+
 # others
 gem 'faker', '1.7.3'
 
