@@ -40,4 +40,24 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: true, on: :update
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
 
+  # Omniauth
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first do |user|
+      user.name = auth.info.name
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+    end
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"]
+        user.name = data["extra"]["raw_info"]["name"] if user.name.blank?
+        user.email = data["extra"]["raw_info"]["email"] if user.email.blank?
+        user.password = Devise.friendly_token[0, 20]
+        user.provider = data["provider"] if user.provider.blank?
+        user.uid = data["uid"] if user.uid.blank?
+      end
+    end
+  end
 end
