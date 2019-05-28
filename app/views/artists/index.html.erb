@@ -5,50 +5,37 @@
       <h1>Artists</h1>
       <%= link_to 'New Artist', new_artist_path, class: "btn btn-success btn-block", style: "color:white;" %>
     </div>
+    <div class="search col-md-6 col-md-offset-3">
+      <%= render partial: 'search' %>
+    </div>
   </div>
 
   <hr>
 
   <div class="row no-gutter">
+    <% if @artists %>
     <% @artists.each do |artist| %>
-    <div class="col-lg-4 col-sm-6">
-      <%= link_to albums_path, class: "portfolio-box" do %>
-        <%= image_tag artist.artist_image, class: "img-responsive", style: "width:380px; height:250px;", alt: artist.artist %>
-        <div class="portfolio-box-caption">
-          <div class="portfolio-box-caption-content">
-            <div class="project-category text-faded">
-              <%= artist.artist %>
+      <div class="col-lg-4 col-sm-6">
+        <%= link_to albums_path, class: "portfolio-box" do %>
+          <% if params[:search] %>
+            <%= image_tag artist.images.first["url"], class: "img-responsive", alt: '' %>
+          <% else %>
+            <%= image_tag artist.artist_image, class: "img-responsive", alt: '' %>
+          <% end %>
+          <div class="portfolio-box-caption">
+            <div class="portfolio-box-caption-content">
+              <div class="project-category text-faded">
+                <% if params[:search] %>
+                  <%= artist.name %>
+                <% else %>
+                  <%= artist.artist %>
+                <% end %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
     <% end %>
   </div>
 </div>
-
-<!-- <div class="row">
-    <table>
-      <thead>
-        <tr>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @artists.each do |artist| %>
-        <tr>
-          <td><%= image_tag(artist.artist_image, width: "400px;", height: "300px") %></td>
-        </tr>
-        <tr>
-          <td><%= artist.artist %></td>
-        </tr>
-        <tr>
-          <td><%= link_to 'Show', artist %></td>
-          <td><%= link_to 'Edit', edit_artist_path(artist) %></td>
-          <td><%= link_to 'Destroy', artist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-</div> -->

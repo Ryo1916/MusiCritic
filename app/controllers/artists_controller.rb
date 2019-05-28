@@ -5,7 +5,14 @@ class ArtistsController < ApplicationController
   # GET /artists
   # GET /artists.json
   def index
-    @artists = Artist.all
+    if params[:search]
+      @artists = RSpotify::Artist.search(params[:search])
+    else
+      @artists = Artist.all
+    end
+
+    # if the artist exists our database
+    # @artists = Artist.all
   end
 
   # GET /artists/1
