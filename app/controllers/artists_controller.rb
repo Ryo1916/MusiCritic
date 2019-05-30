@@ -3,16 +3,11 @@ class ArtistsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @artists = Artist.all.order(name: 'ASC')
     if params[:search]
-      @artists = RSpotify::Artist.search(params[:search])
-    else
-      @artists = Artist.all
+      @artists = Artist.search_artist(artist_name: params[:search])
+      Artist.save_data_from_api(artist_name: params[:search]) if @artists.empty?
     end
-
-    # if the artist exists our database
-    # @artists = Artist.all
-  end
-
   end
 
   def destroy
