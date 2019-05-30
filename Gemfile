@@ -37,7 +37,6 @@ gem 'devise',            '4.5'
 gem 'omniauth',          '1.8.1'
 gem 'omniauth-facebook', '5.0.0'
 gem 'omniauth-twitter',  '1.4.0'
-gem 'letter_opener_web', '1.3.4'
 
 # API
 gem 'rspotify', '2.6.0'
@@ -50,6 +49,7 @@ group :development, :test do
   gem 'annotate', '2.7.4'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara',                 '~> 2.13'
+  gem 'letter_opener_web',        '1.3.4'
   gem 'mysql2',                   '0.4.10'
   gem 'selenium-webdriver',       '3.141.0'
   gem 'rspec-rails',              '3.8.1'
