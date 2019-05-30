@@ -26,7 +26,6 @@ gem 'frontend-generators', '0.2.0'
 gem 'jquery-rails',      '4.3.1'
 gem 'coffee-rails',      '4.2.2'
 gem 'popper_js',         '1.14.3'
-gem 'coffee-rails',      '4.2.2'
 gem 'jquery-turbolinks', '2.1.0'
 
 # images
