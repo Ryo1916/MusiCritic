@@ -79,3 +79,12 @@ div {
 label {
   display: block;
 }
+
+.image {
+  position:relative;
+  overflow:hidden;
+  padding-bottom:100%;
+  .img-responsive {
+    position:absolute;
+  }
+}
