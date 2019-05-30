@@ -9,29 +9,24 @@
   <hr>
 
   <div class="row no-gutter">
-    <% if @artists %>
     <% @artists.each do |artist| %>
       <div class="col-lg-4 col-sm-6">
         <%= link_to albums_path, class: "portfolio-box" do %>
-          <% if params[:search] %>
-            <%= image_tag artist.images.first["url"], class: "img-responsive", alt: '' %>
-          <% else %>
-            <%= image_tag artist.artist_image, class: "img-responsive", alt: '' %>
-          <% end %>
+          <div class="image">
+            <%= image_tag artist.image, class: "img-responsive", alt: "#{artist.name}" %>
+          </div>
           <div class="portfolio-box-caption">
             <div class="portfolio-box-caption-content">
               <div class="project-category text-faded">
-                <% if params[:search] %>
-                  <%= artist.name %>
-                <% else %>
-                  <%= artist.artist %>
-                <% end %>
+                <p><%= artist.name %></p>
+                <!-- FIXME: link_toをネストすると、portfolio-boxクラスから抜けて表示されるようになる -->
+                <%= icon('fab', 'spotify') %>
+                <%#= link_to icon('fab', 'spotify'), artist.external_urls %>
               </div>
             </div>
           </div>
         <% end %>
       </div>
-    <% end %>
     <% end %>
   </div>
 </div>
