@@ -15,7 +15,8 @@ class Artist < ApplicationRecord
   has_many :songs, dependent: :destroy
 
   # Validation
-  validates_presence_of :artist, uniquness: true
+  validates_presence_of :name, uniquness: true
+
   class << self
     DEFAULT_IMG_URL = 'https://s.discogs.com/images/default-artist.png'
 

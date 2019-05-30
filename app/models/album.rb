@@ -15,13 +15,11 @@
 
 class Album < ApplicationRecord
   # Associations
-  belongs_to :artist, optional: true
+  belongs_to :artist
   has_many :songs, dependent: :destroy
   accepts_nested_attributes_for :songs, allow_destroy: true
   has_many :reviews, dependent: :destroy
 
   # Validations
-  validates_presence_of :album_name, :release, :genre,
-                        :description, :artist_id, uniqueness: true
-  validates_presence_of :album_image
+  validates_presence_of :name, :release_date, :external_urls, :image, :artist_id
 end

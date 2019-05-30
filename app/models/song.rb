@@ -13,9 +13,9 @@
 
 class Song < ApplicationRecord
   # Associations
-  belongs_to :artist, optional: true
-  belongs_to :album, optional: true
+  belongs_to :artist
+  belongs_to :album
 
   # Validations
-  validates_presence_of :song_name, :track_num, :artist_id, :album_id
+  validates_presence_of :name, :track_number, :artist_id, :album_id
 end
