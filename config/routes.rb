@@ -8,11 +8,10 @@ Rails.application.routes.draw do
                              passwords: "users/passwords",
                              registrations: 'users/registrations',
                              sessions: 'users/sessions' }
-  resources :users, :only => [:show, :index]
-
-  resources :reviews
-  resources :artists
+  resources :users, only: [:show, :index]
+  resources :artists, only: [:index, :destroy]
   resources :albums
+  resources :reviews
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
