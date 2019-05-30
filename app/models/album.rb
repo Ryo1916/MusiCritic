@@ -14,8 +14,6 @@
 #
 
 class Album < ApplicationRecord
-  mount_uploader :album_image, ImageUploader
-
   # Associations
   belongs_to :artist, optional: true
   has_many :songs, dependent: :destroy
