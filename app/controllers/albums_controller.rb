@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  before_action :set_album, only: [:show, :edit, :update, :destroy]
+  before_action :set_album, only: [:show, :destroy]
   before_action :authenticate_user!
 
   def index
