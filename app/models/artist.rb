@@ -23,22 +23,20 @@ class Artist < ApplicationRecord
       Artist.where('name LIKE ?', "%#{artist_name}%").order(name: 'ASC')
     end
 
-    def save_data_from_api(artist_name:)
-      artists = RSpotify::Artist.search(artist_name)
-      if artists.any?
-        artists.each do |artist|
-          new_artist = Artist.new
-          new_artist.name = artist.name
-          if artist.images.empty?
-            new_artist.image = DEFAULT_IMG_URL
-          else
-            new_artist.image = artist.images[0]["url"]
-          end
-          new_artist.external_urls = artist.external_urls["spotify"]
-          new_artist.save
-        end
+    def search_artist_from_api(artist_name:)
+      client = SpotifyAPI::V2::Client.new
+      client.search_artist(artist_name: artist_name)
+    end
+
+    def save_artist(artists:, artist_name:)
+      artists.each do |artist|
+        Artist.create!(
+          name: artist.name,
+          image: artist.images.empty? ? Constants::DEFAULT_IMG_URL : artist.images[0]["url"],
+          external_urls: artist.external_urls["spotify"]
+        )
       end
-      @artists = search_artist(artist_name: artist_name)
+      self.search_artist(artist_name: artist_name)
     end
   end
 end

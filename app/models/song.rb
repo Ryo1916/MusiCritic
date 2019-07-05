@@ -12,9 +12,20 @@
 
 class Song < ApplicationRecord
   # Associations
-  belongs_to :artist
   belongs_to :album
 
   # Validations
-  validates_presence_of :name, :track_number, :artist_id, :album_id
+  validates_presence_of :name, :track_number, :album_id
+
+  class << self
+    def save_albums_tracks_data(unique_album:, album_id:)
+      unique_album.tracks.each do |track|
+        new_song = Song.new
+        new_song.name = track.name
+        new_song.track_number = track.track_number
+        new_song.album_id = album_id
+        new_song.save
+      end
+    end
+  end
 end
