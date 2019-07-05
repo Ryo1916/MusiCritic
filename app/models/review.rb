@@ -15,6 +15,7 @@
 class Review < ApplicationRecord
   # Association
   belongs_to :user
+  belongs_to :album
 
   # Validations
   validates_presence_of :title, :text, :user_id, :album_id
