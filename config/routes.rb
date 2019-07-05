@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root 'creatives#index'
   get 'creatives/index'
-  get 'mains/top'
 
   devise_for :users,
               controllers: { omniauth_callbacks: "users/omniauth_callbacks",
