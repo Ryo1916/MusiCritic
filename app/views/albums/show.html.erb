@@ -1,15 +1,13 @@
 <div class="row" style="margin-top:20px;">
   <div class="col-md-4">
-    <%= image_tag(@album.album_image, style: "width:300px; height:300px;") %>
+    <%= image_tag @album.image, class: "img-responsive" %>
     <div class="star-rating" style="margin-top:10px;" data-score= <%= @avg_rating %> ></div>
     <em><%= "#{@reviews.length} reviews" %></em>
-    <h3> <%= @album.artist.artist %> </h3>
+    <h3> <%= @album.artist.name %> </h3>
     <span>
-      <h4><%= @album.album_name %></h4>
+      <h4><%= @album.name %></h4>
       <p>
-        <% released = @album.release %>
-        <%= released.strftime(" %Y %b %d") %> /
-        <%= @album.genre %>
+        <% @album.release_date %>
       </p>
     </span>
 
@@ -17,14 +15,12 @@
       <tbody>
         <% @album.songs.each do |song| %>
         <tr>
-          <td><%= song.track_num %></td>
-          <td><%= song.song_name %></td>
+          <td><%= song.track_number %></td>
+          <td><%= song.name %></td>
         </tr>
         <% end %>
       </tbody>
     </table>
-
-    <%= @album.description %>
   </div>
 
   <div class="col-md-8">
@@ -50,25 +46,24 @@
       <% end %>
     <% end %>
 
-    <script>
-      $('.star-rating').raty({
-        path: '/assets/',
-        readOnly: true,
-        size: 6,
-        half: true,
-        score: function() {
-          return $(this).attr('data-score');
-        }
-      });
-    </script>
-
+    <!-- TODO: レビュー投稿フォームをモーダルにする -->
     <h3>Post your review</h3>
     <%= render 'reviews/form', review: @review %>
 
     <hr>
 
-    <%= link_to 'Edit', edit_album_path(@album), class: "btn btn-success btn-block", style: "color:white;" %>
     <%= link_to 'Back', albums_path, class: "btn btn-default btn-block" %>
   </div>
-
 </div>
+
+<script>
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    size: 6,
+    half: true,
+    score: function() {
+      return $(this).attr('data-score');
+    }
+  });
+</script>
