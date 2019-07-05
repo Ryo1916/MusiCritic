@@ -25,7 +25,8 @@ class AlbumsController < ApplicationController
 
   def show
     @album = Album.find(params[:id])
-    @reviews = Review.where(album_id: @album.id).order("created_at desc")
+    @review = Review.new
+    @reviews = @album.reviews.order("created_at desc")
 
     if @reviews.blank?
       @avg_rating = 0
