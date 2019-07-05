@@ -19,8 +19,6 @@ class Artist < ApplicationRecord
   validates_presence_of :name, uniquness: true
 
   class << self
-    DEFAULT_IMG_URL = 'https://s.discogs.com/images/default-artist.png'
-
     def search_artist(artist_name:)
       Artist.where('name LIKE ?', "%#{artist_name}%").order(name: 'ASC')
     end
