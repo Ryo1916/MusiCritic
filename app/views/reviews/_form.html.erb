@@ -1,5 +1,17 @@
-<div class="form-group">
-  <%= form_with(model: review, local: true, url: reviews_path) do |form| %>
+<%= form_with(model: review, local: true, url: reviews_path) do |form| %>
+  <% if review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+      <% review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
     <div class="field">
       <%= form.label :title %>
       <%= form.text_field :title, id: :review_title, class: "form-control" %>
@@ -7,12 +19,13 @@
 
     <div class="field">
       <%= form.label :text %>
-      <%= form.text_area :text, id: :review_text, class: "form-control", style: "height:100px;" %>
+      <%= form.text_area :text, id: :review_text, class: "form-control", style: "height:200px;" %>
     </div>
 
-    <div class="field">
+    <div class="field" id="star-rating">
       <%= form.label :rating %>
-      <div id="star-rating"></div>
+      <%= form.hidden_field :rating, id: :review_rating %>
+      <!-- <div id="star-rating"></div> -->
     </div>
 
     <div class="field">
@@ -23,15 +36,14 @@
     <div class="actions">
       <%= form.submit class: "btn btn-primary btn-block" %>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
-  <script>
-    $('#star-rating').raty({
-      path: '/assets/',
-      half: true,
-      size: 6,
-      scoreName: 'review[rating]'
-    });
-  </script>
-
-</div>
+<script>
+  $('#star-rating').raty({
+    path: '/assets/',
+    half: true,
+    size: 6,
+    scoreName: 'review[rating]'
+  });
+</script>
