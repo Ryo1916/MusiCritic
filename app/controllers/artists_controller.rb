@@ -4,9 +4,12 @@ class ArtistsController < ApplicationController
 
   def index
     @artists = Artist.all.order(name: 'ASC')
-    if params[:search]
-      @artists = Artist.search_artist(artist_name: params[:search])
-      Artist.save_data_from_api(artist_name: params[:search]) if @artists.empty?
+    if params[:artist_name]
+      @artists = Artist.search_artist(artist_name: params[:artist_name])
+      if @artists.empty?
+        artists = Artist.search_artist_from_api(artist_name: params[:artist_name])
+        @artists = Artist.save_artist(artists: artists, artist_name: params[:artist_name])
+      end
     end
   end
 
