@@ -6,11 +6,6 @@ class ReviewsController < ApplicationController
     @reviews = Review.all
   end
 
-  def new
-    @review = Review.new
-    @album = Album.find(params[:id])
-  end
-
   def edit
     @album = Album.find(@review.album_id)
   end
