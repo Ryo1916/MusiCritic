@@ -14,9 +14,14 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require popper
-//= require turbolinks
 //= require bootstrap
-//= require nested_form_fields
+//= require turbolinks
+//= require creative/cbpAnimatedHeader
+//= require creative/classie
+//= require creative/jquery.easing.min
+//= require creative/jquery.fittext
+//= require creative/wow.min
+//= require creative/creative
 //= require_tree .
 
 
