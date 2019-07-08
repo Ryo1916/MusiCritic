@@ -20,11 +20,11 @@ class Song < ApplicationRecord
   class << self
     def save_albums_tracks_data(unique_album:, album_id:)
       unique_album.tracks.each do |track|
-        new_song = Song.new
-        new_song.name = track.name
-        new_song.track_number = track.track_number
-        new_song.album_id = album_id
-        new_song.save
+        Song.create!(
+          name: track.name,
+          track_number: track.track_number,
+          album_id: album_id
+        )
       end
     end
   end
