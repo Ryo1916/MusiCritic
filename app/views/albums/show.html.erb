@@ -24,6 +24,9 @@
   </div>
 
   <div class="col-md-8">
+    <!-- TODO: レビュー投稿フォームをモーダルにする -->
+    <%= render 'reviews/form', review: @review %>
+    <hr>
     <% if @reviews.blank? %>
       <h3 style="border-bottom:solid 1px #eee;">No results just yet, would you like to add the first!</h3>
     <% else %>
@@ -45,13 +48,7 @@
         </div>
       <% end %>
     <% end %>
-
-    <!-- TODO: レビュー投稿フォームをモーダルにする -->
-    <h3>Post your review</h3>
-    <%= render 'reviews/form', review: @review %>
-
     <hr>
-
     <%= link_to 'Back', albums_path, class: "btn btn-default btn-block" %>
   </div>
 </div>
