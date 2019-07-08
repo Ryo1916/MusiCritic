@@ -16,7 +16,7 @@ class Artist < ApplicationRecord
   has_many :songs, dependent: :destroy
 
   # Validation
-  validates_presence_of :name, uniquness: true
+  validates :name, presence: true
 
   class << self
     def search_artist(artist_name:)
