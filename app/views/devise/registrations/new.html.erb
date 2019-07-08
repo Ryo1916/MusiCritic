@@ -44,7 +44,7 @@
           </div>
         <% end %>
       <% end %>
-      <%= render 'devise/shared/omniauth_providers' %>
+      <%= render 'devise/shared/omniauth_providers' unless session["devise.facebook_data"] %>
 
       <hr>
 
