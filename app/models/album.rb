@@ -38,11 +38,17 @@ class Album < ApplicationRecord
 
     def save_album(albums:, album_name:)
       albums.each do |album|
-        # save album data with artist_id
-        artist_id = Artist.find_by(name: album.artists.first.name).id
+        # find artist to save album with artist_id
+        # FIXME: Artistクラスを知りすぎているかも、しかしどうやって修正したらいいか現状わからないので保留
+        if artist = Artist.find_by(name: album.artists.first.name)
+          artist_id = artist.id
+        else
+          # Set Unknown Artist id
+          artist_id = Artist.first.id
+        end
 
-        # save the albums data
-        Album.create!(
+        # save album data
+        saved_album = Album.create!(
           name: album.name,
           release_date: album.release_date,
           external_urls: album.external_urls["spotify"],
@@ -51,10 +57,9 @@ class Album < ApplicationRecord
         )
 
         # save tracks using spotifies album id
+        # FIXME: Songクラスを知りすぎているかも、しかしどうやって修正したらいいか現状わからないので保留
         unique_album = self.search_unique_album_from_api(spotifies_album_id: album.id)  # album.id is spotify's album id, not DB's one.
-        # FIXME: 同名アルバムがあると、最初にfindされたartist_id, album_idを使ってsaveしてしまう
-        album_id = Album.find_by(name: unique_album.name).id
-        Song.save_albums_tracks_data(unique_album: unique_album, album_id: album_id)
+        Song.save_albums_tracks_data(unique_album: unique_album, album_id: saved_album.id)
       end
       self.search_album(album_name: album_name)
     end
