@@ -18,11 +18,7 @@
     <% unless alert.blank? %>
       <p class="alert alert-danger" role="alert" style="text-align:center;"><%= alert %></p>
     <% end %>
-
-    <div class="container" style="margin-top:50px;">
-      <%= yield %>
-    </div>
-
+    <%= yield %>
     <%= render partial: "creatives/footer" %>
   </body>
 </html>
