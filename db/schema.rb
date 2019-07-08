@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 20190704085337) do
     t.string "release_date"
     t.string "external_urls"
     t.string "image"
+    t.bigint "artist_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "artist_id"
     t.index ["artist_id"], name: "index_albums_on_artist_id"
   end
 
