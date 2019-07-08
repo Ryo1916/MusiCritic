@@ -1,9 +1,8 @@
-<footer id="footer" class="container-fluid" style="background-color:black;">
+<footer id="footer" class="container-fluid">
   <div class="row footer-top">
     <div class="col-md-12">
-    <% if !current_user.blank? %>
-      <!-- <span><a href="/posts">Home</a></span> -->
-      <span><a href="/">Home</a></span>
+    <% if current_user %>
+      <span><a href="/posts">Home</a></span>
     <% else %>
       <span><a href="/">Home</a></span>
     <% end %>
@@ -16,9 +15,7 @@
     <div class="col-md-12">
       <span class="fab fa-facebook"></span>
       <span class="fab fa-twitter"></span>
-      <span class="fab fa-google"></span>
       <span class="fab fa-github"></span>
-      <span class="fab fa-linkedin"></span>
     </div>
   </div>
 
