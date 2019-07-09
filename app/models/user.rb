@@ -28,6 +28,9 @@
 #
 
 class User < ApplicationRecord
+  # image uploader
+  mount_uploader :avatar, AvatarUploader
+
   # Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
