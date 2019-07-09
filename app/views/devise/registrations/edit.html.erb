@@ -7,19 +7,14 @@
         <%= devise_error_messages! %>
 
         <div class="field text-center" style="margin-bottom:20px;">
-          <img id="avatar_img_prev" src="#" class="hidden img-circle" style="width:150px; height:150px;">
-          <%= image_tag @user.avatar, class: 'img-circle avatar_present_img',
-                                          style: 'cursor:pointer;',
-                                          onClick:"$('#user_avatar').click()" if @user.avatar? %>
+          <img id="avatar_img_prev" src="#" class="hidden img-circle" style="width:150px; height:150px; cursor:pointer;" onClick="$('#user_avatar').click()">
+          <%= image_tag @user.avatar, class: 'img-circle avatar_present_img', style: 'cursor:pointer;', onClick:"$('#user_avatar').click()" %>
         </div>
 
         <div class="field text-center" style="margin-bottom:20px;">
           <span class="upload">
             <label for="user_avatar" style="color:blue; cursor:pointer;">Change your avatar</label>
-            <%= f.file_field :avatar, id: :user_avatar,
-                                      class: 'image-upload',
-                                      style: 'display:none;',
-                                      accept: 'image/jpeg,image/jpg,image/png' %>
+            <%= f.file_field :avatar, id: :user_avatar, class: 'image-upload', style: 'display:none;', accept: 'image/jpeg,image/jpg,image/png' %>
             <%= f.hidden_field :avatar_cache %>
           </span>
         </div>
