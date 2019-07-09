@@ -48,7 +48,7 @@ class User < ApplicationRecord
 
   # Omniauth
   class << self
-    def self.from_omniauth(auth)
+    def from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first do |user|
         user.name = auth.info.name
         user.email = auth.info.email
@@ -57,7 +57,7 @@ class User < ApplicationRecord
       end
     end
 
-    def self.new_with_session(params, session)
+    def new_with_session(params, session)
       super.tap do |user|
         if data = session["devise.facebook_data"]
           user.name = data["extra"]["raw_info"]["name"] if user.name.blank?
