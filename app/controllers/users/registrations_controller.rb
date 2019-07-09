@@ -50,6 +50,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     added_attrs = %i[
       name
       avatar
+      avatar_cache
+      remote_avatar
     ]
     devise_parameter_sanitizer.permit(:account_update, keys: added_attrs)
   end
