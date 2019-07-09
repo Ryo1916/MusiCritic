@@ -1,53 +1,80 @@
-<div class="row" style="margin-top:60px;">
+<div class="row" style="margin-top:80px;">
   <div class="col-md-6 col-md-offset-3" style="margin-bottom:20px;">
-    <h2>Edit <%= resource_name.to_s.humanize %></h2>
+    <div class="form-group">
+      <h2 style="margin-bottom:20px;">Edit your account</h2>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <%= devise_error_messages! %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
 
-      <div class="field">
-        <%= f.label :name %>
-        <%= f.text_field :name, autofocus: true, placeholder: "Enter your name", class: "form-control" %>
-      </div>
+        <div class="field text-center" style="margin-bottom:20px;">
+          <img id="avatar_img_prev" src="#" class="hidden img-circle" style="width:150px; height:150px;">
+          <%= image_tag @user.avatar_url, class: 'img-circle avatar_present_img',
+                                          style: 'cursor:pointer;',
+                                          onClick:"$('#user_avatar').click()" if @user.avatar? %>
+        </div>
 
-      <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, placeholder: "Enter email", class: "form-control" %>
-      </div>
+        <div class="field text-center" style="margin-bottom:20px;">
+          <span class="upload">
+            <label for="user_avatar" style="color:blue; cursor:pointer;">Change your avatar</label>
+            <%= f.file_field :avatar, id: :user_avatar,
+                                      class: 'image-upload',
+                                      style: 'display:none;',
+                                      accept: 'image/jpeg,image/jpg,image/png' %>
+            <%= f.hidden_field :avatar_cache %>
+          </span>
+        </div>
 
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-      <% end %>
+        <div class="field" style="margin-bottom:20px;">
+          <%= f.label :name %>
+          <%= f.text_field :name, placeholder: "Enter your name", class: "form-control" %>
+        </div>
 
-      <div class="field">
-        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-        <%= f.password_field :password, autocomplete: "off", placeholder: "Enter new password", class: "form-control" %>
-        <% if @minimum_password_length %>
-          <br />
-          <em><%= @minimum_password_length %> characters minimum</em>
+        <div class="field" style="margin-bottom:20px;">
+          <%= f.label :email %>
+          <%= f.email_field :email, placeholder: "Enter email", class: "form-control" %>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
         <% end %>
-      </div>
 
-      <div class="field">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Enter new password again", class: "form-control" %>
-      </div>
+        <div class="field" style="margin-bottom:20px;">
+          <%= f.label :password %>
+          <ul>
+            <li>leave blank if you don't want to change it</li>
+            <li><%= "#{@minimum_password_length} characters minimum" if @minimum_password_length %></li>
+          </ul>
+          <%= f.password_field :password, placeholder: "Enter new password", autocomplete: false, class: "form-control" %>
+        </div>
 
-      <div class="field">
-        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-        <%= f.password_field :current_password, autocomplete: "off", placeholder: "Enter current password", class: "form-control" %>
-      </div>
+        <div class="field" style="margin-bottom:20px;">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, placeholder: "Enter new password again", autocomplete: false, class: "form-control" %>
+        </div>
 
-      <div class="actions">
-        <%= f.submit "Update", class: "btn btn-success btn-block" %>
-      </div>
-    <% end %>
+        <div class="field" style="margin-bottom:20px;">
+          <%= f.label :current_password %>
+          <ul>
+            <li>we need your current password to confirm your changes</li>
+          </ul>
+          <%= f.password_field :current_password, autocomplete: "off", placeholder: "Enter current password", class: "form-control" %>
+        </div>
 
-    <h3>Cancel my account</h3>
+        <div class="actions">
+          <%= f.submit "Update", class: "btn btn-success btn-block" %>
+        </div>
+      <% end %>
+    </div>
 
-    <p>Unhappy?
-      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, class: "btn btn-default", method: :delete %>
-    </p>
+    <hr>
+
+    <div class="back-to-show" style="margin-bottom:20px;">
+      <%= button_to "Back", user_path(current_user), class: "btn btn-default btn-block" %>
+    </div>
+
+    <div class="cancel-account">
+      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-block", method: :delete %>
+    </div>
 
   </div>
 </div>
