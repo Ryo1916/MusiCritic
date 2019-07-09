@@ -1,3 +1,7 @@
+.row {
+  margin: auto 0;
+}
+
 body {
   background-color: #fff;
   color: #333;
@@ -43,6 +47,10 @@ div {
   }
 }
 
+.navbar {
+  margin-bottom: 0;
+}
+
 #notice {
   color: green;
 }
@@ -78,4 +86,13 @@ div {
 
 label {
   display: block;
+}
+
+.image {
+  position:relative;
+  overflow:hidden;
+  padding-bottom:100%;
+  .img-responsive {
+    position:absolute;
+  }
 }

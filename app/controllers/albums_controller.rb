@@ -1,18 +1,32 @@
 class AlbumsController < ApplicationController
-  before_action :set_album, only: [:show, :edit, :update, :destroy]
+  before_action :set_album, only: [:show, :destroy]
   before_action :authenticate_user!
 
-  # GET /albums
-  # GET /albums.json
   def index
-    @albums = Album.all
+    @albums = Album.all.order(name: 'ASC')
+    if params[:album_name]
+      @albums = Album.search_album(album_name: params[:album_name])
+
+      # もしartistがDBに存在しない場合、albumを保存する前にAPIからデータ取得して保存する
+      if @albums.empty?
+        albums = Album.search_album_from_api(album_name: params[:album_name])
+        albums.each do |album|
+          album.artists.each do |artist|
+            if Artist.find_by(name: artist.name).nil?
+              artists = Artist.search_artist_from_api(artist_name: artist.name)
+              Artist.save_artist(artists: artists, artist_name: artist.name)
+            end
+          end
+        end
+        @albums = Album.save_album(albums: albums, album_name: params[:album_name])
+      end
+    end
   end
 
-  # GET /albums/1
-  # GET /albums/1.json
   def show
     @album = Album.find(params[:id])
-    @reviews = Review.where(album_id: @album.id).order("created_at desc")
+    @review = Review.new
+    @reviews = @album.reviews.order("created_at desc")
 
     if @reviews.blank?
       @avg_rating = 0
@@ -23,48 +37,6 @@ class AlbumsController < ApplicationController
     end
   end
 
-  # GET /albums/new
-  def new
-    @album = Album.new
-    @album.songs.build
-  end
-
-  # GET /albums/1/edit
-  def edit
-  end
-
-  # POST /albums
-  # POST /albums.json
-  def create
-    @album = Album.new(album_params)
-
-    respond_to do |format|
-      if @album.save
-        format.html { redirect_to @album, notice: 'Album was successfully created.' }
-        format.json { render :show, status: :created, location: @album }
-      else
-        format.html { render :new }
-        format.json { render json: @album.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /albums/1
-  # PATCH/PUT /albums/1.json
-  def update
-    respond_to do |format|
-      if @album.update(album_params)
-        format.html { redirect_to @album, notice: 'Album was successfully updated.' }
-        format.json { render :show, status: :ok, location: @album }
-      else
-        format.html { render :edit }
-        format.json { render json: @album.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /albums/1
-  # DELETE /albums/1.json
   def destroy
     @album.destroy
     respond_to do |format|
@@ -74,16 +46,8 @@ class AlbumsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_album
-      @album = Album.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def album_params
-      params.require(:album).permit(
-        :album_name, :album_image, :artist_id, :release, :genre, :description,
-        songs_attributes: [:id, :song_name, :track_num, :artist_id, :_destroy]
-      )
-    end
+  def set_album
+    @album = Album.find(params[:id])
+  end
 end

@@ -1,0 +1,9 @@
+<!-- FIXME: form_withに変更する -->
+<%= form_tag(artists_path, method: :get) do %>
+  <div class="input-group">
+    <%= text_field_tag :artist_name, '', class: "form-control", placeholder: "Search artists" %>
+    <div class="input-group-btn">
+      <%= submit_tag 'Search', name: nil, class: "btn bg-primary" %>
+    </div>
+  </div>
+<% end %>

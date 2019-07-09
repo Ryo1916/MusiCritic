@@ -1,11 +1,7 @@
-<div class="row">
+<div class="row" style="margin-top:60px;">
   <div class="col-md-6 col-md-offset-3">
     <div class="form-group">
       <h2>Create Your Account</h2>
-      <%= render 'devise/shared/omniauth_providers' %>
-
-      <hr>
-
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= devise_error_messages! %>
 
@@ -41,13 +37,14 @@
         <% if session["devise.facebook_data"] %>
           <div class="field">
             <%= link_to cancel_user_registration_path do %>
-              <div class="btn btn-warning">
+              <div class="btn btn-default btn-block btn-warning">
                 Cancel sign up with Facebook
               </div>
             <% end %>
           </div>
         <% end %>
       <% end %>
+      <%= render 'devise/shared/omniauth_providers' unless session["devise.facebook_data"] %>
 
       <hr>
 

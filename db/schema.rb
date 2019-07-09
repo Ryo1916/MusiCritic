@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190214143713) do
+ActiveRecord::Schema.define(version: 20190704085337) do
 
   create_table "albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "album_name"
-    t.date "release"
-    t.string "genre"
-    t.text "description"
-    t.string "album_image"
+    t.string "name"
+    t.string "release_date"
+    t.string "external_urls"
+    t.string "image"
     t.bigint "artist_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,10 +24,11 @@ ActiveRecord::Schema.define(version: 20190214143713) do
   end
 
   create_table "artists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "artist"
-    t.string "artist_image"
+    t.string "name"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_urls"
   end
 
   create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -44,14 +44,12 @@ ActiveRecord::Schema.define(version: 20190214143713) do
   end
 
   create_table "songs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "song_name"
-    t.integer "track_num"
-    t.bigint "artist_id"
+    t.string "name"
+    t.integer "track_number"
     t.bigint "album_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["album_id"], name: "index_songs_on_album_id"
-    t.index ["artist_id"], name: "index_songs_on_artist_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -86,5 +84,4 @@ ActiveRecord::Schema.define(version: 20190214143713) do
   add_foreign_key "albums", "artists"
   add_foreign_key "reviews", "users"
   add_foreign_key "songs", "albums"
-  add_foreign_key "songs", "artists"
 end

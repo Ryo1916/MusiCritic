@@ -1,9 +1,7 @@
-<!-- <p id="notice"><%= notice %></p> -->
-<div class="container-fluid">
+<div class="container" style="margin-top:40px;">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <h1>Albums</h1>
-      <%= link_to 'New Album', new_album_path, class: "btn btn-success btn-block", style: "color:white;" %>
+    <div class="col-md-6 col-md-offset-3" style="margin-top:40px;">
+      <%= render partial: 'search' %>
     </div>
   </div>
 
@@ -13,14 +11,14 @@
     <% @albums.each do |album| %>
     <div class="col-lg-3 col-sm-6">
       <%= link_to album_path(album.id), class: "portfolio-box" do %>
-        <%= image_tag album.album_image, class: "img-responsive", style: "", alt: album.album_name %>
+        <%= image_tag album.image, class: "img-responsive", alt: album.name %>
         <div class="portfolio-box-caption">
           <div class="portfolio-box-caption-content">
             <div class="project-category text-faded">
-              <%= album.artist.artist %>
+              <%= album.artist.name %>
             </div>
             <div class="project-name">
-              <%= album.album_name %>
+              <%= album.name %>
             </div>
           </div>
         </div>
@@ -29,23 +27,3 @@
     <% end %>
   </div>
 </div>
-
-<!-- <table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @albums.each do |album| %>
-      <tr>
-        <td><%= link_to 'Show', album %></td>
-        <td><%= link_to 'Edit', edit_album_path(album) %></td>
-        <td><%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br> -->

@@ -17,5 +17,11 @@ module MusicReview
 
     # Use secrets.yml for credentials
     config.read_encrypted_secrets = true
+
+    # Auth for rspotify
+    RSpotify.authenticate(
+      Rails.application.secrets.spotify_api_key,
+      Rails.application.secrets.spotify_api_secret
+    )
   end
 end

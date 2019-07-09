@@ -1,6 +1,3 @@
 class CreativesController < ApplicationController
-  layout "creative"
-
-  def index
-  end
+  def index; end
 end
