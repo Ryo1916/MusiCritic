@@ -8,7 +8,7 @@
 
         <div class="field text-center" style="margin-bottom:20px;">
           <img id="avatar_img_prev" src="#" class="hidden img-circle" style="width:150px; height:150px;">
-          <%= image_tag @user.avatar_url, class: 'img-circle avatar_present_img',
+          <%= image_tag @user.avatar, class: 'img-circle avatar_present_img',
                                           style: 'cursor:pointer;',
                                           onClick:"$('#user_avatar').click()" if @user.avatar? %>
         </div>
