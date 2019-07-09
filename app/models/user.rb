@@ -31,6 +31,9 @@ class User < ApplicationRecord
   # image uploader
   mount_uploader :avatar, AvatarUploader
 
+  # association
+  has_many :reviews, dependent: :destroy
+
   # Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
