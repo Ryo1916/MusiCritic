@@ -37,7 +37,7 @@
             <%= link_to "Albums", albums_path %>
           </li>
           <li>
-            <%= link_to current_user.name, user_path(current_user) %>
+            <%= link_to "Account", user_path(current_user) %>
           </li>
           <li>
             <%= link_to "Logout", destroy_user_session_path, method: :delete %>
