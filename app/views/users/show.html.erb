@@ -2,3 +2,4 @@
 <p>Find me in app/views/users/show.html.erb</p>
 <p>name: <%= @user.name %> </p>
 <p>email: <%= @user.email %> </p>
+<p><%= image_tag @user.avatar.thumb, class: 'img-circle', style: 'cursor:pointer;' %></p>
