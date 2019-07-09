@@ -18,9 +18,9 @@
         <% unless session["devise.facebook_data"] %>
           <div class="field" style="margin-bottom:20px;">
             <%= f.label :password %>
-            <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %><br />
+            <ul>
+              <li><%= "#{@minimum_password_length} characters minimum" if @minimum_password_length %></li>
+            </ul>
             <%= f.password_field :password, autocomplete: "off", placeholder: "Enter password", class: "form-control" %>
           </div>
 
