@@ -3,3 +3,4 @@
 <p>name: <%= @user.name %> </p>
 <p>email: <%= @user.email %> </p>
 <p><%= image_tag @user.avatar.thumb, class: 'img-circle', style: 'cursor:pointer;' %></p>
+<%= link_to 'Edit your account', edit_user_path(@user) if current_user == @user %>
