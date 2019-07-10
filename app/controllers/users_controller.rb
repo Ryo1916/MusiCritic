@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include Common
+
   before_action :authenticate_user!
   before_action :set_user, except: %i[index]
   before_action :prohibit_unspecified_users_access, only: %i[edit update]
@@ -22,14 +24,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-    def set_user
-      @user = User.find(params[:id])
-    end
-
-    def prohibit_unspecified_users_access
-      redirect_to current_user if current_user != @user
-    end
 
     def user_params
       params.require(:user).permit(:name, :email, :avatar)
