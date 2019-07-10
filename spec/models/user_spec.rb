@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # Validations test
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:email) }
+
+  # Associations test
+  it { should have_many(:reviews).dependent(:destroy) }
+
+  # TODO: メソッドのテスト
 end
