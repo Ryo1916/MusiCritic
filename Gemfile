@@ -16,7 +16,7 @@ gem 'responders',         '2.4.0'
 
 # css
 gem 'bootstrap',           '4.1.3'
-gem 'sass-rails',          '5.0.7'
+gem 'sassc-rails',         '2.1.2'
 gem 'font-awesome-sass',   '5.6.1'
 gem 'frontend-generators', '0.2.0'
 
