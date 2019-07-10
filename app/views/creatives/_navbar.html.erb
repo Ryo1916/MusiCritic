@@ -29,14 +29,7 @@
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <% if current_user.blank? %>
-          <li>
-            <%= link_to "Login", new_user_session_path %>
-          </li>
-          <li>
-            <%= link_to "Register", new_user_registration_path %>
-          </li>
-        <% else %>
+        <% if user_signed_in? %>
           <li>
             <%= link_to "Artist", artists_path %>
           </li>
@@ -44,10 +37,17 @@
             <%= link_to "Albums", albums_path %>
           </li>
           <li>
-            <%= link_to current_user.name, edit_user_registration_path %>
+            <%= link_to "Account", user_path(current_user) %>
           </li>
           <li>
             <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to "Login", new_user_session_path %>
+          </li>
+          <li>
+            <%= link_to "Register", new_user_registration_path %>
           </li>
         <% end %>
       </ul>

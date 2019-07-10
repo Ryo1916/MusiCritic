@@ -10,7 +10,6 @@ end
 gem 'rails',              '5.1.4'
 gem 'puma',               '3.9.1'
 gem 'uglifier',           '3.2.0'
-gem 'haml',               '5.0.4'
 gem 'turbolinks',         '5.0.1'
 gem 'jbuilder',           '2.8.0'
 gem 'responders',         '2.4.0'
@@ -23,7 +22,6 @@ gem 'frontend-generators', '0.2.0'
 
 # js
 gem 'jquery-rails',      '4.3.1'
-gem 'coffee-rails',      '4.2.2'
 gem 'popper_js',         '1.14.3'
 gem 'jquery-turbolinks', '2.1.0'
 
@@ -72,6 +70,10 @@ group :development do
   gem 'pry-rails',             '0.3.9'
   gem 'pry-doc',               '1.0.0'
   gem 'rails-erd',             '1.5.2'
+end
+
+group :production do
+  gem 'fog-aws', '3.5.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

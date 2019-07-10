@@ -24,6 +24,34 @@
 //= require creative/creative
 //= require_tree .
 
+$(document).ready(function(){
+  // validate avatar
+  $('.user').bind('change', function(){
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
+});
+
+$(document).on('turbolinks:load', function() {
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#avatar_img_prev').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  // display uploaded image
+  $("#user_avatar").change(function(){
+    $('#avatar_img_prev').removeClass('hidden');
+    $('.avatar_present_img').remove();
+    readURL(this);
+  });
+});
 
 /*!
  * jQuery Raty - A Star Rating Plugin
