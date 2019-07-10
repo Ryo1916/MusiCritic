@@ -2,7 +2,9 @@ class UsersController < ApplicationController
   include Common
 
   before_action :authenticate_user!
-  before_action :set_user, except: %i[index]
+  before_action except: %i[index] do
+    set_user(user_id: params[:id])
+  end
   before_action :prohibit_unspecified_users_access, only: %i[edit update]
 
   def index

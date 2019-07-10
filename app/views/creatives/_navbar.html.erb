@@ -17,38 +17,21 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
       <ul class="nav navbar-nav navbar-left">
         <% if current_page?(root_path) %>
-          <li>
-            <%= link_to "Best Albums", "#portfolio", class: "page-scroll", style: "color:white" %>
-          </li>
-          <li>
-            <%= link_to "About", "#services", class: "page-scroll", style: "color:white" %>
-          </li>
-          <li>
-            <%= link_to "Contact", "#contact", class: "page-scroll", style: "color:white;" %>
-          </li>
+          <li><%= link_to "Best Albums", "#portfolio", class: "page-scroll", style: "color:white" %></li>
+          <li><%= link_to "About", "#services", class: "page-scroll", style: "color:white" %></li>
+          <li><%= link_to "Contact", "#contact", class: "page-scroll", style: "color:white;" %></li>
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-          <li>
-            <%= link_to "Artist", artists_path %>
-          </li>
-          <li>
-            <%= link_to "Albums", albums_path %>
-          </li>
-          <li>
-            <%= link_to "Account", user_path(current_user) %>
-          </li>
-          <li>
-            <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+          <li><%= link_to "Artist", artists_path %></li>
+          <li><%= link_to "Albums", albums_path %></li>
+          <li><%= link_to "Account", user_path(current_user) %></li>
+          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %>
           </li>
         <% else %>
-          <li>
-            <%= link_to "Login", new_user_session_path %>
-          </li>
-          <li>
-            <%= link_to "Register", new_user_registration_path %>
-          </li>
+          <li><%= link_to "Login", new_user_session_path %></li>
+          <li><%= link_to "Register", new_user_registration_path %></li>
         <% end %>
       </ul>
     </div>

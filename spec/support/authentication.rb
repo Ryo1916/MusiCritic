@@ -1,6 +1,6 @@
 module Authentication
   def login
-    let(:user) { build(:user) }
+    let(:user) { create(:user) }
     before do
       sign_in user
     end
