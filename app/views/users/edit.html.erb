@@ -1,0 +1,58 @@
+<div class="row" style="margin-top:80px;">
+  <div class="col-md-6 col-md-offset-3" style="margin-bottom:20px;">
+    <div class="form-group">
+      <h2 style="margin-bottom:20px;">Edit your account</h2>
+      <%= form_with(model: @user, local: true, url: user_path(@user)) do |f| %>
+        <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+            <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field text-center" style="margin-bottom:20px;">
+          <img id="avatar_img_prev" src="#" class="hidden img-circle" style="width:150px; height:150px; cursor:pointer;" onClick="$('#user_avatar').click()">
+          <%= image_tag @user.avatar, class: 'img-circle avatar_present_img', style: 'cursor:pointer;', onClick:"$('#user_avatar').click()" %>
+        </div>
+
+        <div class="field text-center" style="margin-bottom:20px;">
+          <span class="upload">
+            <label for="user_avatar" style="color:blue; cursor:pointer;">Change your avatar</label>
+            <%= f.file_field :avatar, id: :user_avatar, class: 'image-upload', style: 'display:none;', accept: 'image/jpeg,image/jpg,image/png' %>
+            <%= f.hidden_field :avatar_cache %>
+          </span>
+        </div>
+
+        <div class="field" style="margin-bottom:20px;">
+          <%= f.label :name %>
+          <%= f.text_field :name, placeholder: "Enter your name", class: "form-control" %>
+        </div>
+
+        <div class="field" style="margin-bottom:20px;">
+          <%= f.label :email %>
+          <%= f.email_field :email, placeholder: "Enter email", class: "form-control" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Update", class: "btn btn-success" %>
+          <%= link_to "Edit password", edit_user_registration_path(@user), class: 'btn btn-warning' %>
+        </div>
+      <% end %>
+    </div>
+
+    <hr>
+
+    <div class="back-to-show" style="margin-bottom:20px;">
+      <%= link_to "Back", user_path(@user), class: "btn btn-default btn-block" %>
+    </div>
+
+    <div class="cancel-account">
+      <%= button_to "Cancel my account", user_registration_path(@user), data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-block", method: :delete %>
+    </div>
+
+  </div>
+</div>
