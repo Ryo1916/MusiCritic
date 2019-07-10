@@ -18,6 +18,11 @@ module MusicReview
     # Use secrets.yml for credentials
     config.read_encrypted_secrets = true
 
+    # Not to display <div class="field_with_errors">
+    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+      %Q(#{html_tag}).html_safe
+    end
+
     # Auth for rspotify
     RSpotify.authenticate(
       Rails.application.secrets.spotify_api_key,
