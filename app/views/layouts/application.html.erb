@@ -18,7 +18,15 @@
     <% unless alert.blank? %>
       <p class="alert alert-danger text-center" role="alert" style="margin-top:50px;"><%= alert %></p>
     <% end %>
-    <%= yield %>
+
+    <% if current_page?(root_path) %>
+      <%= yield %>
+    <% else %>
+      <div class="container-fluid <%= controller_name %> <%= action_name %>">
+        <%= yield %>
+      </div>
+    <% end %>
+
     <%= render partial: "creatives/footer" %>
   </body>
 </html>
