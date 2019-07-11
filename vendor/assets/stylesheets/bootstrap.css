@@ -1607,6 +1607,7 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  min-height: 100%;
 }
 .row {
   margin-right: -15px;
