@@ -7,10 +7,6 @@ class UsersController < ApplicationController
   end
   before_action :prohibit_unspecified_users_access, only: %i[edit update]
 
-  def index
-    @users = User.all
-  end
-
   def show; end
 
   def edit; end

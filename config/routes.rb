@@ -7,7 +7,7 @@ Rails.application.routes.draw do
                              passwords: "users/passwords",
                              registrations: 'users/registrations',
                              sessions: 'users/sessions' }
-  resources :users, only: [:show, :index, :edit, :update]
+  resources :users, only: [:show, :edit, :update]
   resources :artists, only: [:index, :destroy]
   resources :albums, only: [:index, :show, :destroy]
   resources :reviews, only: [:index, :create, :edit, :update, :destroy]
