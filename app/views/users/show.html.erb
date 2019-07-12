@@ -1,6 +1,48 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-<p>name: <%= @user.name %> </p>
-<p>email: <%= @user.email %> </p>
-<p><%= image_tag @user.avatar.thumb, class: 'img-circle', style: 'cursor:pointer;' %></p>
-<%= link_to 'Edit your account', edit_user_path(@user) if current_user == @user %>
+<% provide(:title, "#{@user.name}") %>
+<div class="row" style="margin-top:80px;">
+  <div class="col-md-3 col-md-offset-1">
+    <%= image_tag @user.avatar, class: 'img-circle', alt: 'users avatar' %>
+    <div class="username" style="margin:20px 0;">
+      <span style="margin-right:20px;"><b><%= @user.name %></b></span>
+      <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-info' if current_user?(user: @user) %>
+    </div>
+    <div class="reviews-count">
+      <span><%= @user.reviews.count %> reviews</span>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <h4 style="margin-bottom:20px;">Reviewed albums</h4>
+    <% @user.reviews.each do |review| %>
+      <div class="row" style="margin-bottom:20px; padding-bottom:20px; border-bottom:solid 1px #eee;">
+        <div class="col-md-3 text-center">
+          <%= link_to image_tag(review.album.image, size: 150, style: 'margin-right:20px;'), album_path(review.album) %>
+        </div>
+        <div class="col-md-9">
+          <div class="star-rating" style="display:inline; margin-right:20px;" data-score= <%= review.rating %> ></div>
+          <span><%= review.created_at.strftime(" %Y %b %d") %></span>
+          <p style="font-size:16px; margin-top:20px;"><%= review.title %></p>
+          <p><%= simple_format(review.text) %></p>
+          <% if current_user?(user: @user) %>
+            <span style="float:right;">
+              <a href="#" data-toggle="modal" data-target="#myModal-<%= review.id %>">Edit</a> /
+              <%= link_to "Delete", review_path(review), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+      <%= render 'reviews/edit_modal', review: review %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    size: 6,
+    half: true,
+    score: function() {
+      return $(this).attr('data-score');
+    }
+  });
+</script>
