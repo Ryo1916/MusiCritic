@@ -24,29 +24,13 @@
       </table>
     </div>
 
-    <div class="col-md-8">
-      <%= render 'reviews/form', review: @review %>
+    <div class="col-md-8" style="margin-bottom:20px;">
+      <%= render 'reviews/form', review: @review, album: @album, id: @album.id %>
       <hr>
       <% if @reviews.blank? %>
-      <h3 style="border-bottom:solid 1px #eee;">No results just yet, would you like to add the first!</h3>
+        <h3 style="border-bottom:solid 1px #eee;">There is no reviews...</h3>
       <% else %>
-      <% @reviews.each do |review| %>
-      <div class="review" style="border-bottom:solid 1px #eee;">
-        <div class="star-rating" style="display:inline;" data-score= <%= review.rating %> ></div>
-        <%= review.user.email %>
-        <% commented = review.created_at %> /
-        <span style="font-style:italic;"><%= commented.strftime(" %Y %b %d") %></span>
-        <div class="review-comment" style="display:block;">
-          <%= review.text %>
-        </div>
-        <% if current_user.id == review.user_id %>
-        <ul style="float:right;">
-          <li><%= link_to 'Edit', edit_review_path(review) %></li>
-          <%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </ul>
-        <% end %>
-      </div>
-      <% end %>
+        <%= render partial: 'reviews/review', collection: @reviews %>
       <% end %>
       <hr>
       <%= link_to 'Back', albums_path, class: "btn btn-default btn-block" %>
