@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index, :edit, :update]
   resources :artists, only: [:index, :destroy]
   resources :albums
-  resources :reviews, only: [:index, :create, :edit, :destroy]
+  resources :reviews, only: [:index, :create, :edit, :update, :destroy]
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
