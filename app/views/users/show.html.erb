@@ -14,7 +14,7 @@
     <h4 style="margin-bottom:20px;">Reviewed albums</h4>
     <% @user.reviews.each do |review| %>
       <div class="row" style="margin-bottom:20px; padding-bottom:20px; border-bottom:solid 1px #eee;">
-        <div class="col-md-3 text-center">
+        <div class="col-md-3">
           <%= link_to image_tag(review.album.image, size: 150, style: 'margin-right:20px;'), album_path(review.album) %>
         </div>
         <div class="col-md-9">
