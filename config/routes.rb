@@ -9,7 +9,7 @@ Rails.application.routes.draw do
                              sessions: 'users/sessions' }
   resources :users, only: [:show, :index, :edit, :update]
   resources :artists, only: [:index, :destroy]
-  resources :albums
+  resources :albums, only: [:index, :show, :destroy]
   resources :reviews, only: [:index, :create, :edit, :update, :destroy]
 
   if Rails.env.development?
