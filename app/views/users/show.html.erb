@@ -7,12 +7,12 @@
       <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-info' if current_user?(user: @user) %>
     </div>
     <div class="reviews-count" style="margin-bottom:40px;">
-      <span><%= @user.reviews.count %> reviews</span>
+      <span><%= @reviews.count %> reviews</span>
     </div>
   </div>
   <div class="col-md-8">
     <h4 style="margin-bottom:20px;">Reviewed albums</h4>
-    <% @user.reviews.each do |review| %>
+    <% @reviews.each do |review| %>
       <div class="row" style="margin-bottom:20px; padding-bottom:20px; border-bottom:solid 1px #eee;">
         <div class="col-md-3" style="margin-bottom:20px;">
           <%= link_to image_tag(review.album.image, class: "img-responsive", style: 'margin-right:20px;'), album_path(review.album) %>
@@ -32,6 +32,7 @@
       </div>
       <%= render 'reviews/edit_modal', review: review %>
     <% end %>
+    <%= paginate @reviews %>
   </div>
 </div>
 
