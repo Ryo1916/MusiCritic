@@ -54,6 +54,18 @@ $(document).on('turbolinks:load', function() {
   });
 });
 
+// for scroll pagination
+$(window).on('scroll', function() {
+  scrollHeight = $(document).height();
+  scrollPosition = $(window).height() + $(window).scrollTop();
+  if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+    $('.jscroll').jscroll({
+      contentSelector: '.albums-list',
+      nextSelector: 'a.jscroll-next'
+    });
+  }
+});
+
 /*!
  * jQuery Raty - A Star Rating Plugin
  *
