@@ -11,17 +11,18 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.jscroll.min.js
 //= require popper
 //= require bootstrap
-//= require turbolinks
 //= require creative/cbpAnimatedHeader
 //= require creative/classie
 //= require creative/jquery.easing.min
 //= require creative/jquery.fittext
 //= require creative/wow.min
 //= require creative/creative
+//= require jquery.turbolinks
+//= require turbolinks
 //= require_tree .
 
 $(document).ready(function(){
