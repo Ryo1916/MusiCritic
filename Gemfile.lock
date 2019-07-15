@@ -146,6 +146,18 @@ GEM
       turbolinks
     json (2.1.0)
     jwt (2.1.0)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.7.0)
@@ -389,6 +401,7 @@ DEPENDENCIES
   jbuilder (= 2.8.0)
   jquery-rails (= 4.3.1)
   jquery-turbolinks (= 2.1.0)
+  kaminari (= 1.1.1)
   letter_opener_web (= 1.3.4)
   listen (= 3.1.5)
   mini_magick (= 4.9.2)

@@ -14,6 +14,9 @@ gem 'turbolinks',         '5.0.1'
 gem 'jbuilder',           '2.8.0'
 gem 'responders',         '2.4.0'
 
+# view
+gem 'kaminari', '1.1.1'
+
 # css
 gem 'bootstrap',           '4.1.3'
 gem 'sassc-rails',         '2.1.2'
