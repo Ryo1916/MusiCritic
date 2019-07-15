@@ -22,8 +22,12 @@ class Album < ApplicationRecord
   validates_presence_of :name, :release_date, :external_urls, :image, :artist_id
 
   class << self
-    def search_album(album_name:)
-      Album.where('name LIKE ?', "%#{album_name}%").order(name: 'ASC')
+    def albums_list(page:)
+      order(name: 'ASC').page(page).per(Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
+    end
+
+    def search_album(album_name:, page:)
+      where('name LIKE ?', "%#{album_name}%").albums_list(page: page)
     end
 
     def search_album_from_api(album_name:)
@@ -61,7 +65,6 @@ class Album < ApplicationRecord
         unique_album = self.search_unique_album_from_api(spotifies_album_id: album.id)  # album.id is spotify's album id, not DB's one.
         Song.save_albums_tracks_data(unique_album: unique_album, album_id: saved_album.id)
       end
-      self.search_album(album_name: album_name)
     end
   end
 end

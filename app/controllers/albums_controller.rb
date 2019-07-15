@@ -3,9 +3,9 @@ class AlbumsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @albums = Album.all.order(name: 'ASC')
+    @albums = Album.albums_list(page: params[:page])
     if params[:album_name]
-      @albums = Album.search_album(album_name: params[:album_name])
+      @albums = Album.search_album(album_name: params[:album_name], page: params[:page])
 
       # もしartistがDBに存在しない場合、albumを保存する前にAPIからデータ取得して保存する
       if @albums.empty?
@@ -18,7 +18,8 @@ class AlbumsController < ApplicationController
             end
           end
         end
-        @albums = Album.save_album(albums: albums, album_name: params[:album_name])
+        Album.save_album(albums: albums, album_name: params[:album_name])
+        @albums = Album.search_album(album_name: params[:album_name], page: params[:page])
       end
     end
   end
