@@ -26,15 +26,9 @@ class AlbumsController < ApplicationController
   def show
     @album = Album.find(params[:id])
     @review = Review.new
-    @reviews = @album.reviews.order("created_at desc")
-
-    if @reviews.blank?
-      @avg_rating = 0
-    else
-      @avg_rating = @reviews.average(:rating).round(2)
-      # average: tooutput average rating
-      # round(2): round off to two decimal places
-    end
+    @reviews = @album.reviews.order("created_at desc").page(params[:page]).per(1)
+    # falseの場合に@reviewsを@avg_ratingにセットすると、@reviewsにセットしたページネーションが邪魔してaverageが計算されない
+    @reviews.blank? ? @avg_rating = 0 : @avg_rating = @album.reviews.average(:rating).round(2)
   end
 
   def destroy
