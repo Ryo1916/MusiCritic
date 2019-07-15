@@ -7,7 +7,9 @@ class UsersController < ApplicationController
   end
   before_action :prohibit_unspecified_users_access, only: %i[edit update]
 
-  def show; end
+  def show
+    @reviews = @user.reviews.page(params[:page]).per(1)
+  end
 
   def edit; end
 
