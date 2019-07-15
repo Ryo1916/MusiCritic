@@ -19,8 +19,12 @@ class Artist < ApplicationRecord
   validates_presence_of :name, :image, :external_urls
 
   class << self
+    def artists_list(page:)
+      order(name: 'ASC').page(page).per(Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)
+    end
+
     def search_artist(artist_name:)
-      Artist.where('name LIKE ?', "%#{artist_name}%").order(name: 'ASC')
+      where('name LIKE ?', "%#{artist_name}%").order(name: 'ASC')
     end
 
     def search_artist_from_api(artist_name:)
@@ -36,7 +40,6 @@ class Artist < ApplicationRecord
           external_urls: artist.external_urls["spotify"]
         )
       end
-      self.search_artist(artist_name: artist_name)
     end
   end
 end
