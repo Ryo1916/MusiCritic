@@ -34,6 +34,19 @@ $(document).ready(function(){
       alert('Maximum file size is 5MB. Please choose a smaller file.');
     }
   });
+
+  $(window).on('scroll', function () {
+    var doch = $(document).innerHeight(); //ページ全体の高さ
+    var winh = $(window).innerHeight(); //ウィンドウの高さ
+    var bottom = doch - winh; //ページ全体の高さ - ウィンドウの高さ = ページの最下部位置
+    if (bottom <= $(window).scrollTop()) {
+      // FIXME: 1回読み込まれただけで全てページングされてしまう
+      $('.jscroll').jscroll({
+        contentSelector: '.artists-list',
+        nextSelector: 'a[rel="next"]'
+      });
+    }
+  });
 });
 
 $(document).on('turbolinks:load', function() {
@@ -55,14 +68,18 @@ $(document).on('turbolinks:load', function() {
   });
 });
 
-// for scroll pagination
-$(window).on('scroll', function() {
-  scrollHeight = $(document).height();
-  scrollPosition = $(window).height() + $(window).scrollTop();
-  if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
-    $('.jscroll').jscroll({
-      contentSelector: '.albums-list',
-      nextSelector: 'a.jscroll-next'
+// FIXME: ちょいスクロールしただけで全アーティストが読み込まれる
+$(window).on('scroll', function () {
+  var doch = $(document).innerHeight(); //ページ全体の高さ
+  var winh = $(window).innerHeight(); //ウィンドウの高さ
+  var bottom = doch - winh; //ページ全体の高さ - ウィンドウの高さ = ページの最下部位置
+  if (bottom <= $(window).scrollTop()) {
+    $('#artists-list').infiniteScroll({
+      path: "a#scroll-next",
+      append: ".artist",
+      history: false,
+      prefill: false,
+      status: '.page-load-status'
     });
   }
 });
