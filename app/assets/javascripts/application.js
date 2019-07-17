@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.jscroll.min.js
+//= require infinite-scroll.pkgd.min
 //= require popper
 //= require bootstrap
 //= require creative/cbpAnimatedHeader
