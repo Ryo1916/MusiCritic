@@ -36,28 +36,39 @@
       <% end %>
       <%= paginate @reviews %>
     <% else %>
+    <!-- TODO: ユーザのレビューがない場合、ファーストアクションを表示する -->
       <div class="row">
         <div class="col-md-6">
           <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Search Artists</h3>
+            <div class="panel-body text-center">
+              <h4>Search Artists to post your first review!</h4>
+              <div class="highest-rated">
+                Highest Rated Artists
+              </div>
             </div>
-            <div class="panel-body">
-              Basic panel example
+            <div class="panel-body text-center">
+              <div class="most-posted">
+                Most Posted Artists
+              </div>
             </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Search Albums</h3>
+            <div class="panel-body text-center">
+              <h4>Search Albums to post your first review!</h4>
+              <div class="highest-rated">
+                High Rated Albums
+              </div>
             </div>
-            <div class="panel-body">
-              Basic panel example
+              <div class="panel-body text-center">
+                <div class="most-posted">
+                  Most Posted Album
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
     <% end %>
   </div>
 </div>
