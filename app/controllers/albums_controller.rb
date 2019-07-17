@@ -6,6 +6,9 @@ class AlbumsController < ApplicationController
     @albums = Album.albums_list(page: params[:page])
     if params[:album_name]
       # FIXME: 二回同一内容読んでしまっているので、リファクタリングできないか考える
+      # FIXME: 同名アルバムがDBにある場合はspotifyを検索しないロジックになっているので、
+      #        新しい同名アルバムがspotifyに出た場合はDBに保存することができない
+      #        「spotifyとDB検索→比較→差分を保存」にする
       @albums = Album.search_album(album_name: params[:album_name], page: params[:page])
 
       # もしartistがDBに存在しない場合、albumを保存する前にAPIからデータ取得して保存する
