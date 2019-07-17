@@ -43,12 +43,7 @@
             <div class="panel-body text-center">
               <h4>Search Artists to post your first review!</h4>
               <div class="highest-rated">
-                Highest Rated Artists
-              </div>
-            </div>
-            <div class="panel-body text-center">
-              <div class="most-posted">
-                Most Posted Artists
+                <%= link_to 'Search Artists', artists_path, class: 'btn btn-primary' %>
               </div>
             </div>
           </div>
@@ -58,17 +53,12 @@
             <div class="panel-body text-center">
               <h4>Search Albums to post your first review!</h4>
               <div class="highest-rated">
-                High Rated Albums
-              </div>
-            </div>
-              <div class="panel-body text-center">
-                <div class="most-posted">
-                  Most Posted Album
-                </div>
+                <%= link_to 'Search Albums', albums_path, class: 'btn btn-primary' %>
               </div>
             </div>
           </div>
         </div>
+      </div>
     <% end %>
   </div>
 </div>
