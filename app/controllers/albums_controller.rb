@@ -5,6 +5,7 @@ class AlbumsController < ApplicationController
   def index
     @albums = Album.albums_list(page: params[:page])
     if params[:album_name]
+      # FIXME: 二回同一内容読んでしまっているので、リファクタリングできないか考える
       @albums = Album.search_album(album_name: params[:album_name], page: params[:page])
 
       # もしartistがDBに存在しない場合、albumを保存する前にAPIからデータ取得して保存する
