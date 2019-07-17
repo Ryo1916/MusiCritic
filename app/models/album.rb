@@ -26,6 +26,10 @@ class Album < ApplicationRecord
       order(name: 'ASC').page(page).per(Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
     end
 
+    def most_reviewed_albums
+      order(reviews_count: :desc).limit(Constants::ALBUMS_FOR_TOP_PAGE)
+    end
+
     def search_album(album_name:, page:)
       where('name LIKE ?', "%#{album_name}%").albums_list(page: page)
     end
