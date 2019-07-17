@@ -7,12 +7,13 @@ end
 
 
 # basic
-gem 'rails',              '5.1.4'
-gem 'puma',               '3.9.1'
-gem 'uglifier',           '3.2.0'
-gem 'turbolinks',         '5.0.1'
-gem 'jbuilder',           '2.8.0'
-gem 'responders',         '2.4.0'
+gem 'rails',           '5.1.4'
+gem 'puma',            '3.9.1'
+gem 'uglifier',        '3.2.0'
+gem 'turbolinks',      '5.0.1'
+gem 'jbuilder',        '2.8.0'
+gem 'responders',      '2.4.0'
+gem 'counter_culture', '2.2.3'
 
 # view
 gem 'kaminari', '1.1.1'
