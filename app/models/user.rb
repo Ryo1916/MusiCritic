@@ -46,8 +46,8 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validate :avatar_size
 
-  # Omniauth
   class << self
+    # Omniauth
     def from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first do |user|
         user.name = auth.info.name
@@ -69,6 +69,10 @@ class User < ApplicationRecord
         end
       end
     end
+  end
+
+  def user_reviewed_albums
+    self.reviews.map { |review| review.album }.uniq
   end
 
   private
