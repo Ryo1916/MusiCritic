@@ -44,6 +44,8 @@ class Album < ApplicationRecord
       client.search_unique_album(spotifies_album_id: spotifies_album_id)
     end
 
+    # FIXME: albumオブジェクトを保存するので、クラスメソッドなのはおかしいかもしれない
+    #        →オブジェクト生成前のデータ保存なのでクラスメソッドでもおかしくないかも
     def save_album(albums:, album_name:)
       albums.each do |album|
         # find artist to save album with artist_id
