@@ -12,27 +12,16 @@
   </div>
   <div class="col-md-8">
     <% if @reviews.any? %>
-    <h4 style="margin-bottom:20px;">Reviewed albums</h4>
-      <!-- TODO: パーシャル化 -->
-      <% @reviews.each do |review| %>
+      <h4 style="margin-bottom:20px;">Reviewed albums</h4>
+      <% @user.user_reviewed_albums.each do |album| %>
         <div class="row" style="margin-bottom:20px; padding-bottom:20px; border-bottom:solid 1px #eee;">
           <div class="col-md-3" style="margin-bottom:20px;">
-            <%= link_to image_tag(review.album.image, class: "img-responsive", style: 'margin-right:20px;'), album_path(review.album) %>
+            <%= link_to image_tag(album.image, class: "img-responsive", style: 'margin-right:20px;'), album_path(album) %>
           </div>
           <div class="col-md-9">
-            <div class="star-rating" style="display:inline; margin-right:20px;" data-score= <%= review.rating %> ></div>
-            <span><%= review.created_at.strftime(" %Y %b %d") %></span>
-            <p style="font-size:16px; margin-top:20px;"><%= review.title %></p>
-            <p><%= simple_format(review.text) %></p>
-            <% if current_user?(user: @user) %>
-              <span style="float:right;">
-                <a href="#" data-toggle="modal" data-target="#myModal-<%= review.id %>">Edit</a> /
-                <%= link_to "Delete", review_path(review), method: :delete, data: { confirm: 'Are you sure?' } %>
-              </span>
-            <% end %>
+            <%= render partial: 'reviews/review', collection: album.reviews %>
           </div>
         </div>
-        <%= render 'reviews/edit_modal', review: review %>
       <% end %>
       <%= paginate @reviews %>
     <% else %>
@@ -62,15 +51,3 @@
     <% end %>
   </div>
 </div>
-
-<script>
-  $('.star-rating').raty({
-    path: '/assets/',
-    readOnly: true,
-    size: 6,
-    half: true,
-    score: function() {
-      return $(this).attr('data-score');
-    }
-  });
-</script>
