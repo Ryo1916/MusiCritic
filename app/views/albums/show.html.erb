@@ -30,8 +30,8 @@
         <h3 style="border-bottom:solid 1px #eee;">There is no reviews...</h3>
       <% else %>
         <%= render partial: 'reviews/review', collection: @reviews %>
+        <%= paginate @reviews %>
       <% end %>
-      <%= paginate @reviews %>
     </div>
   </div>
 </div>
