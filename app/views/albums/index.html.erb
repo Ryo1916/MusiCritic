@@ -8,9 +8,9 @@
 <hr>
 
 <div class="row no-gutter">
-  <div class="albums-list jscroll">
+  <div id="albums-list">
     <% @albums.each do |album| %>
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-lg-3 col-sm-6 album">
         <%= link_to album_path(album.id), class: "portfolio-box" do %>
           <%= image_tag album.image, class: "img-responsive", alt: album.name %>
           <div class="portfolio-box-caption">
