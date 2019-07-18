@@ -4,7 +4,7 @@
     <div class="form-group">
       <h2>Create Your Account</h2>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
+        <%= devise_error_messages!(resource: resource) %>
 
         <div class="field" style="margin-bottom:20px;">
           <%= f.label :name %>
