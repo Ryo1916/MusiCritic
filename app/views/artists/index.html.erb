@@ -9,24 +9,7 @@
 
 <div class="row no-gutter">
   <div id="artists-list">
-    <!-- TODO: _artist.html.erbでパーシャル化 -->
-    <% @artists.each do |artist| %>
-      <div class="col-lg-4 col-sm-6 artist">
-        <!-- FIXME: クリックされたアーティストのアルバムのみ表示 -->
-        <%= link_to albums_path, class: "portfolio-box" do %>
-          <div class="image">
-            <%= image_tag artist.image, class: "img-responsive", alt: artist.name %>
-          </div>
-          <div class="portfolio-box-caption">
-            <div class="portfolio-box-caption-content">
-              <div class="project-category text-faded">
-                <p><%= artist.name %></p>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <%= render @artists %>
   </div>
   <div class="pagination-for-artists">
     <%= paginate @artists %>
