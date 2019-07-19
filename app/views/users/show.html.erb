@@ -37,28 +37,36 @@
       <%= paginate @reviews %>
     <% else %>
     <!-- TODO: ユーザのレビューがない場合、ファーストアクションを表示する -->
-      <div class="row">
-        <div class="col-md-6">
-          <div class="panel panel-default">
-            <div class="panel-body text-center">
-              <h4>Search Artists to post your first review!</h4>
-              <div class="highest-rated">
-                <%= link_to 'Search Artists', artists_path, class: 'btn btn-primary' %>
+      <% if current_user?(user: @user) %>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-body text-center">
+                <h4>Search Artists to post your first review!</h4>
+                <div class="highest-rated">
+                  <%= link_to 'Search Artists', artists_path, class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-body text-center">
+                <h4>Search Albums to post your first review!</h4>
+                <div class="highest-rated">
+                  <%= link_to 'Search Albums', albums_path, class: 'btn btn-primary' %>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="panel panel-default">
-            <div class="panel-body text-center">
-              <h4>Search Albums to post your first review!</h4>
-              <div class="highest-rated">
-                <%= link_to 'Search Albums', albums_path, class: 'btn btn-primary' %>
-              </div>
-            </div>
+      <% else %>
+        <div class="row">
+          <div class="col-md-6">
+            <h4>There is no review...</h4>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>
