@@ -8,7 +8,7 @@ Rails.application.routes.draw do
                              registrations: 'users/registrations',
                              sessions: 'users/sessions' }
   resources :users, only: [:show, :edit, :update]
-  resources :artists, only: [:index, :destroy]
+  resources :artists, only: [:index, :show, :destroy]
   resources :albums, only: [:index, :show, :destroy]
   resources :reviews, only: [:create, :edit, :update, :destroy]
 
