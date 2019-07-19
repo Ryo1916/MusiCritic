@@ -1,6 +1,10 @@
 class ArtistsController < ApplicationController
-  before_action :set_artist, only: [:destroy]
+  before_action :set_artist, only: %i[show destroy]
   before_action :authenticate_user!
+
+  def show
+    @albums = @artist.albums.albums_list(page: params[:page])
+  end
 
   def index
     @artists = Artist.artists_list(page: params[:page])
