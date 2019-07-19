@@ -9,11 +9,11 @@ class ArtistsController < ApplicationController
       # FIXME: DBに保存済みのアーティストはspotifyに検索しないロジックになっているため、
       #        新しく同名アーティストがspotifyに登録された場合そのアーティストをDBに保存できない
       #        「spotifyとDB検索→比較→差分を保存」にする
-      @artists = Artist.search_artist(artist_name: params[:artist_name])
+      @artists = Artist.search_artist(artist_name: params[:artist_name]).artists_list(page: params[:page])
       if @artists.empty?
         artists = Artist.search_artist_from_api(artist_name: params[:artist_name])
         Artist.save_artist(artists: artists, artist_name: params[:artist_name])
-        @artists = Artist.search_artist(artist_name: params[:artist_name])
+        @artists = Artist.search_artist(artist_name: params[:artist_name]).artists_list(page: params[:page])
       end
     end
   end
