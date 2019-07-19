@@ -1,21 +1,5 @@
 <section class="no-padding" id="portfolio">
   <div class="row no-gutter">
-    <% @most_reviewed_albums.each do |album| %>
-      <div class="col-lg-2 col-sm-4 col-xs-6">
-        <%= link_to album_path(album.id), class: "portfolio-box" do %>
-          <%= image_tag album.image, class: "img-responsive", alt: album.name %>
-          <div class="portfolio-box-caption">
-            <div class="portfolio-box-caption-content">
-              <div class="project-category text-faded">
-                <%= album.artist.name %>
-              </div>
-              <div class="project-name">
-                <%= album.name %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <%= render partial: 'albums/album', collection: @most_reviewed_albums %>
   </div>
 </section>
