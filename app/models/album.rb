@@ -69,7 +69,7 @@ class Album < ApplicationRecord
         # save tracks using spotifies album id
         # FIXME: Songクラスを知りすぎているかも、しかしどうやって修正したらいいか現状わからないので保留
         unique_album = self.search_unique_album_from_api(spotifies_album_id: album.id)  # album.id is spotify's album id, not DB's one.
-        Song.save_albums_tracks_data(unique_album: unique_album, album_id: saved_album.id)
+        Song.save_tracks(unique_album: unique_album, album_id: saved_album.id)
       end
     end
   end
