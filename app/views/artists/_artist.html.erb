@@ -1,6 +1,6 @@
 <div class="col-lg-4 col-sm-6 artist">
   <!-- FIXME: クリックされたアーティストのアルバムのみ表示 -->
-  <%= link_to albums_path, class: "portfolio-box" do %>
+  <%= link_to artist_path(artist), class: "portfolio-box" do %>
     <div class="image">
       <%= image_tag artist.image, class: "img-responsive", alt: artist.name %>
     </div>
