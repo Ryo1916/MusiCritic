@@ -25,6 +25,7 @@
 #  updated_at             :datetime         not null
 #  provider               :string(255)
 #  uid                    :string(255)
+#  avatar                 :string(255)
 #
 
 class User < ApplicationRecord
