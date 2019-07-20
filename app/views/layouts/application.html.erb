@@ -7,6 +7,7 @@
     <%= favicon_link_tag asset_path('drum-set-silhouette-512-246168.png'), rel: 'icon', type: 'image/png' %>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
@@ -29,4 +30,3 @@
     <%= render partial: "creatives/footer" %>
   </body>
 </html>
-<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
