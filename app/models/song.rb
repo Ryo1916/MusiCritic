@@ -18,7 +18,7 @@ class Song < ApplicationRecord
   validates_presence_of :name, :track_number, :album_id
 
   class << self
-    def save_albums_tracks_data(unique_album:, album_id:)
+    def save_tracks(unique_album:, album_id:)
       unique_album.tracks.each do |track|
         Song.create!(
           name: track.name,

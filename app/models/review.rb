@@ -16,6 +16,7 @@ class Review < ApplicationRecord
   # Association
   belongs_to :user
   belongs_to :album
+  counter_culture :album
 
   # Validations
   validates_presence_of :title, :text, :user_id, :album_id

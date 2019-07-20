@@ -7,16 +7,20 @@ end
 
 
 # basic
-gem 'rails',              '5.1.4'
-gem 'puma',               '3.9.1'
-gem 'uglifier',           '3.2.0'
-gem 'turbolinks',         '5.0.1'
-gem 'jbuilder',           '2.8.0'
-gem 'responders',         '2.4.0'
+gem 'rails',           '5.1.4'
+gem 'puma',            '3.9.1'
+gem 'uglifier',        '3.2.0'
+gem 'turbolinks',      '5.0.1'
+gem 'jbuilder',        '2.8.0'
+gem 'responders',      '2.4.0'
+gem 'counter_culture', '2.2.3'
+
+# view
+gem 'kaminari', '1.1.1'
 
 # css
 gem 'bootstrap',           '4.1.3'
-gem 'sass-rails',          '5.0.7'
+gem 'sassc-rails',         '2.1.2'
 gem 'font-awesome-sass',   '5.6.1'
 gem 'frontend-generators', '0.2.0'
 
@@ -27,7 +31,7 @@ gem 'jquery-turbolinks', '2.1.0'
 
 # images
 gem 'carrierwave', '1.2.3'
-gem 'mini_magick', '4.9.2'
+gem 'mini_magick', '4.9.5'
 
 # authentication
 gem 'devise',            '4.5'

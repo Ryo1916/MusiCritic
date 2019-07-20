@@ -1,6 +1,79 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-<p>name: <%= @user.name %> </p>
-<p>email: <%= @user.email %> </p>
-<p><%= image_tag @user.avatar.thumb, class: 'img-circle', style: 'cursor:pointer;' %></p>
-<%= link_to 'Edit your account', edit_user_path(@user) if current_user == @user %>
+<% provide(:page_title, "#{@user.name}") %>
+<div class="row" style="margin-top:80px;">
+  <div class="col-md-4" style="margin-bottom:40px;">
+    <div class="row">
+      <div class="user-info col-md-12">
+        <%= image_tag @user.avatar, class: 'img-circle', alt: 'users avatar' %>
+        <div class="username" style="margin:20px 0;">
+          <span style="margin-right:20px;"><b><%= @user.name %></b></span>
+          <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-info' if current_user?(user: @user) %>
+        </div>
+        <table>
+          <tr>
+            <td><i class="fas fa-comments"></i></td>
+            <td class="text-muted"><%= @reviews.count %> reviews</td>
+          </tr>
+          <tr>
+            <td><i class="fas fa-calendar"></i></td>
+            <td class="text-muted"><%= @user.created_at.strftime('%Y %-b %-d') %> joined</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row reviewed-albums">
+      <% @user.user_reviewed_albums.each do |album| %>
+        <div class="col-xs-3">
+          <%= link_to image_tag(album.image, class: 'img-responsive', style: 'padding:0 -10px;') %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <% if @reviews.any? %>
+      <h4 style="margin-bottom:20px;">Reviewed albums</h4>
+      <% @user.user_reviewed_albums.each do |album| %>
+        <div class="row" style="margin-bottom:20px; padding-bottom:20px; border-bottom:solid 1px #eee;">
+          <div class="col-md-3" style="margin-bottom:20px;">
+            <%= link_to image_tag(album.image, class: "img-responsive", style: 'margin-right:20px;'), album_path(album) %>
+          </div>
+          <div class="col-md-9">
+            <%= render partial: 'reviews/review', collection: album.reviews %>
+          </div>
+        </div>
+      <% end %>
+      <%= paginate @reviews %>
+    <% else %>
+    <!-- TODO: ユーザのレビューがない場合、ファーストアクションを表示する -->
+      <% if current_user?(user: @user) %>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-body text-center">
+                <h4>Search Artists to post your first review!</h4>
+                <div class="highest-rated">
+                  <%= link_to 'Search Artists', artists_path, class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-body text-center">
+                <h4>Search Albums to post your first review!</h4>
+                <div class="highest-rated">
+                  <%= link_to 'Search Albums', albums_path, class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="row">
+          <div class="col-md-6">
+            <h4>There is no review...</h4>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

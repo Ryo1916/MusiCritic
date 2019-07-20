@@ -7,9 +7,10 @@
 #  release_date  :string(255)
 #  external_urls :string(255)
 #  image         :string(255)
+#  artist_id     :bigint(8)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  artist_id     :bigint(8)
+#  reviews_count :integer          default(0), not null
 #
 
 class Album < ApplicationRecord
@@ -22,13 +23,21 @@ class Album < ApplicationRecord
   validates_presence_of :name, :release_date, :external_urls, :image, :artist_id
 
   class << self
-    def search_album(album_name:)
-      Album.where('name LIKE ?', "%#{album_name}%").order(name: 'ASC')
+    def albums_list(page:)
+      order(name: 'ASC').page(page).per(Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
     end
 
-    def search_album_from_api(album_name:)
+    def most_reviewed_albums
+      order(reviews_count: :desc).limit(Constants::ALBUMS_FOR_TOP_PAGE)
+    end
+
+    def search_albums(album_name:, page:)
+      where('name LIKE ?', "%#{album_name}%").albums_list(page: page)
+    end
+
+    def search_albums_from_api(album_name:)
       client = SpotifyAPI::V2::Client.new
-      client.search_album(album_name: album_name)
+      client.search_albums(album_name: album_name)
     end
 
     def search_unique_album_from_api(spotifies_album_id:)
@@ -36,7 +45,9 @@ class Album < ApplicationRecord
       client.search_unique_album(spotifies_album_id: spotifies_album_id)
     end
 
-    def save_album(albums:, album_name:)
+    # FIXME: albumオブジェクトを保存するので、クラスメソッドなのはおかしいかもしれない
+    #        →オブジェクト生成前のデータ保存なのでクラスメソッドでもおかしくないかも
+    def save_albums(albums:)
       albums.each do |album|
         # find artist to save album with artist_id
         # FIXME: Artistクラスを知りすぎているかも、しかしどうやって修正したらいいか現状わからないので保留
@@ -58,10 +69,10 @@ class Album < ApplicationRecord
 
         # save tracks using spotifies album id
         # FIXME: Songクラスを知りすぎているかも、しかしどうやって修正したらいいか現状わからないので保留
+        # TODO: 本当にunique_albumを検索する必要がある？albumにtracksが付いてくるのがわかったのでunique_albumを検索しなくてもよいかも
         unique_album = self.search_unique_album_from_api(spotifies_album_id: album.id)  # album.id is spotify's album id, not DB's one.
-        Song.save_albums_tracks_data(unique_album: unique_album, album_id: saved_album.id)
+        Song.save_tracks(unique_album: unique_album, album_id: saved_album.id)
       end
-      self.search_album(album_name: album_name)
     end
   end
 end

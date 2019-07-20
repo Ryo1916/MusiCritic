@@ -1,5 +1,5 @@
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" style="background-color:black;">
-  <div class="container-fluid">
+  <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -15,13 +15,6 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <!-- Collect the nav links, forms, and other content for toggling -->
-      <ul class="nav navbar-nav navbar-left">
-        <% if current_page?(root_path) %>
-          <li><%= link_to "Best Albums", "#portfolio", class: "page-scroll", style: "color:white" %></li>
-          <li><%= link_to "About", "#services", class: "page-scroll", style: "color:white" %></li>
-          <li><%= link_to "Contact", "#contact", class: "page-scroll", style: "color:white;" %></li>
-        <% end %>
-      </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li><%= link_to "Artist", artists_path %></li>

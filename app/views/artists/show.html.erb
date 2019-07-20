@@ -1,4 +1,21 @@
-<p id="notice"><%= notice %></p>
+<% provide(:page_title, @artist.name) %>
+<div class="container" style="margin-top:60px;">
+  <div class="row" style="margin-top:20px;">
+    <div class="col-md-4">
+      <%= image_tag @artist.image, class: "img-responsive" %>
+      <h3><%= @artist.name %></h3>
+      <span>
+        <p style="display:inline;"><%= link_to "Go to spotify", @artist.external_urls %></p>
+      </span>
+    </div>
 
-<%= link_to 'Edit', edit_artist_path(@artist) %> |
-<%= link_to 'Back', artists_path %>
+    <div class="col-md-8" style="margin-bottom:20px;">
+      <% if @albums.blank? %>
+        <h3 style="border-bottom:solid 1px #eee;">There is no albums...</h3>
+      <% else %>
+        <%= render partial: 'albums/album', collection: @albums %>
+        <%= paginate @albums %>
+      <% end %>
+    </div>
+  </div>
+</div>

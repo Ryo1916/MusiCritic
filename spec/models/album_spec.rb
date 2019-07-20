@@ -7,9 +7,10 @@
 #  release_date  :string(255)
 #  external_urls :string(255)
 #  image         :string(255)
+#  artist_id     :bigint(8)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  artist_id     :bigint(8)
+#  reviews_count :integer          default(0), not null
 #
 
 require 'rails_helper'

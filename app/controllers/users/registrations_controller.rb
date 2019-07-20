@@ -5,7 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   before_action :configure_sign_up_params, only: %i[create]
   before_action :configure_account_update_params, only: %i[update]
-  before_action only: %i[edit update] do
+  before_action only: %i[edit] do
     set_user(user_id: params[:format])
   end
   before_action :prohibit_unspecified_users_access, only: %i[edit update]

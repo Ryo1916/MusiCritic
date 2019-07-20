@@ -1,10 +1,10 @@
-<div class="row">
+<% provide(:page_title, 'Editing Review') %>
+<div class="row" style="margin-top:60px;">
   <div class="col-md-6 col-md-offset-3">
-    <h1>Editing Review</h1>
+    <h2>Editing Review</h2>
 
-    <%= render 'form', review: @review %>
+    <%= render 'form', review: @review, album: @review.album, id: @review.id %>
 
-    <%= link_to 'Show', @review %> |
-    <%= link_to 'Back', reviews_path %>
+    <%= link_to 'Back', user_path(@review.user), class: 'btn btn-default btn-block' %>
   </div>
 </div>

@@ -1,6 +1,6 @@
 module DeviseHelper
-  def devise_error_messages!
-    return "" unless devise_error_messages?
+  def devise_error_messages!(resource: resource)
+    return "" unless devise_error_messages?(resource: resource)
 
     messages = resource.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
     html = <<-HTML
@@ -12,7 +12,7 @@ module DeviseHelper
     html.html_safe
   end
 
-  def devise_error_messages?
+  def devise_error_messages?(resource: resource)
     !resource.errors.empty?
   end
 

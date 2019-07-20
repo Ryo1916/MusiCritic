@@ -1,0 +1,33 @@
+<div class="review" style="border-bottom:solid 1px #eee;">
+  <div class="user" style="margin:10px 0;">
+    <span style="margin-right:10px;"><%= image_tag review.user.avatar.thumb %></span>
+    <%= review.user.name %>
+  </div>
+  <div class="star-rating" style="display:inline; margin-right:10px;" data-score= <%= review.rating %> ></div>
+  <span><%= review.created_at.strftime(" %Y %b %d") %></span>
+  <div class="review-comment" style="display:block; margin-top:10px;">
+    <p style="font-size:16px; margin-right:10px;"><%= review.title %></p>
+    <%= simple_format(review.text) %>
+  </div>
+  <% if current_user?(user: review.user) %>
+    <div class="review-links" style="padding-bottom:20px;">
+      <span style="float:right;">
+        <a href="#" data-toggle="modal" data-target="#myModal-<%= review.id %>">Edit</a> /
+        <%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </span>
+    </div>
+  <% end %>
+</div>
+<%= render 'reviews/edit_modal', review: review %>
+
+<script>
+  $('.star-rating').raty({
+    path: '/assets/',
+    readOnly: true,
+    size: 6,
+    half: true,
+    score: function() {
+      return $(this).attr('data-score');
+    }
+  });
+</script>

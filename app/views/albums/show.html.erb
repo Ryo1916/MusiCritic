@@ -1,15 +1,14 @@
+<% provide(:page_title, @album.name) %>
 <div class="container" style="margin-top:60px;">
   <div class="row" style="margin-top:20px;">
     <div class="col-md-4">
       <%= image_tag @album.image, class: "img-responsive" %>
       <div class="star-rating" style="margin-top:10px;" data-score= <%= @avg_rating %> ></div>
-      <em><%= "#{@reviews.length} reviews" %></em>
-      <h3> <%= @album.artist.name %> </h3>
+      <em><%= "#{@album.reviews_count} reviews" %></em>
+      <h3><%= @album.artist.name %></h3>
       <span>
-        <h4><%= @album.name %></h4>
-        <p>
-          <% @album.release_date %>
-        </p>
+        <h4 style="display:inline;"><%= @album.name %></h4>
+        <p style="display:inline; float:right;"><%= @album.release_date %></p>
       </span>
 
       <table class="table bordered-table">
@@ -24,32 +23,15 @@
       </table>
     </div>
 
-    <div class="col-md-8">
-      <%= render 'reviews/form', review: @review %>
+    <div class="col-md-8" style="margin-bottom:20px;">
+      <%= render 'reviews/form', review: @review, album: @album, id: @album.id %>
       <hr>
       <% if @reviews.blank? %>
-      <h3 style="border-bottom:solid 1px #eee;">No results just yet, would you like to add the first!</h3>
+        <h3 style="border-bottom:solid 1px #eee;">There is no reviews...</h3>
       <% else %>
-      <% @reviews.each do |review| %>
-      <div class="review" style="border-bottom:solid 1px #eee;">
-        <div class="star-rating" style="display:inline;" data-score= <%= review.rating %> ></div>
-        <%= review.user.email %>
-        <% commented = review.created_at %> /
-        <span style="font-style:italic;"><%= commented.strftime(" %Y %b %d") %></span>
-        <div class="review-comment" style="display:block;">
-          <%= review.text %>
-        </div>
-        <% if current_user.id == review.user_id %>
-        <ul style="float:right;">
-          <li><%= link_to 'Edit', edit_review_path(review) %></li>
-          <%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </ul>
-        <% end %>
-      </div>
+        <%= render partial: 'reviews/review', collection: @reviews %>
+        <%= paginate @reviews %>
       <% end %>
-      <% end %>
-      <hr>
-      <%= link_to 'Back', albums_path, class: "btn btn-default btn-block" %>
     </div>
   </div>
 </div>

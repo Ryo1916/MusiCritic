@@ -19,16 +19,20 @@ class Artist < ApplicationRecord
   validates_presence_of :name, :image, :external_urls
 
   class << self
-    def search_artist(artist_name:)
-      Artist.where('name LIKE ?', "%#{artist_name}%").order(name: 'ASC')
+    def artists_list(page:)
+      order(name: 'ASC').page(page).per(Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)
     end
 
-    def search_artist_from_api(artist_name:)
+    def search_artists(artist_name:)
+      where('name LIKE ?', "%#{artist_name}%").order(name: 'ASC')
+    end
+
+    def search_artists_from_api(artist_name:)
       client = SpotifyAPI::V2::Client.new
-      client.search_artist(artist_name: artist_name)
+      client.search_artists(artist_name: artist_name)
     end
 
-    def save_artist(artists:, artist_name:)
+    def save_artists(artists:, artist_name:)
       artists.each do |artist|
         Artist.create!(
           name: artist.name,
@@ -36,7 +40,6 @@ class Artist < ApplicationRecord
           external_urls: artist.external_urls["spotify"]
         )
       end
-      self.search_artist(artist_name: artist_name)
     end
   end
 end
