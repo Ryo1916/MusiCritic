@@ -31,7 +31,7 @@ gem 'jquery-turbolinks', '2.1.0'
 
 # images
 gem 'carrierwave', '1.2.3'
-gem 'mini_magick', '4.9.2'
+gem 'mini_magick', '4.9.5'
 
 # authentication
 gem 'devise',            '4.5'
