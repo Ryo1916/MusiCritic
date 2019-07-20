@@ -46,7 +46,7 @@ class Album < ApplicationRecord
 
     # FIXME: albumオブジェクトを保存するので、クラスメソッドなのはおかしいかもしれない
     #        →オブジェクト生成前のデータ保存なのでクラスメソッドでもおかしくないかも
-    def save_album(albums:, album_name:)
+    def save_album(albums:)
       albums.each do |album|
         # find artist to save album with artist_id
         # FIXME: Artistクラスを知りすぎているかも、しかしどうやって修正したらいいか現状わからないので保留

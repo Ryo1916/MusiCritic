@@ -22,7 +22,7 @@ class AlbumsController < ApplicationController
             end
           end
         end
-        Album.save_album(albums: albums, album_name: params[:album_name])
+        Album.save_album(albums: albums)
         @albums = Album.search_album(album_name: params[:album_name], page: params[:page]).album_list(page: params[:page])
       end
     end
