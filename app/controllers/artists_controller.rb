@@ -3,6 +3,16 @@ class ArtistsController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    # FIXME: DBに保存済みのアルバムはspotifyに検索しないロジックになっているため、
+    #        新しく同名アーティストがspotifyに登録された場合そのアーティストをDBに保存できない
+    #        「spotifyとDB検索→比較→差分を保存」にする
+    if @artist.albums.empty?
+      artists = Artist.search_artist_from_api(artist_name: @artist.name)
+      artists.each do |artist|
+        # FIXME: マジックナンバー対応
+        Album.save_album(albums: artist.albums(limit: 50))
+      end
+    end
     @albums = @artist.albums.albums_list(page: params[:page])
   end
 
