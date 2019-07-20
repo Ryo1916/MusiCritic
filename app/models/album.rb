@@ -30,13 +30,13 @@ class Album < ApplicationRecord
       order(reviews_count: :desc).limit(Constants::ALBUMS_FOR_TOP_PAGE)
     end
 
-    def search_album(album_name:, page:)
+    def search_albums(album_name:, page:)
       where('name LIKE ?', "%#{album_name}%").albums_list(page: page)
     end
 
-    def search_album_from_api(album_name:)
+    def search_albums_from_api(album_name:)
       client = SpotifyAPI::V2::Client.new
-      client.search_album(album_name: album_name)
+      client.search_albums(album_name: album_name)
     end
 
     def search_unique_album_from_api(spotifies_album_id:)
@@ -46,7 +46,7 @@ class Album < ApplicationRecord
 
     # FIXME: albumオブジェクトを保存するので、クラスメソッドなのはおかしいかもしれない
     #        →オブジェクト生成前のデータ保存なのでクラスメソッドでもおかしくないかも
-    def save_album(albums:)
+    def save_albums(albums:)
       albums.each do |album|
         # find artist to save album with artist_id
         # FIXME: Artistクラスを知りすぎているかも、しかしどうやって修正したらいいか現状わからないので保留

@@ -7,10 +7,10 @@ class ArtistsController < ApplicationController
     #        新しく同名アーティストがspotifyに登録された場合そのアーティストをDBに保存できない
     #        「spotifyとDB検索→比較→差分を保存」にする
     if @artist.albums.empty?
-      artists = Artist.search_artist_from_api(artist_name: @artist.name)
+      artists = Artist.search_artists_from_api(artist_name: @artist.name)
       artists.each do |artist|
         # FIXME: マジックナンバー対応
-        Album.save_album(albums: artist.albums(limit: 50))
+        Album.save_albums(albums: artist.albums(limit: 50))
       end
     end
     @albums = @artist.albums.albums_list(page: params[:page])
@@ -19,15 +19,15 @@ class ArtistsController < ApplicationController
   def index
     @artists = Artist.artists_list(page: params[:page])
     if params[:artist_name]
-      # FIXME: search_artistが2回書いてあるのは冗長かも？
+      # FIXME: search_artistsが2回書いてあるのは冗長かも？
       # FIXME: DBに保存済みのアーティストはspotifyに検索しないロジックになっているため、
       #        新しく同名アーティストがspotifyに登録された場合そのアーティストをDBに保存できない
       #        「spotifyとDB検索→比較→差分を保存」にする
-      @artists = Artist.search_artist(artist_name: params[:artist_name]).artists_list(page: params[:page])
+      @artists = Artist.search_artists(artist_name: params[:artist_name]).artists_list(page: params[:page])
       if @artists.empty?
-        artists = Artist.search_artist_from_api(artist_name: params[:artist_name])
-        Artist.save_artist(artists: artists, artist_name: params[:artist_name])
-        @artists = Artist.search_artist(artist_name: params[:artist_name]).artists_list(page: params[:page])
+        artists = Artist.search_artists_from_api(artist_name: params[:artist_name])
+        Artist.save_artists(artists: artists, artist_name: params[:artist_name])
+        @artists = Artist.search_artists(artist_name: params[:artist_name]).artists_list(page: params[:page])
       end
     end
   end
