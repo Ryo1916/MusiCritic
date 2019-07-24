@@ -1,5 +1,5 @@
 class ArtistsController < ApplicationController
-  include Search
+  include SpotifyAPI::V2::Client
 
   before_action :set_artist, only: %i[show destroy]
   before_action :authenticate_user!

@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  include Search
+  include SpotifyAPI::V2::Client
 
   before_action :set_album, only: [:show, :destroy]
   before_action :authenticate_user!
