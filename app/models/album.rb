@@ -35,16 +35,6 @@ class Album < ApplicationRecord
       where('name LIKE ?', "%#{album_name}%").albums_list(page: page)
     end
 
-    def search_albums_from_api(album_name:)
-      client = SpotifyAPI::V2::Client.new
-      client.search_albums(album_name: album_name)
-    end
-
-    def search_unique_album_from_api(spotifies_album_id:)
-      client = SpotifyAPI::V2::Client.new
-      client.search_unique_album(spotifies_album_id: spotifies_album_id)
-    end
-
     # FIXME: albumオブジェクトを保存するので、クラスメソッドなのはおかしいかもしれない
     #        →オブジェクト生成前のデータ保存なのでクラスメソッドでもおかしくないかも
     def save_albums(albums:)
@@ -70,7 +60,7 @@ class Album < ApplicationRecord
         # save tracks using spotifies album id
         # FIXME: Songクラスを知りすぎているかも、しかしどうやって修正したらいいか現状わからないので保留
         # TODO: 本当にunique_albumを検索する必要がある？albumにtracksが付いてくるのがわかったのでunique_albumを検索しなくてもよいかも
-        unique_album = self.search_unique_album_from_api(spotifies_album_id: album.id)  # album.id is spotify's album id, not DB's one.
+        unique_album = self.search_unique_album_from_spotify(spotifies_album_id: album.id)  # album.id is spotify's album id, not DB's one.
         Song.save_tracks(unique_album: unique_album, album_id: saved_album.id)
       end
     end

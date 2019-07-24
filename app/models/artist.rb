@@ -24,12 +24,7 @@ class Artist < ApplicationRecord
     end
 
     def search_artists(artist_name:)
-      where('name LIKE ?', "%#{artist_name}%").order(name: 'ASC')
-    end
-
-    def search_artists_from_api(artist_name:)
-      client = SpotifyAPI::V2::Client.new
-      client.search_artists(artist_name: artist_name)
+      where('name LIKE ?', "%#{artist_name}%")
     end
 
     def save_artists(artists:, artist_name:)

@@ -1,30 +1,15 @@
 class AlbumsController < ApplicationController
+  include Search
+
   before_action :set_album, only: [:show, :destroy]
   before_action :authenticate_user!
 
   def index
     @albums = Album.albums_list(page: params[:page])
-    if params[:album_name]
-      # FIXME: 二回同一内容読んでしまっているので、リファクタリングできないか考える
-      # FIXME: 同名アルバムがDBにある場合はspotifyを検索しないロジックになっているので、
-      #        新しい同名アルバムがspotifyに出た場合はDBに保存することができない
-      #        「spotifyとDB検索→比較→差分を保存」にする
-      @albums = Album.search_albums(album_name: params[:album_name], page: params[:page]).album_list(page: params[:page])
-
-      # もしartistがDBに存在しない場合、albumを保存する前にAPIからデータ取得して保存する
-      if @albums.empty?
-        albums = Album.search_albums_from_api(album_name: params[:album_name])
-        albums.each do |album|
-          album.artists.each do |artist|
-            if Artist.find_by(name: artist.name).nil?
-              artists = Artist.search_artists_from_api(artist_name: artist.name)
-              Artist.save_artists(artists: artists, artist_name: artist.name)
-            end
-          end
-        end
-        Album.save_albums(albums: albums)
-        @albums = Album.search_albums(album_name: params[:album_name], page: params[:page]).album_list(page: params[:page])
-      end
+    if album_name = params[:album_name]
+      @albums = Album
+        .search_albums_from_spotify(album_name: album_name)
+        .album_list(page: params[:page])
     end
   end
 
