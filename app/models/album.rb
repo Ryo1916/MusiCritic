@@ -11,6 +11,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  reviews_count :integer          default(0), not null
+#  spotify_id    :string(255)      not null
 #
 
 class Album < ApplicationRecord
