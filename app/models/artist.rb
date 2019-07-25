@@ -13,8 +13,8 @@
 
 class Artist < ApplicationRecord
   # Associations
-  has_many :albums, dependent: :destroy
-  has_many :songs, dependent: :destroy
+  has_many :artits_albums, dependent: :destroy
+  has_many :albums, through: :artits_albums
 
   # Validation
   validates_presence_of :name, :image, :external_urls

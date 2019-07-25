@@ -15,7 +15,8 @@
 
 class Album < ApplicationRecord
   # Associations
-  belongs_to :artist
+  has_many :artits_albums, dependent: :destroy
+  has_many :artits, through: :artists_albums
   has_many :songs, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
