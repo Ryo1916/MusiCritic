@@ -20,22 +20,16 @@ class Artist < ApplicationRecord
   validates_presence_of :name, :image, :external_urls, :spotify_id
 
   class << self
+    def pagination(page:)
+      page(page).per(Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)
+    end
+
     def artists_list(page:)
-      order(name: 'ASC').page(page).per(Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)
+      order(name: 'ASC').pagination(page: page)
     end
 
-    def search_artists(artist_name:)
-      where('name LIKE ?', "%#{artist_name}%")
-    end
-
-    def save_artists(artists:, artist_name:)
-      artists.each do |artist|
-        Artist.create!(
-          name: artist.name,
-          image: artist.images.empty? ? Constants::DEFAULT_IMG_URL : artist.images[0]["url"],
-          external_urls: artist.external_urls["spotify"]
-        )
-      end
+    def search_artists(artist_name:, page:)
+      where('name LIKE ?', "%#{artist_name}%").artists_list(page: page)
     end
   end
 end
