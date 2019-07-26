@@ -1,27 +1,24 @@
 class ArtistsController < ApplicationController
   include SpotifyAPI::V2::Client
 
-  before_action :set_artist, only: %i[show destroy]
   before_action :authenticate_user!
+  before_action :set_artist, only: %i[destroy]
 
   def index
-    @artists = Artist.artists_list(page: params[:page])
+    @artists = new_releases.inject([]) do |result, new_release|
+      result + new_release.artists
+    end
+
     if artist_name = params[:artist_name]
-      @artists = Artist
-      .search_artists_from_spotify(artist_name: artist_name)
-      .artists_list(page: params[:page])
+      @artists = search_artists_from_spotify(artist_name: artist_name)
     end
   end
 
   def show
-    if @artist.albums.empty?
-      artists = search_artists(artist_name: @artist.name)
-      artists.each do |artist|
-        # FIXME: マジックナンバー対応
-        Album.save_albums(albums: artist.albums(limit: 50))
-      end
-    end
-    @albums = @artist.albums.albums_list(page: params[:page])
+    # FIXME: 検索せずに@artistsを利用して表示できないか？
+    @artist = search_unique_artist_from_spotify(spotifies_artist_id: params[:id])
+    # FIXME: マジックナンバー
+    @albums = @artist.albums(limit: 50)
   end
 
   def destroy
@@ -34,7 +31,7 @@ class ArtistsController < ApplicationController
 
   private
 
-    def set_artist
-      @artist = Artist.find(params[:id])
-    end
+  def set_artist
+    @artist = Artist.find(params[:id])
+  end
 end
