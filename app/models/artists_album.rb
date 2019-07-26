@@ -10,6 +10,6 @@
 #
 
 class ArtistsAlbum < ApplicationRecord
-  belongs_to :artist_id
-  belongs_to :album_id
+  belongs_to :artist
+  belongs_to :album
 end
