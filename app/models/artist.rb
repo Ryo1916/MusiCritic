@@ -17,7 +17,7 @@ class Artist < ApplicationRecord
   has_many :albums, through: :artists_albums
 
   # Validation
-  validates_presence_of :name, :image, :external_urls
+  validates_presence_of :name, :image, :external_urls, :spotify_id
 
   class << self
     def artists_list(page:)
