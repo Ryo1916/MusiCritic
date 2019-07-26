@@ -5,7 +5,7 @@
       <%= image_tag @album.image, class: "img-responsive" %>
       <div class="star-rating" style="margin-top:10px;" data-score= <%= @avg_rating %> ></div>
       <em><%= "#{@album.reviews_count} reviews" %></em>
-      <h3><%= @album.artist.name %></h3>
+      <h3><%= @album.artists.map { |artist| artist.name }.join(' / ') %></h3>
       <span>
         <h4 style="display:inline;"><%= @album.name %></h4>
         <p style="display:inline; float:right;"><%= @album.release_date %></p>
@@ -17,6 +17,7 @@
           <tr>
             <td><%= song.track_number %></td>
             <td><%= song.name %></td>
+            <td><%= link_to icon('fas', 'volume-up'), song.preview_url if song.preview_url %></td>
           </tr>
           <% end %>
         </tbody>
