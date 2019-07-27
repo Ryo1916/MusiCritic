@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
 
     respond_to do |format|
       if @review.save
-        format.html { redirect_to @album, notice: 'Review was successfully created.' }
+        format.html { redirect_to album_path(@album.spotify_id), notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render 'albums/show' }
