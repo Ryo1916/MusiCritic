@@ -33,10 +33,10 @@ class AlbumsController < ApplicationController
   private
 
   def set_album
-    # FIXME: reviewをcreateした後、params[:id]がAlbumのidになるので、ここでnilになってしまう。
     @album = Album.find_by(spotify_id: params[:id])
   end
 
+  # FIXME: 責務が大きすぎるが、対処方法が不明
   def save_spotify_data(spotifies_album_id:)
     return if Album.find_by(spotify_id: spotifies_album_id)
     unique_album = search_unique_album_from_spotify(spotifies_album_id: spotifies_album_id)
@@ -44,6 +44,7 @@ class AlbumsController < ApplicationController
     # Artistの存在チェック／保存
     # FIXME: album.artists = []の場合、unknown artistをセットしないとダメかも
     album_artists = unique_album.artists.map do |artist|
+      # FIXME: Artist.find_by(spotify_id: artist.id)が重複
       if Artist.find_by(spotify_id: artist.id)
         Artist.find_by(spotify_id: artist.id)
       else
