@@ -8,7 +8,7 @@ class AlbumsController < ApplicationController
   before_action :set_album, only: %i[show destroy]
 
   def index
-    @new_albums = new_releases
+    @albums = new_releases
 
     if album_name = params[:album_name]
       @albums = search_albums_from_spotify(album_name: album_name)
