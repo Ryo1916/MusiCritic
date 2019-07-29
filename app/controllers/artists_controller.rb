@@ -10,15 +10,14 @@ class ArtistsController < ApplicationController
     end
 
     if artist_name = params[:artist_name]
-      @artists = search_artists_from_spotify(artist_name: artist_name)
+      @artists = artists(artist_name: artist_name)
     end
   end
 
   def show
     # FIXME: 検索せずに@artistsを利用して表示できないか？
-    @artist = search_unique_artist_from_spotify(spotifies_artist_id: params[:id])
-    # FIXME: マジックナンバー
-    @albums = @artist.albums(limit: 50)
+    @artist = unique_artist(spotifies_artist_id: params[:id])
+    @albums = @artist.albums(limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API)
   end
 
   def destroy
