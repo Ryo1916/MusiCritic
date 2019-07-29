@@ -3,7 +3,7 @@ class AlbumsController < ApplicationController
 
   before_action :authenticate_user!
   before_action only: %i[show] do
-    save_spotify_data(spotifies_album_id: params[:id])
+    save_album(spotifies_album_id: params[:id])
   end
   before_action :set_album, only: %i[show destroy]
 
@@ -41,25 +41,20 @@ class AlbumsController < ApplicationController
     @album = Album.find_by(spotify_id: params[:id])
   end
 
-  # FIXME: 責務が大きすぎるが、対処方法が不明
-  def save_spotify_data(spotifies_album_id:)
+  # FIXME: models配下にPOROで独自モデルを定義して、そこで保存するように変更したい
+  def save_album(spotifies_album_id:)
     return if Album.find_by(spotify_id: spotifies_album_id)
-    unique_album = search_unique_album_from_spotify(spotifies_album_id: spotifies_album_id)
+    unique_album = unique_album(spotifies_album_id: spotifies_album_id)
 
     # Artistの存在チェック／保存
     # FIXME: album.artists = []の場合、unknown artistをセットしないとダメかも
     album_artists = unique_album.artists.map do |artist|
-      # FIXME: Artist.find_by(spotify_id: artist.id)が重複
-      if Artist.find_by(spotify_id: artist.id)
-        Artist.find_by(spotify_id: artist.id)
-      else
-        Artist.create!(
-          name: artist.name,
-          image: artist.images.first["url"],
-          external_urls: artist.external_urls["spotify"],
-          spotify_id: artist.id
-        )
-      end
+      Artist.find_or_create_by(
+        name: artist.name,
+        image: artist.images.first["url"],
+        external_urls: artist.external_urls["spotify"],
+        spotify_id: artist.id
+      )
     end
 
     saved_album = Album.create!(
