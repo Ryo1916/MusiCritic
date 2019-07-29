@@ -7,20 +7,21 @@
 #  release_date  :string(255)
 #  external_urls :string(255)
 #  image         :string(255)
-#  artist_id     :bigint(8)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  reviews_count :integer          default(0), not null
+#  spotify_id    :string(255)      not null
 #
 
 class Album < ApplicationRecord
   # Associations
-  belongs_to :artist
+  has_many :artists_albums, dependent: :destroy
+  has_many :artists, through: :artists_albums
   has_many :songs, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
   # Validations
-  validates_presence_of :name, :release_date, :external_urls, :image, :artist_id
+  validates_presence_of :name, :release_date, :external_urls, :image, :spotify_id
 
   class << self
     def albums_list(page:)
@@ -31,48 +32,8 @@ class Album < ApplicationRecord
       order(reviews_count: :desc).limit(Constants::ALBUMS_FOR_TOP_PAGE)
     end
 
-    def search_albums(album_name:, page:)
-      where('name LIKE ?', "%#{album_name}%").albums_list(page: page)
-    end
-
-    def search_albums_from_api(album_name:)
-      client = SpotifyAPI::V2::Client.new
-      client.search_albums(album_name: album_name)
-    end
-
-    def search_unique_album_from_api(spotifies_album_id:)
-      client = SpotifyAPI::V2::Client.new
-      client.search_unique_album(spotifies_album_id: spotifies_album_id)
-    end
-
-    # FIXME: albumオブジェクトを保存するので、クラスメソッドなのはおかしいかもしれない
-    #        →オブジェクト生成前のデータ保存なのでクラスメソッドでもおかしくないかも
-    def save_albums(albums:)
-      albums.each do |album|
-        # find artist to save album with artist_id
-        # FIXME: Artistクラスを知りすぎているかも、しかしどうやって修正したらいいか現状わからないので保留
-        if artist = Artist.find_by(name: album.artists.first.name)
-          artist_id = artist.id
-        else
-          # Set Unknown Artist id
-          artist_id = Artist.first.id
-        end
-
-        # save album data
-        saved_album = Album.create!(
-          name: album.name,
-          release_date: album.release_date,
-          external_urls: album.external_urls["spotify"],
-          image: album.images.empty? ? Constants::DEFAULT_IMG_URL : album.images.first["url"],
-          artist_id: artist_id
-        )
-
-        # save tracks using spotifies album id
-        # FIXME: Songクラスを知りすぎているかも、しかしどうやって修正したらいいか現状わからないので保留
-        # TODO: 本当にunique_albumを検索する必要がある？albumにtracksが付いてくるのがわかったのでunique_albumを検索しなくてもよいかも
-        unique_album = self.search_unique_album_from_api(spotifies_album_id: album.id)  # album.id is spotify's album id, not DB's one.
-        Song.save_tracks(unique_album: unique_album, album_id: saved_album.id)
-      end
+    def search_albums(album_name:)
+      where('name LIKE ?', "%#{album_name}%")
     end
   end
 end

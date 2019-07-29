@@ -9,7 +9,6 @@
 
 <div class="row no-gutter">
   <div id="albums-list">
-    <%= render @albums %>
-    <%= paginate @albums %>
+    <%= render partial: 'album', collection: @albums %>
   </div>
 </div>

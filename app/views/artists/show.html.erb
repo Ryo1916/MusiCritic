@@ -1,21 +1,28 @@
 <% provide(:page_title, @artist.name) %>
-<div class="container" style="margin-top:60px;">
+<div class="container-fluid" style="margin-top:60px;">
   <div class="row" style="margin-top:20px;">
     <div class="col-md-4">
-      <%= image_tag @artist.image, class: "img-responsive" %>
+      <%= image_tag @artist.images.empty? ? Constants::DEFAULT_IMG_URL : @artist.images.first["url"], class: "img-responsive" %>
       <h3><%= @artist.name %></h3>
-      <span>
-        <p style="display:inline;"><%= link_to "Go to spotify", @artist.external_urls %></p>
-      </span>
+      <p>
+        <%= link_to @artist.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank' do %>
+          <i class="fab fa-spotify"></i>Go to Spotify
+        <% end %>
+      </p>
+      <% @artist.genres.each do |genre| %>
+        <span class="label label-info"><%= genre %></span>
+      <% end %>
     </div>
 
     <div class="col-md-8" style="margin-bottom:20px;">
       <% if @albums.blank? %>
         <h3 style="border-bottom:solid 1px #eee;">There is no albums...</h3>
       <% else %>
-        <%= render partial: 'albums/album', collection: @albums %>
-        <%= paginate @albums %>
+        <div class="row">
+          <%= render partial: 'albums/album', collection: @albums %>
+        </div>
       <% end %>
     </div>
   </div>
+  <!-- TODO: related_artists表示 -->
 </div>

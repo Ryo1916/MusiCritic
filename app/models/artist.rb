@@ -8,38 +8,28 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  external_urls :string(255)
+#  spotify_id    :string(255)      not null
 #
 
 class Artist < ApplicationRecord
   # Associations
-  has_many :albums, dependent: :destroy
-  has_many :songs, dependent: :destroy
+  has_many :artists_albums, dependent: :destroy
+  has_many :albums, through: :artists_albums
 
   # Validation
-  validates_presence_of :name, :image, :external_urls
+  validates_presence_of :name, :image, :external_urls, :spotify_id
 
   class << self
+    def pagination(page:)
+      page(page).per(Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)
+    end
+
     def artists_list(page:)
-      order(name: 'ASC').page(page).per(Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)
+      order(name: 'ASC').pagination(page: page)
     end
 
-    def search_artists(artist_name:)
-      where('name LIKE ?', "%#{artist_name}%").order(name: 'ASC')
-    end
-
-    def search_artists_from_api(artist_name:)
-      client = SpotifyAPI::V2::Client.new
-      client.search_artists(artist_name: artist_name)
-    end
-
-    def save_artists(artists:, artist_name:)
-      artists.each do |artist|
-        Artist.create!(
-          name: artist.name,
-          image: artist.images.empty? ? Constants::DEFAULT_IMG_URL : artist.images[0]["url"],
-          external_urls: artist.external_urls["spotify"]
-        )
-      end
+    def search_artists(artist_name:, page:)
+      where('name LIKE ?', "%#{artist_name}%").artists_list(page: page)
     end
   end
 end

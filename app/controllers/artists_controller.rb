@@ -1,35 +1,23 @@
 class ArtistsController < ApplicationController
-  before_action :set_artist, only: %i[show destroy]
-  before_action :authenticate_user!
+  include SpotifyAPI::V2::Client
 
-  def show
-    # FIXME: DBに保存済みのアルバムはspotifyに検索しないロジックになっているため、
-    #        新しく同名アーティストがspotifyに登録された場合そのアーティストをDBに保存できない
-    #        「spotifyとDB検索→比較→差分を保存」にする
-    if @artist.albums.empty?
-      artists = Artist.search_artists_from_api(artist_name: @artist.name)
-      artists.each do |artist|
-        # FIXME: マジックナンバー対応
-        Album.save_albums(albums: artist.albums(limit: 50))
-      end
-    end
-    @albums = @artist.albums.albums_list(page: params[:page])
-  end
+  before_action :authenticate_user!
+  before_action :set_artist, only: %i[destroy]
 
   def index
-    @artists = Artist.artists_list(page: params[:page])
-    if params[:artist_name]
-      # FIXME: search_artistsが2回書いてあるのは冗長かも？
-      # FIXME: DBに保存済みのアーティストはspotifyに検索しないロジックになっているため、
-      #        新しく同名アーティストがspotifyに登録された場合そのアーティストをDBに保存できない
-      #        「spotifyとDB検索→比較→差分を保存」にする
-      @artists = Artist.search_artists(artist_name: params[:artist_name]).artists_list(page: params[:page])
-      if @artists.empty?
-        artists = Artist.search_artists_from_api(artist_name: params[:artist_name])
-        Artist.save_artists(artists: artists, artist_name: params[:artist_name])
-        @artists = Artist.search_artists(artist_name: params[:artist_name]).artists_list(page: params[:page])
-      end
+    @artists = new_releases.inject([]) do |result, new_release|
+      result + new_release.artists
     end
+
+    if artist_name = params[:artist_name]
+      @artists = artists(artist_name: artist_name)
+    end
+  end
+
+  def show
+    # FIXME: 検索せずに@artistsを利用して表示できないか？
+    @artist = unique_artist(spotifies_artist_id: params[:id])
+    @albums = @artist.albums(limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API)
   end
 
   def destroy
@@ -42,7 +30,7 @@ class ArtistsController < ApplicationController
 
   private
 
-    def set_artist
-      @artist = Artist.find(params[:id])
-    end
+  def set_artist
+    @artist = Artist.find(params[:id])
+  end
 end

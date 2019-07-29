@@ -8,6 +8,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  external_urls :string(255)
+#  spotify_id    :string(255)      not null
 #
 
 require 'rails_helper'

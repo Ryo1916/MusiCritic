@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   before_action :prohibit_unspecified_users_access, only: %i[edit update]
 
   def show
-    @reviews = @user.reviews.page(params[:page]).per(Constants::REVIEWS_FOR_USRES_SHOW_PAGE)
+    @reviews = @user.reviews.reviews_list(page: params[:page])
   end
 
   def edit; end
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :avatar)
-    end
+  def user_params
+    params.require(:user).permit(:name, :email, :avatar)
+  end
 end

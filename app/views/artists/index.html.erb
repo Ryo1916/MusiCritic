@@ -9,9 +9,6 @@
 
 <div class="row no-gutter">
   <div id="artists-list">
-    <%= render @artists %>
-  </div>
-  <div class="pagination-for-artists">
-    <%= paginate @artists %>
+    <%= render partial: 'artist', collection: @artists %>
   </div>
 </div>

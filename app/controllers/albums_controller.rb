@@ -1,40 +1,30 @@
 class AlbumsController < ApplicationController
-  before_action :set_album, only: [:show, :destroy]
+  include SpotifyAPI::V2::Client
+
   before_action :authenticate_user!
+  before_action only: %i[show] do
+    save_album(spotifies_album_id: params[:id])
+  end
+  before_action :set_album, only: %i[show destroy]
 
   def index
-    @albums = Album.albums_list(page: params[:page])
-    if params[:album_name]
-      # FIXME: 二回同一内容読んでしまっているので、リファクタリングできないか考える
-      # FIXME: 同名アルバムがDBにある場合はspotifyを検索しないロジックになっているので、
-      #        新しい同名アルバムがspotifyに出た場合はDBに保存することができない
-      #        「spotifyとDB検索→比較→差分を保存」にする
-      @albums = Album.search_albums(album_name: params[:album_name], page: params[:page]).album_list(page: params[:page])
+    @albums = new_releases
 
-      # もしartistがDBに存在しない場合、albumを保存する前にAPIからデータ取得して保存する
-      if @albums.empty?
-        albums = Album.search_albums_from_api(album_name: params[:album_name])
-        albums.each do |album|
-          album.artists.each do |artist|
-            if Artist.find_by(name: artist.name).nil?
-              artists = Artist.search_artists_from_api(artist_name: artist.name)
-              Artist.save_artists(artists: artists, artist_name: artist.name)
-            end
-          end
-        end
-        Album.save_albums(albums: albums)
-        @albums = Album.search_albums(album_name: params[:album_name], page: params[:page]).album_list(page: params[:page])
-      end
+    if album_name = params[:album_name]
+      @albums = albums(album_name: album_name)
     end
   end
 
   def show
-    @album = Album.find(params[:id])
     @review = Review.new
-    @reviews = @album.reviews.order("created_at desc").page(params[:page]).per(Constants::REVIEWS_FOR_ALBUMS_SHOW_PAGE)
-    # falseの場合に@reviewsを@avg_ratingにセットすると、@reviewsにセットしたページネーションが邪魔してaverageが計算されない
-    # FIXME: マジックナンバー対応
-    @reviews.blank? ? @avg_rating = 0 : @avg_rating = @album.reviews.average(:rating).round(2)
+    @reviews = @album.reviews.reviews_list(page: params[:page])
+
+    if @reviews.blank?
+      @avg_rating = 0
+    else
+      # @reviewsを@avg_ratingにセットすると、@reviewsにセットしたページネーションが邪魔してaverageが計算されない
+      @avg_rating = @album.reviews.average(:rating).round(2)
+    end
   end
 
   def destroy
@@ -47,7 +37,42 @@ class AlbumsController < ApplicationController
 
   private
 
-    def set_album
-      @album = Album.find(params[:id])
+  def set_album
+    @album = Album.find_by(spotify_id: params[:id])
+  end
+
+  # FIXME: models配下にPOROで独自モデルを定義して、そこで保存するように変更したい
+  def save_album(spotifies_album_id:)
+    return if Album.find_by(spotify_id: spotifies_album_id)
+    unique_album = unique_album(spotifies_album_id: spotifies_album_id)
+
+    # Artistの存在チェック／保存
+    # FIXME: album.artists = []の場合、unknown artistをセットしないとダメかも
+    album_artists = unique_album.artists.map do |artist|
+      Artist.find_or_create_by(
+        name: artist.name,
+        image: artist.images.first["url"],
+        external_urls: artist.external_urls["spotify"],
+        spotify_id: artist.id
+      )
     end
+
+    saved_album = Album.create!(
+      name: unique_album.name,
+      release_date: unique_album.release_date,
+      external_urls: unique_album.external_urls["spotify"],
+      image: unique_album.images.empty? ? Constants::DEFAULT_IMG_URL : unique_album.images.first["url"],
+      spotify_id: unique_album.id,
+      artists: album_artists
+    )
+
+    unique_album.tracks.each do |track|
+      Song.create!(
+        name: track.name,
+        track_number: track.track_number,
+        preview_url: track.preview_url,
+        album_id: saved_album.id
+      )
+    end
+  end
 end

@@ -8,6 +8,7 @@
 #  album_id     :bigint(8)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  preview_url  :string(255)
 #
 
 class Song < ApplicationRecord
@@ -16,16 +17,4 @@ class Song < ApplicationRecord
 
   # Validations
   validates_presence_of :name, :track_number, :album_id
-
-  class << self
-    def save_tracks(unique_album:, album_id:)
-      unique_album.tracks.each do |track|
-        Song.create!(
-          name: track.name,
-          track_number: track.track_number,
-          album_id: album_id
-        )
-      end
-    end
-  end
 end

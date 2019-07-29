@@ -15,7 +15,8 @@ User.create!( name:                  "jimbob",
 Artist.create!(
   name: 'Unknown Artist',
   image: Constants::DEFAULT_IMG_URL,
-  external_urls: 'https://open.spotify.com/artist/74Ch11L4833kZ9VfyziR3K'
+  external_urls: 'https://open.spotify.com/artist/74Ch11L4833kZ9VfyziR3K',
+  spotify_id: ''
 )
 
 # FIXME: Use below data after fix save api data logic

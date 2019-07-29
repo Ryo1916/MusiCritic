@@ -10,18 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190717101850) do
+ActiveRecord::Schema.define(version: 20190725104105) do
 
   create_table "albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "release_date"
     t.string "external_urls"
     t.string "image"
-    t.bigint "artist_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "reviews_count", default: 0, null: false
-    t.index ["artist_id"], name: "index_albums_on_artist_id"
+    t.string "spotify_id", null: false
   end
 
   create_table "artists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -30,6 +29,17 @@ ActiveRecord::Schema.define(version: 20190717101850) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "external_urls"
+    t.string "spotify_id", null: false
+  end
+
+  create_table "artists_albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "artist_id"
+    t.integer "album_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id"], name: "index_artists_albums_on_album_id"
+    t.index ["artist_id", "album_id"], name: "index_artists_albums_on_artist_id_and_album_id", unique: true
+    t.index ["artist_id"], name: "index_artists_albums_on_artist_id"
   end
 
   create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -50,6 +60,7 @@ ActiveRecord::Schema.define(version: 20190717101850) do
     t.bigint "album_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "preview_url"
     t.index ["album_id"], name: "index_songs_on_album_id"
   end
 
@@ -83,7 +94,6 @@ ActiveRecord::Schema.define(version: 20190717101850) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "albums", "artists"
   add_foreign_key "reviews", "users"
   add_foreign_key "songs", "albums"
 end

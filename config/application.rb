@@ -15,6 +15,9 @@ module MusicReview
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    # To include apis modules in this app
+    config.autoload_paths += %W(#{config.root}/apis)
+
     # Use secrets.yml for credentials
     config.read_encrypted_secrets = true
 
