@@ -1,6 +1,6 @@
 <div class="review" style="border-bottom:solid 1px #eee;">
   <div class="user" style="margin:10px 0;">
-    <span style="margin-right:10px;"><%= image_tag review.user.avatar.thumb %></span>
+    <span style="margin-right:10px;"><%= image_tag review.user.avatar.thumb, class: 'img-circle' %></span>
     <%= review.user.name %>
   </div>
   <div class="star-rating" style="display:inline; margin-right:10px;" data-score= <%= review.rating %> ></div>
