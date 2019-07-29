@@ -23,4 +23,10 @@ class Review < ApplicationRecord
   validates :rating, presence: true,
                      numericality: { greater_than_or_equal_to: 0,
                                      less_than_or_equal_to: 5 }
+
+  class << self
+    def reviews_list(page:)
+      order("created_at desc").page(page).per(Constants::REVIEWS_FOR_ALBUMS_SHOW_PAGE)
+    end
+  end
 end
