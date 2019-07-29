@@ -17,17 +17,4 @@ class Song < ApplicationRecord
 
   # Validations
   validates_presence_of :name, :track_number, :album_id
-
-  class << self
-    def save_tracks(tracks:, album_id:)
-      tracks.each do |track|
-        Song.create!(
-          name: track.name,
-          track_number: track.track_number,
-          preview_url: track.preview_url,
-          album_id: album_id
-        )
-      end
-    end
-  end
 end
