@@ -17,9 +17,14 @@ class AlbumsController < ApplicationController
 
   def show
     @review = Review.new
-    @reviews = @album.reviews.order("created_at desc").page(params[:page]).per(Constants::REVIEWS_FOR_ALBUMS_SHOW_PAGE)
-    # falseの場合に@reviewsを@avg_ratingにセットすると、@reviewsにセットしたページネーションが邪魔してaverageが計算されない
-    @reviews.blank? ? @avg_rating = 0 : @avg_rating = @album.reviews.average(:rating).round(2)
+    @reviews = @album.reviews.reviews_list(page: params[:page])
+
+    if @reviews.blank?
+      @avg_rating = 0
+    else
+      # @reviewsを@avg_ratingにセットすると、@reviewsにセットしたページネーションが邪魔してaverageが計算されない
+      @avg_rating = @album.reviews.average(:rating).round(2)
+    end
   end
 
   def destroy
