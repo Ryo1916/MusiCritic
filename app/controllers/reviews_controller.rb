@@ -1,10 +1,11 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_review, only: %i[edit update destroy]
-
-  def edit
-    @album = Album.find(@review.album_id)
+  before_action only: %i[edit update destroy] do
+    set_album(id: @review.album_id)
   end
+
+  def edit; end
 
   def create
     @review = Review.new(review_params)
@@ -16,7 +17,7 @@ class ReviewsController < ApplicationController
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render 'albums/show' }
-        format.json { render json: @album.errors, status: :unprocessable_entity }
+        format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -24,11 +25,11 @@ class ReviewsController < ApplicationController
   def update
     respond_to do |format|
       if @review.update(review_params)
-        format.html { redirect_to request.referer, notice: 'Review was successfully updated.' }
-        format.json { render :show, status: :ok, location: @review }
+        format.html { redirect_to album_path(@spotifies_album_id), notice: 'Review was successfully updated.' }
+        format.json { render :show, status: :ok, location: @album }
       else
-        format.html { render :edit }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
+        format.html { redirect_to album_path(@spotifies_album_id), alert: 'Unsuccessfully updated.' }
+        format.json { render json: @album.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,11 +44,16 @@ class ReviewsController < ApplicationController
 
   private
 
-    def set_review
-      @review = Review.find(params[:id])
-    end
+  def set_review
+    @review = Review.find(params[:id])
+  end
 
-    def review_params
-      params.require(:review).permit(:title, :rating, :text, :user_id, :album_id)
-    end
+  def set_album(id:)
+    @spotifies_album_id = Album.find(id).spotify_id
+  end
+
+  # FIXME: reviews/_formでhidden_fieldを使わないようにする
+  def review_params
+    params.require(:review).permit(:title, :rating, :text, :user_id, :album_id)
+  end
 end
