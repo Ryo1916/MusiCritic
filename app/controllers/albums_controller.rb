@@ -11,7 +11,7 @@ class AlbumsController < ApplicationController
     @albums = new_releases
 
     if album_name = params[:album_name]
-      @albums = search_albums_from_spotify(album_name: album_name)
+      @albums = albums(album_name: album_name)
     end
   end
 
