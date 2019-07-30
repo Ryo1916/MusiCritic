@@ -42,13 +42,14 @@ class AlbumsController < ApplicationController
   end
 
   # FIXME: models配下にPOROで独自モデルを定義して、そこで保存するように変更したい
+  # FIXME: spotify側のデータ構造が変わった場合、新データとして保存されてしまう
   def save_album(spotifies_album_id:)
     return if Album.find_by(spotify_id: spotifies_album_id)
     unique_album = unique_album(spotifies_album_id: spotifies_album_id)
 
     # Artistの存在チェック／保存
-    # FIXME: album.artists = []の場合、unknown artistをセットしないとダメかも
     album_artists = unique_album.artists.map do |artist|
+      # FIXME: album.artists = []の場合、unknown artistをセットしないとダメかも
       Artist.find_or_create_by(
         name: artist.name,
         image: artist.images.first["url"],
