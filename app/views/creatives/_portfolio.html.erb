@@ -3,7 +3,7 @@
     <!-- TODO: Rspotify用クラス作成後、以下のパーシャルを使うようにする -->
     <% @most_reviewed_albums.each do |album| %>
       <div class="<%= current_page?(root_path) ? "col-lg-2 col-sm-4 col-xs-6" : "col-lg-3 col-sm-4 col-xs-6 album" %>">
-        <%= link_to album_path(album.spotify_id), class: "portfolio-box" do %>
+        <%= link_to album_path(album.spotify_id), class: "portfolio-box", ontouchstart: "" do %>
           <%= image_tag album.image, class: "img-responsive", alt: album.name %>
           <div class="portfolio-box-caption">
             <div class="portfolio-box-caption-content">
