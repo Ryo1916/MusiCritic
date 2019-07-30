@@ -37,7 +37,7 @@
             <%= link_to image_tag(album.image, class: "img-responsive", style: 'margin-right:20px;'), album_path(album.spotify_id) %>
           </div>
           <div class="col-md-9">
-            <%= render partial: 'reviews/review', collection: album.reviews %>
+            <%= render partial: 'reviews/review', collection: album.specified_user_reviews(specified_user: @user) %>
           </div>
         </div>
       <% end %>

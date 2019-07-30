@@ -20,6 +20,10 @@ class Album < ApplicationRecord
   has_many :songs, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
+  def specified_user_reviews(specified_user:)
+    self.reviews.select { |review| review.user == specified_user }
+  end
+
   # Validations
   validates_presence_of :name, :release_date, :external_urls, :image, :spotify_id
 
