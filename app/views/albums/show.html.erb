@@ -3,7 +3,7 @@
   <div class="row" style="margin-top:20px;">
     <div class="col-md-4">
       <%= image_tag @album.image, class: "img-responsive" %>
-      <div class="star-rating" style="margin-top:10px;" data-score= <%= @avg_rating %> ></div>
+      <div class="star-rating" style="margin-top:10px;" data-score= <%= @album.average_rating %> ></div>
       <em><%= "#{@album.reviews_count} reviews" %></em>
       <h3><%= @album.artists.map { |artist| artist.name }.join(' / ') %></h3>
       <span>
