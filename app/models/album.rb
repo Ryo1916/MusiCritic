@@ -30,8 +30,8 @@ class Album < ApplicationRecord
       order(name: 'ASC').page(page).per(Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
     end
 
-    def most_reviewed_albums
-      order(reviews_count: :desc).limit(Constants::ALBUMS_FOR_TOP_PAGE)
+    def most_reviewed_albums(limit:)
+      order(reviews_count: :desc).limit(limit)
     end
 
     # TODO: average_rating
