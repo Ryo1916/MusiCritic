@@ -1,6 +1,6 @@
 <%= render 'header' %>
 <%#= render 'bg_primary' %>
-<%= render 'portfolio' %>
+<%= render partial: 'portfolio', locals: { albums: @most_reviewed_albums } %>
 <%= render 'services' %>
 <%= render 'call_to_action' %>
 <%= render 'contact' %>
