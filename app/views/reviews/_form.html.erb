@@ -4,12 +4,12 @@
   <div class="form-group">
     <div class="field">
       <%= form.label :title %>
-      <%= form.text_field :title, id: :review_title, class: "form-control" %>
+      <%= form.text_field :title, id: :review_title, class: "form-control", placeholder: "What's most important to know?" %>
     </div>
 
     <div class="field">
       <%= form.label :text %>
-      <%= form.text_area :text, id: :review_text, class: "form-control", style: "height:200px;" %>
+      <%= form.text_area :text, id: :review_text, class: "form-control", style: "height:200px;", placeholder: "What did you like or dislike?" %>
     </div>
 
     <div class="field" id="star-rating-<%= id %>">
