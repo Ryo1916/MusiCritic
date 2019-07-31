@@ -5,7 +5,7 @@ class ArtistsController < ApplicationController
   before_action :set_artist, only: %i[destroy]
 
   def index
-    @artists = new_releases.inject([]) do |result, new_release|
+    @artists = new_releases(limit: Constants::NEW_RELEASE_ALBUMS).inject([]) do |result, new_release|
       result + new_release.artists
     end
 

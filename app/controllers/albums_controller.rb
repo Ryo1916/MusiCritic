@@ -8,7 +8,7 @@ class AlbumsController < ApplicationController
   before_action :set_album, only: %i[show destroy]
 
   def index
-    @albums = new_releases
+    @albums = new_releases(limit: Constants::NEW_RELEASE_ALBUMS)
 
     if album_name = params[:album_name]
       @albums = albums(album_name: album_name)
