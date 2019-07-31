@@ -20,6 +20,7 @@ class Album < ApplicationRecord
   has_many :songs, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
+  attr_accessor :average_rating
 
   # Validations
   validates_presence_of :name, :release_date, :external_urls, :image, :spotify_id
@@ -40,5 +41,10 @@ class Album < ApplicationRecord
 
   def specified_user_reviews(specified_user:)
     self.reviews.select { |review| review.user == specified_user }
+  end
+
+  # average_ratingカラムからaverage_ratingを取得できるようにするまでの暫定処置
+  def set_average_rating
+    self.reviews.blank? ? self.average_rating = 0  : self.average_rating = self.reviews.average(:rating).round(2)
   end
 end
