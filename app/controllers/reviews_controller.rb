@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  include Common
+
   before_action :authenticate_user!
   before_action :set_review, only: %i[edit update destroy]
   before_action only: %i[edit update destroy] do

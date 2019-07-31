@@ -1,4 +1,5 @@
 class AlbumsController < ApplicationController
+  include Common
   include SpotifyAPI::V2::Client
 
   before_action :authenticate_user!
