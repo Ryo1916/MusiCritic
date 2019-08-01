@@ -38,7 +38,23 @@
       <% end %>
     </div>
   </div>
-  <!-- TODO: related_albums表示 -->
+  <hr>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-body text-center">
+        <h4>New Releases</h4>
+        <%= render partial: 'album', collection: @new_releases %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-body text-center">
+        <h4>Top Reviewed Albums</h4>
+        <%= render partial: 'persisted_album', collection: @top_reviewed_albums %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
