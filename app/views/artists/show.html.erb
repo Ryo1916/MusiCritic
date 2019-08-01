@@ -10,7 +10,7 @@
         <% end %>
       </p>
       <% @artist.genres.each do |genre| %>
-        <span class="label label-info"><%= genre %></span>
+        <span class="badge"><%= genre.capitalize %></span>
       <% end %>
     </div>
 
