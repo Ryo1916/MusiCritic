@@ -29,6 +29,18 @@ module MusicReview
       %Q(#{html_tag}).html_safe
     end
 
+    # Don't generate routes, system test files, stylesheets, javascripts.
+    config.generators do |g|
+      g.skip_routes false
+      g.stylesheets false
+      g.javascripts false
+      g.system_tests false
+      g.test_framework :rspec,
+                       fixtures: false,
+                       view_specs: false,
+                       routing_specs: false
+    end
+
     # Auth for rspotify
     RSpotify.authenticate(
       Rails.application.secrets.spotify_api_key,
