@@ -5,9 +5,9 @@ class ArtistsController < ApplicationController
   before_action :set_artist, only: %i[destroy]
 
   def index
-    @artists = new_releases(limit: Constants::NEW_RELEASE_ALBUMS).inject([]) do |result, new_release|
-      result + new_release.artists
-    end
+    @top_reviewed_artists = Album
+      .most_reviewed_albums(limit: Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)
+      .inject([]) { |result, album| result + album.artists }.uniq
 
     if artist_name = params[:artist_name]
       @artists = artists(artist_name: artist_name)
@@ -15,11 +15,26 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    # FIXME: 検索せずに@artistsを利用して表示できないか？
     @artist = unique_artist(spotifies_artist_id: params[:id])
-    @albums = @artist.albums(limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API, offset: 0, album_type: 'album')
-    @singles = @artist.albums(limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API, offset: 0, album_type: 'single')
-    @compilations = @artist.albums(limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API, offset: 0, album_type: 'compilation')
+    @albums = @artist.albums(
+      limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API,
+      offset: 0,
+      album_type: 'album'
+    )
+    @singles = @artist.albums(
+      limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API,
+      offset: 0,
+      album_type: 'single'
+    )
+    @compilations = @artist.albums(
+      limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API,
+      offset: 0,
+      album_type: 'compilation'
+    )
+    @related_artists = @artist.related_artists[0..7]
+    @top_reviewed_artists = Album
+      .most_reviewed_albums(limit: Constants::ARTISTS_FOR_ARTISTS_SHOW_PAGE)
+      .inject([]) { |result, album| result + album.artists }.uniq
   end
 
   def destroy
