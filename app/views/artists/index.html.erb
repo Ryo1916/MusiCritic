@@ -8,7 +8,22 @@
 <hr>
 
 <div class="row no-gutter">
-  <div id="artists-list">
-    <%= render partial: 'artist', collection: @artists %>
+  <div id="albums-list">
+    <% if @artists.present? %>
+      <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <h4>Results of <%= params[:artist_name] %></h4>
+          <%= render partial: 'artist', collection: @artists %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-body text-center">
+      <h4>Top Reviewed Artists</h4>
+      <%= render partial: 'persisted_artist', collection: @top_reviewed_artists %>
+    </div>
   </div>
 </div>

@@ -15,6 +15,9 @@ module MusicReview
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    # Set default time zone
+    config.time_zone = 'Tokyo'
+
     # To include apis modules in this app
     config.autoload_paths += %W(#{config.root}/apis)
 
@@ -24,6 +27,18 @@ module MusicReview
     # Not to display <div class="field_with_errors">
     config.action_view.field_error_proc = Proc.new do |html_tag, instance|
       %Q(#{html_tag}).html_safe
+    end
+
+    # Don't generate routes, system test files, stylesheets, javascripts.
+    config.generators do |g|
+      g.skip_routes false
+      g.stylesheets false
+      g.javascripts false
+      g.system_tests false
+      g.test_framework :rspec,
+                       fixtures: false,
+                       view_specs: false,
+                       routing_specs: false
     end
 
     # Auth for rspotify

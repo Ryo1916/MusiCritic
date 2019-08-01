@@ -1,4 +1,5 @@
 class AlbumsController < ApplicationController
+  include Common
   include SpotifyAPI::V2::Client
 
   before_action :authenticate_user!
@@ -6,10 +7,13 @@ class AlbumsController < ApplicationController
     save_album(spotifies_album_id: params[:id])
   end
   before_action :set_album, only: %i[show destroy]
+  before_action only: %i[show] do
+    set_average_rating(album: @album)
+  end
 
   def index
-    @albums = new_releases
-
+    @new_releases = new_releases(limit: Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
+    @top_reviewed_albums = Album.most_reviewed_albums(limit: Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
     if album_name = params[:album_name]
       @albums = albums(album_name: album_name)
     end
@@ -18,13 +22,8 @@ class AlbumsController < ApplicationController
   def show
     @review = Review.new
     @reviews = @album.reviews.reviews_list(page: params[:page])
-
-    if @reviews.blank?
-      @avg_rating = 0
-    else
-      # @reviewsを@avg_ratingにセットすると、@reviewsにセットしたページネーションが邪魔してaverageが計算されない
-      @avg_rating = @album.reviews.average(:rating).round(2)
-    end
+    @new_releases = new_releases(limit: Constants::ALBUMS_FOR_ALBUMS_SHOW_PAGE)
+    @top_reviewed_albums = Album.most_reviewed_albums(limit: Constants::ALBUMS_FOR_ALBUMS_SHOW_PAGE)
   end
 
   def destroy
@@ -42,13 +41,14 @@ class AlbumsController < ApplicationController
   end
 
   # FIXME: models配下にPOROで独自モデルを定義して、そこで保存するように変更したい
+  # FIXME: spotify側のデータ構造が変わった場合、新データとして保存されてしまう
   def save_album(spotifies_album_id:)
     return if Album.find_by(spotify_id: spotifies_album_id)
     unique_album = unique_album(spotifies_album_id: spotifies_album_id)
 
     # Artistの存在チェック／保存
-    # FIXME: album.artists = []の場合、unknown artistをセットしないとダメかも
     album_artists = unique_album.artists.map do |artist|
+      # FIXME: album.artists = []の場合、unknown artistをセットしないとダメかも
       Artist.find_or_create_by(
         name: artist.name,
         image: artist.images.first["url"],

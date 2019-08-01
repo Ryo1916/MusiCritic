@@ -1,0 +1,14 @@
+<div class="col-lg-3 col-sm-6 artist">
+  <%= link_to artist_path(persisted_artist.spotify_id), class: "portfolio-box", ontouchstart: "" do %>
+    <div class="image">
+      <%= image_tag persisted_artist.image.empty? ? Constants::DEFAULT_IMG_URL : persisted_artist.image, class: "img-responsive", alt: persisted_artist.name %>
+    </div>
+    <div class="portfolio-box-caption">
+      <div class="portfolio-box-caption-content">
+        <div class="project-category text-faded">
+          <h4><%= persisted_artist.name %></h4>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

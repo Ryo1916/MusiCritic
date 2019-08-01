@@ -3,13 +3,16 @@
   <div class="row" style="margin-top:20px;">
     <div class="col-md-4">
       <%= image_tag @album.image, class: "img-responsive" %>
-      <div class="star-rating" style="margin-top:10px;" data-score= <%= @avg_rating %> ></div>
+      <div class="star-rating" style="margin-top:10px;" data-score= <%= @album.average_rating %> ></div>
       <em><%= "#{@album.reviews_count} reviews" %></em>
-      <h3><%= @album.artists.map { |artist| artist.name }.join(' / ') %></h3>
+      <h3><%== @album.artists.map { |artist| link_to artist.name, artist_path(artist.spotify_id) }.join(' / ') %></h3>
       <span>
         <h4 style="display:inline;"><%= @album.name %></h4>
         <p style="display:inline; float:right;"><%= @album.release_date %></p>
       </span>
+      <p style="margin-top:10px;">
+        <%= link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank' %>
+      </p>
 
       <table class="table bordered-table">
         <tbody>
@@ -33,6 +36,23 @@
         <%= render partial: 'reviews/review', collection: @reviews %>
         <%= paginate @reviews %>
       <% end %>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-body text-center">
+        <h4>New Releases</h4>
+        <%= render partial: 'album', collection: @new_releases %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-body text-center">
+        <h4>Top Reviewed Albums</h4>
+        <%= render partial: 'persisted_album', collection: @top_reviewed_albums %>
+      </div>
     </div>
   </div>
 </div>

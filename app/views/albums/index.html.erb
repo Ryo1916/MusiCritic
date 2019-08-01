@@ -9,6 +9,27 @@
 
 <div class="row no-gutter">
   <div id="albums-list">
-    <%= render partial: 'album', collection: @albums %>
+    <% if @albums.present? %>
+      <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <h4>Results of <%= params[:album_name] %></h4>
+          <%= render partial: 'album', collection: @albums %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-body text-center">
+      <h4>New Releases</h4>
+      <%= render partial: 'album', collection: @new_releases %>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-body text-center">
+      <h4>Top Reviewed Albums</h4>
+      <%= render partial: 'persisted_album', collection: @top_reviewed_albums %>
+    </div>
   </div>
 </div>

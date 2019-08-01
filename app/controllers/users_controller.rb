@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include Common
+  include SpotifyAPI::V2::Client
 
   before_action :authenticate_user!
   before_action except: %i[index] do
@@ -9,6 +10,8 @@ class UsersController < ApplicationController
 
   def show
     @reviews = @user.reviews.reviews_list(page: params[:page])
+    @new_released_albums = new_releases(limit: Constants::NEW_RELEASE_ALBUMS_FOR_INSTRUCTIONS)
+    @most_reviewed_albums = Album.most_reviewed_albums(limit: Constants::ALBUMS_FOR_INSTRUCTIONS)
   end
 
   def edit; end
