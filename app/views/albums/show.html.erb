@@ -5,7 +5,7 @@
       <%= image_tag @album.image, class: "img-responsive" %>
       <div class="star-rating" style="margin-top:10px;" data-score= <%= @album.average_rating %> ></div>
       <em><%= "#{@album.reviews_count} reviews" %></em>
-      <h3><%= @album.artists.map { |artist| artist.name }.join(' / ') %></h3>
+      <h3><%== @album.artists.map { |artist| link_to artist.name, artist_path(artist.spotify_id) }.join(' / ') %></h3>
       <span>
         <h4 style="display:inline;"><%= @album.name %></h4>
         <p style="display:inline; float:right;"><%= @album.release_date %></p>
@@ -35,6 +35,7 @@
       <% end %>
     </div>
   </div>
+  <!-- TODO: related_albums表示 -->
 </div>
 
 <script>
