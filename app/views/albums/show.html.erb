@@ -11,7 +11,7 @@
         <p style="display:inline; float:right;"><%= @album.release_date %></p>
       </p>
       <p style="margin-top:10px;">
-        <%= link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank' %>
+        <%= link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls, class: 'btn btn-success btn-block', target: '_blank' %>
       </p>
 
       <table class="table bordered-table">
