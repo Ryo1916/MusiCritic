@@ -6,10 +6,10 @@
       <div class="star-rating" style="margin-top:10px;" data-score= <%= @album.average_rating %> ></div>
       <em><%= "#{@album.reviews_count} reviews" %></em>
       <h3><%== @album.artists.map { |artist| link_to artist.name, artist_path(artist.spotify_id) }.join(' / ') %></h3>
-      <span>
+      <p>
         <h4 style="display:inline;"><%= @album.name %></h4>
         <p style="display:inline; float:right;"><%= @album.release_date %></p>
-      </span>
+      </p>
       <p style="margin-top:10px;">
         <%= link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank' %>
       </p>
