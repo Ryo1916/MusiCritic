@@ -15,7 +15,7 @@
     <%= render partial: "creatives/navbar" %>
     <!-- FIXME: トップページでアラート表示されたときの余分なスペース削除 -->
     <% unless notice.blank? %>
-      <p class="notice alert alert-success text-center" role="alert" style="<%= current_page?(root_path) ? "margin-top:50px;" : "margin:50px 0 -60px 0;" %>"><%= notice %></p>
+      <p class="notice alert alert-success text-center" role="alert" style="<%= current_page?(root_path) ? "margin:50px 0 0 0 ;" : "margin:50px 0 -60px 0;" %>"><%= notice %></p>
     <% end %>
     <% unless alert.blank? %>
       <p class="alert alert-danger text-center" role="alert" style="margin:50px 0 -60px 0;"><%= alert %></p>
