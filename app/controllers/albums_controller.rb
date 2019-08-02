@@ -22,7 +22,7 @@ class AlbumsController < ApplicationController
   def show
     @review = Review.new
     @reviews = @album.reviews.reviews_list(page: params[:page])
-    @new_releases = new_releases(limit: Constants::ALBUMS_FOR_ALBUMS_SHOW_PAGE)
+    @artists = unique_album(spotifies_album_id: @album.spotify_id).artists
     @top_reviewed_albums = Album.most_reviewed_albums(limit: Constants::ALBUMS_FOR_ALBUMS_SHOW_PAGE)
   end
 

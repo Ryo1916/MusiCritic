@@ -39,14 +39,16 @@
     </div>
   </div>
   <hr>
-  <div class="row">
-    <div class="panel panel-default">
-      <div class="panel-body text-center">
-        <h4>New Releases</h4>
-        <%= render partial: 'album', collection: @new_releases %>
+  <% @artists.each do |artist| %>
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <h4>More by <%= artist.name %></h4>
+          <%= render partial: 'album', collection: artist.albums %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-body text-center">
