@@ -52,8 +52,8 @@
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-body text-center">
-        <h4>Top Reviewed Albums</h4>
-        <%= render partial: 'albums/persisted_album', collection: @top_reviewed_albums.select { |album| album.spotify_id != @album.spotify_id } %>
+        <h4>Top Rating Albums</h4>
+        <%= render partial: 'albums/persisted_album', collection: @top_rating_albums.select { |album| album.spotify_id != @album.spotify_id } %>
       </div>
     </div>
   </div>

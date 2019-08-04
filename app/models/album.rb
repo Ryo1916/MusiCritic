@@ -37,10 +37,9 @@ class Album < ApplicationRecord
       order(reviews_count: :desc).limit(limit)
     end
 
-    # TODO: average_rating
-    # def top_ratings
-    #   order(avarage_rating: :desc).limit(12)
-    # end
+    def top_ratings(limit:)
+      order(average_rating: :desc).limit(limit)
+    end
 
     def search_albums(album_name:)
       where('name LIKE ?', "%#{album_name}%")
