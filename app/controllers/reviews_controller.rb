@@ -4,12 +4,8 @@ class ReviewsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_review, only: %i[edit update destroy]
-  before_action :set_new_review, only: %i[create]
-  before_action only: %i[edit create update destroy] do
+  before_action only: %i[edit update destroy] do
     set_album(id: @review.album_id)
-  end
-  before_action only: %i[edit create update destory] do
-    set_average_rating(album: @album)
   end
 
   def edit; end
