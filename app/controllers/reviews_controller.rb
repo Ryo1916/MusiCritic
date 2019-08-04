@@ -17,12 +17,8 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       if @review.save
         format.html { redirect_to album_path(@album.spotify_id), notice: 'Review was successfully created.' }
-        format.json { render :show, status: :created, location: @album }
       else
-        set_instances_for_albums_show_page  # for render
-        set_average_rating(album: @album)   # for render
-        format.html { render 'albums/show' }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -31,10 +27,8 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       if @review.update(review_params)
         format.html { redirect_to request.referer, notice: 'Review was successfully updated.' }
-        format.json { render :show, status: :ok, location: @album }
       else
-        format.html { redirect_to request.referer, alert: 'Unsuccessfully updated.' }
-        format.json { render json: @album.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
