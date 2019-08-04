@@ -2,15 +2,16 @@
 #
 # Table name: albums
 #
-#  id            :bigint(8)        not null, primary key
-#  name          :string(255)
-#  release_date  :string(255)
-#  external_urls :string(255)
-#  image         :string(255)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  reviews_count :integer          default(0), not null
-#  spotify_id    :string(255)      not null
+#  id             :bigint(8)        not null, primary key
+#  name           :string(255)
+#  release_date   :string(255)
+#  external_urls  :string(255)
+#  image          :string(255)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  reviews_count  :integer          default(0), not null
+#  average_rating :float(24)        default(0.0), not null
+#  spotify_id     :string(255)      not null
 #
 
 require 'rails_helper'

@@ -54,6 +54,7 @@ $(document).on('turbolinks:load', function() {
     readURL(this);
   });
 
+  // infinite scroll for artists and albums index page
   var path = window.location.pathname;
   if (path == '/artists') {
     $('#artists-list').infiniteScroll({

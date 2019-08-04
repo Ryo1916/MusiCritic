@@ -6,12 +6,12 @@
       <div class="star-rating" style="margin-top:10px;" data-score= <%= @album.average_rating %> ></div>
       <em><%= "#{@album.reviews_count} reviews" %></em>
       <h3><%== @album.artists.map { |artist| link_to artist.name, artist_path(artist.spotify_id) }.join(' / ') %></h3>
-      <span>
+      <p>
         <h4 style="display:inline;"><%= @album.name %></h4>
         <p style="display:inline; float:right;"><%= @album.release_date %></p>
-      </span>
+      </p>
       <p style="margin-top:10px;">
-        <%= link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank' %>
+        <%= link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls, class: 'btn btn-success btn-block', target: '_blank' %>
       </p>
 
       <table class="table bordered-table">
@@ -39,19 +39,21 @@
     </div>
   </div>
   <hr>
-  <div class="row">
-    <div class="panel panel-default">
-      <div class="panel-body text-center">
-        <h4>New Releases</h4>
-        <%= render partial: 'album', collection: @new_releases %>
+  <% @artists.each do |artist| %>
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <h4>More by <%= artist.name %></h4>
+          <%= render partial: 'albums/album', collection: artist.albums.select { |album| album.id != @album.spotify_id } %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-body text-center">
-        <h4>Top Reviewed Albums</h4>
-        <%= render partial: 'persisted_album', collection: @top_reviewed_albums %>
+        <h4>Top Rating Albums</h4>
+        <%= render partial: 'albums/persisted_album', collection: @top_rating_albums.select { |album| album.spotify_id != @album.spotify_id } %>
       </div>
     </div>
   </div>

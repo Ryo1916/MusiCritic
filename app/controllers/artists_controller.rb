@@ -3,12 +3,9 @@ class ArtistsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_artist, only: %i[destroy]
+  before_action :set_top_rating_albums, only: %i[index show]
 
   def index
-    @top_reviewed_artists = Album
-      .most_reviewed_albums(limit: Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)
-      .inject([]) { |result, album| result + album.artists }.uniq
-
     if artist_name = params[:artist_name]
       @artists = artists(artist_name: artist_name)
     end
@@ -32,16 +29,12 @@ class ArtistsController < ApplicationController
       album_type: 'compilation'
     )
     @related_artists = @artist.related_artists[0..7]
-    @top_reviewed_artists = Album
-      .most_reviewed_albums(limit: Constants::ARTISTS_FOR_ARTISTS_SHOW_PAGE)
-      .inject([]) { |result, album| result + album.artists }.uniq
   end
 
   def destroy
     @artist.destroy
     respond_to do |format|
       format.html { redirect_to artists_url, notice: 'Artist was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -49,5 +42,11 @@ class ArtistsController < ApplicationController
 
   def set_artist
     @artist = Artist.find(params[:id])
+  end
+
+  def set_top_rating_artists
+    @top_rating_artists = Album
+      .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
+      .inject([]) { |result, album| result + album.artists }.uniq
   end
 end

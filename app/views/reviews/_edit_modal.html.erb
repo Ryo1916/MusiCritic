@@ -5,6 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Edit review</h4>
       </div>
+      <span id="error-messages-for-update"></span>
       <div class="modal-body">
         <%= render 'reviews/form', review: review, album: review.album, id: review.id %>
       </div>

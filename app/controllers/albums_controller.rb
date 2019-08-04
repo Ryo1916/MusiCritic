@@ -7,13 +7,10 @@ class AlbumsController < ApplicationController
     save_album(spotifies_album_id: params[:id])
   end
   before_action :set_album, only: %i[show destroy]
-  before_action only: %i[show] do
-    set_average_rating(album: @album)
-  end
+  before_action :set_top_rating_albums, only: %i[index show]
 
   def index
-    @new_releases = new_releases(limit: Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
-    @top_reviewed_albums = Album.most_reviewed_albums(limit: Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
+    @new_releases = new_releases(limit: Constants::NEW_RELEASE_ALBUMS)
     if album_name = params[:album_name]
       @albums = albums(album_name: album_name)
     end
@@ -22,15 +19,13 @@ class AlbumsController < ApplicationController
   def show
     @review = Review.new
     @reviews = @album.reviews.reviews_list(page: params[:page])
-    @new_releases = new_releases(limit: Constants::ALBUMS_FOR_ALBUMS_SHOW_PAGE)
-    @top_reviewed_albums = Album.most_reviewed_albums(limit: Constants::ALBUMS_FOR_ALBUMS_SHOW_PAGE)
+    @artists = unique_album(spotifies_album_id: @album.spotify_id).artists
   end
 
   def destroy
     @album.destroy
     respond_to do |format|
       format.html { redirect_to albums_url, notice: 'Album was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -38,6 +33,10 @@ class AlbumsController < ApplicationController
 
   def set_album
     @album = Album.find_by(spotify_id: params[:id])
+  end
+
+  def set_top_rating_albums
+    @top_rating_albums = Album.top_ratings(limit: Constants::TOP_RATING_ALBUMS)
   end
 
   # FIXME: models配下にPOROで独自モデルを定義して、そこで保存するように変更したい

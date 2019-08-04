@@ -1,5 +1,6 @@
 <%= form_with(model: review, class: 'review') do |form| %>
   <%= devise_error_messages!(resource: review) %>
+  <span id="error-messages-for-create"></span>
 
   <div class="form-group">
     <div class="field">
@@ -12,13 +13,12 @@
       <%= form.text_area :text, id: :review_text, class: "form-control", style: "height:200px;", placeholder: "What did you like or dislike?" %>
     </div>
 
-    <div class="field" id="star-rating-<%= id %>">
+    <div class="field" id="star-rating-<%= id %>" data-score="<%= review.rating %>">
       <%= form.label :rating %>
       <%= form.hidden_field :rating, id: :review_rating %>
     </div>
 
     <div class="field">
-      <%= form.hidden_field :user_id, id: :review_user_id, value: current_user.id, class: "form-control" %>
       <%= form.hidden_field :album_id, id: :review_album_id, value: album.id, class: "form-control" %>
     </div>
 
@@ -33,6 +33,9 @@
     path: '/assets/',
     half: true,
     size: 6,
-    scoreName: 'review[rating]'
+    scoreName: 'review[rating]',
+    score: function() {
+      return $(this).attr('data-score');
+    }
   });
 </script>

@@ -10,8 +10,9 @@ class UsersController < ApplicationController
 
   def show
     @reviews = @user.reviews.reviews_list(page: params[:page])
+    @user_reviewed_albums = @user.user_reviewed_albums
     @new_released_albums = new_releases(limit: Constants::NEW_RELEASE_ALBUMS_FOR_INSTRUCTIONS)
-    @most_reviewed_albums = Album.most_reviewed_albums(limit: Constants::ALBUMS_FOR_INSTRUCTIONS)
+    @top_rating_albums = Album.top_ratings(limit: Constants::ALBUMS_FOR_INSTRUCTIONS)
   end
 
   def edit; end

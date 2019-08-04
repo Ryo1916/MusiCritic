@@ -7,10 +7,6 @@ module Common
     @user = User.find(user_id)
   end
 
-  def set_average_rating(album:)
-    album.set_average_rating
-  end
-
   def prohibit_unspecified_users_access
     redirect_to current_user if current_user != @user
   end

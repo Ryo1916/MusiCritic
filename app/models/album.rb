@@ -2,15 +2,16 @@
 #
 # Table name: albums
 #
-#  id            :bigint(8)        not null, primary key
-#  name          :string(255)
-#  release_date  :string(255)
-#  external_urls :string(255)
-#  image         :string(255)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  reviews_count :integer          default(0), not null
-#  spotify_id    :string(255)      not null
+#  id             :bigint(8)        not null, primary key
+#  name           :string(255)
+#  release_date   :string(255)
+#  external_urls  :string(255)
+#  image          :string(255)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  reviews_count  :integer          default(0), not null
+#  average_rating :float(24)        default(0.0), not null
+#  spotify_id     :string(255)      not null
 #
 
 class Album < ApplicationRecord
@@ -20,24 +21,25 @@ class Album < ApplicationRecord
   has_many :songs, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
-  attr_accessor :average_rating
-
   # Validations
   validates_presence_of :name, :release_date, :external_urls, :image, :spotify_id
 
   class << self
+    def pagination(page:)
+      page(page).per(Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)
+    end
+
     def albums_list(page:)
-      order(name: 'ASC').page(page).per(Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
+      order(name: 'ASC').pagination(page: page)
     end
 
     def most_reviewed_albums(limit:)
       order(reviews_count: :desc).limit(limit)
     end
 
-    # TODO: average_rating
-    # def top_ratings
-    #   order(avarage_rating: :desc).limit(12)
-    # end
+    def top_ratings(limit:)
+      order(average_rating: :desc).limit(limit)
+    end
 
     def search_albums(album_name:)
       where('name LIKE ?', "%#{album_name}%")
@@ -48,8 +50,7 @@ class Album < ApplicationRecord
     self.reviews.select { |review| review.user == specified_user }
   end
 
-  # average_ratingカラムからaverage_ratingを取得できるようにするまでの暫定処置
-  def set_average_rating
-    self.reviews.blank? ? self.average_rating = 0  : self.average_rating = self.reviews.average(:rating).round(2)
+  def update_average_rating
+    update_attributes(average_rating: self.reviews.average(:rating).round(2))
   end
 end
