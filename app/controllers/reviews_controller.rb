@@ -30,10 +30,10 @@ class ReviewsController < ApplicationController
   def update
     respond_to do |format|
       if @review.update(review_params)
-        format.html { redirect_to album_path(@album.spotify_id), notice: 'Review was successfully updated.' }
+        format.html { redirect_to request.referer, notice: 'Review was successfully updated.' }
         format.json { render :show, status: :ok, location: @album }
       else
-        format.html { redirect_to album_path(@album.spotify_id), alert: 'Unsuccessfully updated.' }
+        format.html { redirect_to request.referer, alert: 'Unsuccessfully updated.' }
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end
     end
