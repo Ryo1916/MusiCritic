@@ -1,6 +1,5 @@
 class ReviewsController < ApplicationController
   include Common
-  include SpotifyAPI::V2::Client
 
   before_action :authenticate_user!
   before_action :set_review, only: %i[edit update destroy]
