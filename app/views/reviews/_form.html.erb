@@ -1,5 +1,6 @@
 <%= form_with(model: review, class: 'review') do |form| %>
   <%= devise_error_messages!(resource: review) %>
+  <span id="error-messages-for-create"></span>
 
   <div class="form-group">
     <div class="field">
