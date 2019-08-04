@@ -13,7 +13,7 @@
       <%= form.text_area :text, id: :review_text, class: "form-control", style: "height:200px;", placeholder: "What did you like or dislike?" %>
     </div>
 
-    <div class="field" id="star-rating-<%= id %>">
+    <div class="field" id="star-rating-<%= id %>" data-score="<%= review.rating %>">
       <%= form.label :rating %>
       <%= form.hidden_field :rating, id: :review_rating %>
     </div>
@@ -33,6 +33,9 @@
     path: '/assets/',
     half: true,
     size: 6,
-    scoreName: 'review[rating]'
+    scoreName: 'review[rating]',
+    score: function() {
+      return $(this).attr('data-score');
+    }
   });
 </script>
