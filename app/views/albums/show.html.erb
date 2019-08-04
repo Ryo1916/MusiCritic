@@ -44,7 +44,7 @@
       <div class="panel panel-default">
         <div class="panel-body text-center">
           <h4>More by <%= artist.name %></h4>
-          <%= render partial: 'album', collection: artist.albums %>
+          <%= render partial: 'albums/album', collection: artist.albums.select { |album| album.id != @album.spotify_id } %>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
     <div class="panel panel-default">
       <div class="panel-body text-center">
         <h4>Top Reviewed Albums</h4>
-        <%= render partial: 'persisted_album', collection: @top_reviewed_albums %>
+        <%= render partial: 'albums/persisted_album', collection: @top_reviewed_albums.select { |album| album.spotify_id != @album.spotify_id } %>
       </div>
     </div>
   </div>
