@@ -26,8 +26,12 @@ class Album < ApplicationRecord
   validates_presence_of :name, :release_date, :external_urls, :image, :spotify_id
 
   class << self
+    def pagination(page:)
+      page(page).per(Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)
+    end
+
     def albums_list(page:)
-      order(name: 'ASC').page(page).per(Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
+      order(name: 'ASC').pagination(page: page)
     end
 
     def most_reviewed_albums(limit:)
