@@ -21,9 +21,7 @@ class AlbumsController < ApplicationController
 
   def show
     @review = Review.new
-    @reviews = @album.reviews.reviews_list(page: params[:page])
-    @artists = unique_album(spotifies_album_id: @album.spotify_id).artists
-    @top_reviewed_albums = Album.most_reviewed_albums(limit: Constants::ALBUMS_FOR_ALBUMS_SHOW_PAGE)
+    set_instances_for_albums_show_page
   end
 
   def destroy

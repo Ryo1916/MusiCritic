@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   include Common
+  include SpotifyAPI::V2::Client
 
   before_action :authenticate_user!
   before_action :set_review, only: %i[edit update destroy]
@@ -19,6 +20,8 @@ class ReviewsController < ApplicationController
         format.html { redirect_to album_path(@album.spotify_id), notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @album }
       else
+        set_instances_for_albums_show_page  # for render
+        set_average_rating(album: @album)   # for render
         format.html { render 'albums/show' }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
