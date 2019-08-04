@@ -7,9 +7,6 @@ class AlbumsController < ApplicationController
     save_album(spotifies_album_id: params[:id])
   end
   before_action :set_album, only: %i[show destroy]
-  before_action only: %i[show] do
-    set_average_rating(album: @album)
-  end
 
   def index
     @new_releases = new_releases(limit: Constants::ALBUMS_FOR_ALBUMS_INDEX_PAGE)
