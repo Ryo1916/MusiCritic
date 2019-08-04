@@ -34,6 +34,45 @@ $(document).ready(function(){
       alert('Maximum file size is 5MB. Please choose a smaller file.');
     }
   });
+
+  // validation for review form
+  $('#review_form').submit(function(){
+    const VALID_TITLE_AND_TEXT_REGEX_TO_START_ALPHABET = /^[\w]+/;
+    const VALID_TITLE_AND_TEXT_REGEX = /[a-zA-Z\d\W\S]*$/
+    var title = $('#review_title').val();
+    var text = $('#review_text').val();
+
+    if (title == "" || text == "") {
+      if (title == "") {
+        $('#title_error').text("* Please enter some title.");
+        $('#title_error').show();
+      }
+      if (text == "") {
+        $('#text_error').text("* Please enter some text.");
+        $('#text_error').show();
+      }
+      return false;
+    } else if (!VALID_TITLE_AND_TEXT_REGEX_TO_START_ALPHABET.test(title) || !VALID_TITLE_AND_TEXT_REGEX_TO_START_ALPHABET.test(text)){
+      if (!VALID_TITLE_AND_TEXT_REGEX_TO_START_ALPHABET.test(title)) {
+        $('#title_error').text("* You should start from alphabet.");
+        $('#title_error').show();
+      }
+      if (!VALID_TITLE_AND_TEXT_REGEX_TO_START_ALPHABET.test(text)) {
+        $('#text_error').text("* You should start from alphabet.");
+        $('#text_error').show();
+      }
+      return false;
+    } else if (!VALID_TITLE_AND_TEXT_REGEX.test(title) || !VALID_TITLE_AND_TEXT_REGEX.test(text)) {
+      if (!VALID_TITLE_AND_TEXT_REGEX.test(title)) {
+        $('#title_error').text("* Only can use alphabet, numbers and some symbols.");
+        $('#title_error').show();
+      }
+      if (!VALID_TITLE_AND_TEXT_REGEX.test(text)) {
+        $('#text_error').text("* Only can use alphabet, numbers and some symbols.");
+        $('#text_error').show();
+      }
+    }
+  });
 });
 
 $(document).on('turbolinks:load', function() {
