@@ -11,6 +11,9 @@ class ReviewsController < ApplicationController
   def edit; end
 
   def create
+    @review = current_user.reviews.new(review_params)
+    @album = Album.find(@review.album_id)
+
     respond_to do |format|
       if @review.save
         format.html { redirect_to album_path(@album.spotify_id), notice: 'Review was successfully created.' }
