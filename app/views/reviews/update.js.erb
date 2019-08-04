@@ -7,7 +7,7 @@ $('#error-messages-for-update').append(
     '<ul class="error_msg">' +
       '<% @review.errors.full_messages.each do |message| %>' +
         '<li class="notice">' +
-          '<%= escape_javascript(message) %>' +
+          '<%= j(message) %>' +
         '</li>' +
       '<% end %>' +
     '</ul>' +
