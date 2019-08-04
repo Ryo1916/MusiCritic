@@ -53,15 +53,10 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
   end
 
-  def set_new_review
-    @review = Review.new(review_params)
-  end
-
   def set_album(id:)
     @album = Album.find(id)
   end
 
-  # FIXME: reviews/_formでhidden_fieldを使わないようにする
   def review_params
     params.require(:review).permit(:title, :rating, :text, :user_id, :album_id)
   end
