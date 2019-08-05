@@ -12,7 +12,14 @@ class AlbumsController < ApplicationController
   def index
     @new_releases = new_releases(limit: Constants::NEW_RELEASE_ALBUMS)
     if album_name = params[:album_name]
-      @albums = albums(album_name: album_name)
+      if album_name.present?
+        @albums = albums(album_name: album_name)
+      else
+        respond_to do |format|
+          format.html { render :index }
+          flash.now[:alert] = 'Please enter album name.'
+        end
+      end
     end
   end
 

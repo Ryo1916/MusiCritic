@@ -7,7 +7,14 @@ class ArtistsController < ApplicationController
 
   def index
     if artist_name = params[:artist_name]
-      @artists = artists(artist_name: artist_name)
+      if artist_name.present?
+        @artists = artists(artist_name: artist_name)
+      else
+        respond_to do |format|
+          format.html { render :index }
+          flash.now[:alert] = 'Please enter artist name.'
+        end
+      end
     end
   end
 
