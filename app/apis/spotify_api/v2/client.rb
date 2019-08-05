@@ -1,7 +1,6 @@
 module SpotifyAPI
   module V2
     module Client
-      # FIXME: 空文字で検索した場合のエラーハンドリング
       def new_releases(limit:)
         RSpotify::Album.new_releases(limit: limit)
       end
