@@ -8,16 +8,19 @@ feature "GET /users/sign_in" do
   end
 end
 
-feature "POST /users/sign_in" do
+feature "POST/DELETE /users/sign_in" do
   let!(:user) { create(:user) }
 
-  scenario "Go to login page and login from the login form" do
+  scenario "Go to login page, login from the login form and then logout" do
     visit new_user_session_path
-    within("#new_user") do
+    within('#new_user') do
       fill_in 'Email', with: 'josie@test.abc'
       fill_in 'Password', with: 'password'
     end
     click_button 'Log in'
-    expect(page).to have_content 'success'
+    expect(page).to have_content
+    within('.navbar-right') do
+      click_link 'Logout'
+    end
   end
 end
