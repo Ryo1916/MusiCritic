@@ -64,17 +64,18 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console',           '3.5.1'
-  gem 'listen',                '3.1.5'
-  gem 'spring',                '2.0.2'
-  gem 'spring-commands-rspec', '1.0.4'
-  gem 'spring-watcher-listen', '2.0.1'
   gem 'better_errors',         '2.5.0'
   gem 'binding_of_caller',     '0.8.0'
+  gem 'brakeman',              '4.6.1'
+  gem 'listen',                '3.1.5'
   gem 'pry-byebug',            '3.6.0'
   gem 'pry-rails',             '0.3.9'
   gem 'pry-doc',               '1.0.0'
   gem 'rails-erd',             '1.5.2'
+  gem 'spring',                '2.0.2'
+  gem 'spring-commands-rspec', '1.0.4'
+  gem 'spring-watcher-listen', '2.0.1'
+  gem 'web-console',           '3.5.1'
 end
 
 group :production do
