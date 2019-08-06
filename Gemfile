@@ -15,6 +15,7 @@ gem 'redis-rails',     '5.0.2'
 gem 'responders',      '2.4.0'
 gem 'turbolinks',      '5.0.1'
 gem 'uglifier',        '3.2.0'
+gem 'pg',              '1.1.4'
 
 # view
 gem 'kaminari', '1.1.1'
@@ -54,7 +55,6 @@ group :development, :test do
   gem 'database_cleaner',         '1.7.0'
   gem 'factory_bot_rails',        '4.11.1'
   gem 'letter_opener_web',        '1.3.4'
-  gem 'mysql2',                   '0.4.10'
   gem 'selenium-webdriver',       '3.141.0'
   gem 'rails-controller-testing', '1.0.4'
   gem 'rspec-rails',              '3.8.1'
