@@ -15,7 +15,7 @@ gem 'redis-rails',     '5.0.2'
 gem 'responders',      '2.4.0'
 gem 'turbolinks',      '5.0.1'
 gem 'uglifier',        '3.2.0'
-gem 'pg',              '1.1.4'
+gem 'pg',              '~> 0.18'
 
 # view
 gem 'kaminari', '1.1.1'
