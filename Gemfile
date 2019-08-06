@@ -58,6 +58,7 @@ group :development, :test do
   gem 'selenium-webdriver',       '3.141.0'
   gem 'rails-controller-testing', '1.0.4'
   gem 'rspec-rails',              '3.8.1'
+  gem 'rspec-rerun',              '1.1.0'
   gem 'shoulda-matchers',         '3.1.2'
   gem 'simplecov',                '0.16.1'
   gem 'test-queue',               '0.4.2'
