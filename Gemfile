@@ -80,10 +80,6 @@ group :development do
   gem 'web-console',           '3.5.1'
 end
 
-group :test do
-  gem 'database_rewinder', '0.9.1'
-end
-
 group :production do
   gem 'fog-aws', '3.5.1'
 end
