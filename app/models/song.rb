@@ -17,4 +17,6 @@ class Song < ApplicationRecord
 
   # Validations
   validates_presence_of :name, :track_number, :album_id
+
+  scope :order_by_track_number, -> { order(track_number: :asc) }
 end

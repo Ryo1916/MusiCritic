@@ -16,7 +16,7 @@
 
       <table class="table bordered-table">
         <tbody>
-          <% @album.songs.each do |song| %>
+          <% @album.songs.order_by_track_number.each do |song| %>
           <tr>
             <td><%= song.track_number %></td>
             <td><%= song.name %></td>
