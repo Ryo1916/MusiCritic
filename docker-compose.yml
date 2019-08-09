@@ -1,15 +1,15 @@
 version: '3.7'
 volumes:
-  postgres_dev_data:
-  redis_dev_data:
+  postgres_data:
+  redis_data:
   vendor_bundle:
   node_modules:
 
 services:
-  postgres_dev:
+  postgres:
     image: postgres:latest
     volumes:
-      - postgres_dev_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -17,14 +17,14 @@ services:
       - default
     ports:
       - "54322:5432"
-  redis_dev:
+  redis:
     image: redis:alpine
     networks:
       - default
     ports:
       - '36379:6379'
     volumes:
-      - redis_dev_data:/var/lib/redis
+      - redis_data:/var/lib/redis
   app:
     tty: true
     stdin_open: true
@@ -32,7 +32,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      DATABASE_HOST: postgres_dev
+      DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       DATABASE_USER: postgres
       DATABASE_PASSWORD: password
@@ -41,14 +41,13 @@ services:
       - .:/opt/app
       - /opt/app/log
       - /opt/app/tmp
-      - /opt/app/vendor/bundle
       - vendor_bundle:/opt/app/vendor/bundle
       - node_modules:/opt/app/node_modules
     ports:
       - "8000:3000"
     depends_on:
-      - postgres_dev
-      - redis_dev
+      - postgres
+      - redis
     networks:
       - default
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
