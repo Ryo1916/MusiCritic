@@ -54,7 +54,7 @@ class AlbumsController < ApplicationController
     # Artistの存在チェック／保存
     album_artists = unique_album.artists.map do |artist|
       # FIXME: album.artists = []の場合、unknown artistをセットしないとダメかも
-      Artist.find_or_create_by(
+      Artist.find_or_create_by!(
         name: artist.name,
         image: artist.images.first["url"],
         external_urls: artist.external_urls["spotify"],
