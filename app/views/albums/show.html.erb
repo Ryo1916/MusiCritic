@@ -3,24 +3,24 @@
   <div class="row" style="margin-top:20px;">
     <div class="col-md-4">
       <%= image_tag @album.image, class: "img-responsive" %>
-      <div class="star-rating" style="margin-top:10px;" data-score= <%= @album.average_rating %> ></div>
-      <em><%= "#{@album.reviews_count} reviews" %></em>
-      <h3><%== @album.artists.map { |artist| link_to artist.name, artist_path(artist.spotify_id) }.join(' / ') %></h3>
-      <p>
+      <div class="album-info">
+        <div class="star-rating" style="margin-top:10px;" data-score= <%= @album.average_rating %> ></div>
+        <em><%= "#{@album.reviews_count} reviews" %></em>
+        <h3><%== @album.artists.map { |artist| link_to artist.name, artist_path(artist.spotify_id) }.join(' / ') %></h3>
         <h4 style="display:inline;"><%= @album.name %></h4>
-        <p style="display:inline; float:right;"><%= @album.release_date %></p>
-      </p>
-      <p style="margin-top:10px;">
+        <span style="display:inline; float:right;"><%= @album.release_date %></span>
+      </div>
+      <p style="margin-top:20px;">
         <%= link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls, class: 'btn btn-success btn-block', target: '_blank' %>
       </p>
 
       <table class="table bordered-table">
         <tbody>
-          <% @album.songs.each do |song| %>
+          <% @album.songs.order_by_track_number.each do |song| %>
           <tr>
             <td><%= song.track_number %></td>
             <td><%= song.name %></td>
-            <td><%= link_to icon('fas', 'volume-up'), song.preview_url if song.preview_url %></td>
+            <td><%= link_to icon('fas', 'volume-up'), song.preview_url, target: '_blank' if song.preview_url %></td>
           </tr>
           <% end %>
         </tbody>

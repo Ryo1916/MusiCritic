@@ -25,14 +25,12 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-Capybara.default_driver = :selenium_chrome
+# chromedriver with gpu
+# Capybara.register_driver :selenium_chrome do |app|
+#   Capybara::Selenium::Driver.new(app, browser: :chrome)
+# end
 
-# chromedriverを登録
-Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-
-# chromeのheadlessモードを登録（ブラウザ起動なし）
+# chromedriver headless
 Capybara.register_driver :selenium_chrome_headless do |app|
   options = Selenium::WebDriver::Chrome::Options.new
   options.add_argument('headless')

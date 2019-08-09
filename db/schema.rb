@@ -12,19 +12,22 @@
 
 ActiveRecord::Schema.define(version: 20190804094044) do
 
-  create_table "albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "albums", force: :cascade do |t|
     t.string "name"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "release_date"
     t.string "external_urls"
-    t.string "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "reviews_count", default: 0, null: false
-    t.float "average_rating", limit: 24, default: 0.0, null: false
     t.string "spotify_id", null: false
+    t.float "average_rating", default: 0.0, null: false
   end
 
-  create_table "artists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "artists", force: :cascade do |t|
     t.string "name"
     t.string "image"
     t.datetime "created_at", null: false
@@ -33,7 +36,7 @@ ActiveRecord::Schema.define(version: 20190804094044) do
     t.string "spotify_id", null: false
   end
 
-  create_table "artists_albums", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "artists_albums", force: :cascade do |t|
     t.integer "artist_id"
     t.integer "album_id"
     t.datetime "created_at", null: false
@@ -43,29 +46,29 @@ ActiveRecord::Schema.define(version: 20190804094044) do
     t.index ["artist_id"], name: "index_artists_albums_on_artist_id"
   end
 
-  create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "reviews", force: :cascade do |t|
     t.string "title"
-    t.float "rating", limit: 24
+    t.float "rating"
     t.text "text"
     t.bigint "user_id"
-    t.bigint "album_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "album_id"
     t.index ["album_id"], name: "index_reviews_on_album_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "songs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "songs", force: :cascade do |t|
     t.string "name"
-    t.integer "track_number"
     t.bigint "album_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "track_number"
     t.string "preview_url"
     t.index ["album_id"], name: "index_songs_on_album_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

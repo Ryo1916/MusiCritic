@@ -1,6 +1,5 @@
 class AlbumsController < ApplicationController
   include Common
-  include SpotifyAPI::V2::Client
 
   before_action :authenticate_user!
   before_action only: %i[show] do
@@ -10,16 +9,23 @@ class AlbumsController < ApplicationController
   before_action :set_top_rating_albums, only: %i[index show]
 
   def index
-    @new_releases = new_releases(limit: Constants::NEW_RELEASE_ALBUMS)
+    @new_releases = SpotifyAPI::V2::Client.new_releases(limit: Constants::NEW_RELEASE_ALBUMS)
     if album_name = params[:album_name]
-      @albums = albums(album_name: album_name)
+      if album_name.present?
+        @albums = SpotifyAPI::V2::Client.albums(album_name: album_name)
+      else
+        respond_to do |format|
+          format.html { render :index }
+          flash.now[:alert] = 'Please enter album name.'
+        end
+      end
     end
   end
 
   def show
     @review = Review.new
     @reviews = @album.reviews.reviews_list(page: params[:page])
-    @artists = unique_album(spotifies_album_id: @album.spotify_id).artists
+    @artists = SpotifyAPI::V2::Client.unique_album(spotifies_album_id: @album.spotify_id).artists
   end
 
   def destroy
@@ -43,12 +49,12 @@ class AlbumsController < ApplicationController
   # FIXME: spotify側のデータ構造が変わった場合、新データとして保存されてしまう
   def save_album(spotifies_album_id:)
     return if Album.find_by(spotify_id: spotifies_album_id)
-    unique_album = unique_album(spotifies_album_id: spotifies_album_id)
+    unique_album = SpotifyAPI::V2::Client.unique_album(spotifies_album_id: spotifies_album_id)
 
     # Artistの存在チェック／保存
     album_artists = unique_album.artists.map do |artist|
       # FIXME: album.artists = []の場合、unknown artistをセットしないとダメかも
-      Artist.find_or_create_by(
+      Artist.find_or_create_by!(
         name: artist.name,
         image: artist.images.first["url"],
         external_urls: artist.external_urls["spotify"],
@@ -70,7 +76,7 @@ class AlbumsController < ApplicationController
         name: track.name,
         track_number: track.track_number,
         preview_url: track.preview_url,
-        album_id: saved_album.id
+        album: saved_album
       )
     end
   end

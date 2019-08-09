@@ -1,9 +1,13 @@
-# Music review site by rails
+# Music review app by rails
 
 * Ruby: 2.5.0
 
 * Rails: 5.1.4
 
-* bootstrap: 4.1.3
+* Alpine Linux: 3.10
 
-* template by: <https://startbootstrap.com/>
+* Postgres: 11.4
+
+* Redis: 5.0.3
+
+* CSS template by: <https://startbootstrap.com/>

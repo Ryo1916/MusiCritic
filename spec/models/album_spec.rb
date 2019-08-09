@@ -18,7 +18,8 @@ require 'rails_helper'
 
 RSpec.describe Album, type: :model do
   # Associations test
-  it { should belong_to(:artist) }
+  it { should have_many(:artists_albums).dependent(:destroy) }
+  it { should have_many(:artists).through(:artists_albums) }
   it { should have_many(:songs).dependent(:destroy) }
   it { should have_many(:reviews).dependent(:destroy) }
 
@@ -27,7 +28,7 @@ RSpec.describe Album, type: :model do
   it { should validate_presence_of(:release_date) }
   it { should validate_presence_of(:external_urls) }
   it { should validate_presence_of(:image) }
-  it { should validate_presence_of(:artist_id) }
+  it { should validate_presence_of(:spotify_id) }
 
   # TODO: メソッドのテスト
 end
