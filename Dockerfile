@@ -9,10 +9,10 @@ RUN set -x \
   && apk add --update --no-cache alpine-sdk      \
                                  bash            \ 
                                  gmp-dev         \
+                                 imagemagick     \
                                  less            \
                                  libxml2-dev     \
                                  libxslt-dev     \
-                                 imagemagick     \
                                  nodejs          \
                                  openssh         \
                                  postgresql      \
