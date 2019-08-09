@@ -1,6 +1,4 @@
 class ArtistsController < ApplicationController
-  include SpotifyAPI::V2::Client
-
   before_action :authenticate_user!
   before_action :set_artist, only: %i[destroy]
   before_action :set_top_rating_artists, only: %i[index show]
@@ -8,7 +6,7 @@ class ArtistsController < ApplicationController
   def index
     if artist_name = params[:artist_name]
       if artist_name.present?
-        @artists = artists(artist_name: artist_name)
+        @artists = SpotifyAPI::V2::Client.artists(artist_name: artist_name)
       else
         respond_to do |format|
           format.html { render :index }
@@ -19,7 +17,7 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    @artist = unique_artist(spotifies_artist_id: params[:id])
+    @artist = SpotifyAPI::V2::Client.unique_artist(spotifies_artist_id: params[:id])
     @albums = @artist.albums(
       limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API,
       offset: 0,
