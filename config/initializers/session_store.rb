@@ -2,7 +2,7 @@
 
 Rails.application.config.session_store :redis_store,
   servers: [
-   { host: ENV['REDIS_HOST'] || '127.0.0.1',
+   { host: ENV['REDIS_HOST'] || 'redis',
      port: ENV['REDIS_PORT'] || 6379,
      db: 0,
      namespace: 'session' }
