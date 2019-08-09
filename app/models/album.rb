@@ -51,6 +51,10 @@ class Album < ApplicationRecord
   end
 
   def update_average_rating
-    update_attributes(average_rating: self.reviews.average(:rating).round(2))
+    if self.reviews.blank?
+      update_attributes(average_rating: 0.0)
+    else
+      update_attributes(average_rating: self.reviews.average(:rating).round(2))
+    end
   end
 end
