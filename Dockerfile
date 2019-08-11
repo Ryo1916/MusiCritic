@@ -24,6 +24,10 @@ RUN set -x \
   && gem install bundler \
   && bundle install --path vendor/bundle -j8
 COPY . ./
+RUN mkdir ./tmp/sockets
+
+# Expose volumes to nginx
+VOLUME ./public && ./tmp
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
