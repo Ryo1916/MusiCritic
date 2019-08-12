@@ -24,6 +24,11 @@ RUN set -x \
   && gem install bundler \
   && bundle install --path vendor/bundle -j8
 COPY . ./
+RUN mkdir -p ./tmp/sockets \
+  && bundle exec rake assets:precompile
+
+# Expose volumes to nginx
+VOLUME ./public && ./tmp
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
@@ -31,4 +36,4 @@ RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
 # Start the main process.
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
