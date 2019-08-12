@@ -2,6 +2,9 @@ version: '3.7'
 volumes:
   postgres_data:
   redis_data:
+  public_data:
+  log_data:
+  tmp_data:
   vendor_bundle:
   node_modules:
 
@@ -25,6 +28,18 @@ services:
       - '36379:6379'
     volumes:
       - redis_data:/var/lib/redis
+  web:
+    build:
+      context: containers/nginx
+    volumes:
+      - public_data:/opt/app/public
+      - tmp_data:/opt/app/tmp
+    networks:
+      - default
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
   app:
     tty: true
     stdin_open: true
@@ -39,8 +54,8 @@ services:
       REDIS_URL: "redis://redis:6379"
     volumes:
       - .:/opt/app
-      - /opt/app/log
-      - /opt/app/tmp
+      - log_data:/opt/app/log
+      - tmp_data:/opt/app/tmp
       - vendor_bundle:/opt/app/vendor/bundle
       - node_modules:/opt/app/node_modules
     ports:
