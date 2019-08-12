@@ -58,8 +58,6 @@ services:
       - tmp_data:/opt/app/tmp
       - vendor_bundle:/opt/app/vendor/bundle
       - node_modules:/opt/app/node_modules
-    ports:
-      - "8000:3000"
     depends_on:
       - postgres
       - redis
