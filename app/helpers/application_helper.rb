@@ -10,6 +10,6 @@ module ApplicationHelper
   end
 
   def stop_icon(id:)
-    content_tag(:i, '', class: "far fa-stop-circle", id: "stop-#{ id }", data: { play: "stoppable-song", id: "#{ id }"}, style: "display:none;")
+    content_tag(:i, '', class: "far fa-stop-circle", id: "stop-#{ id }", data: { play: "stoppable-song", id: "#{ id }"})
   end
 end
