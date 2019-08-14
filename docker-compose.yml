@@ -45,7 +45,7 @@ services:
     stdin_open: true
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     environment:
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
