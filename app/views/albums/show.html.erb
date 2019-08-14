@@ -20,7 +20,13 @@
           <tr>
             <td><%= song.track_number %></td>
             <td><%= song.name %></td>
-            <td><%= link_to icon('fas', 'volume-up'), song.preview_url, target: '_blank' if song.preview_url %></td>
+            <td>
+              <audio id="sound-<%= song.id %>" preload="none">
+                <source src="<%= song.preview_url %>">
+              </audio>
+              <%= play_icon(id: song.id) %>
+              <%= stop_icon(id: song.id) %>
+            </td>
           </tr>
           <% end %>
         </tbody>
