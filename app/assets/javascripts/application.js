@@ -34,6 +34,28 @@ $(document).ready(function(){
       alert('Maximum file size is 5MB. Please choose a smaller file.');
     }
   });
+
+  // start/stop music
+  $("i[data-play=playable-song]").click(function(){
+    var object_id = $(this).data('id');
+    $("#sound-" + object_id)[0].play();
+    $("#play-" + object_id).hide();
+    $("#stop-" + object_id).fadeIn();
+  });
+
+  $("i[data-play=stoppable-song]").click(function(){
+    var object_id = $(this).data('id');
+    $("#sound-" + object_id)[0].pause();
+    $("#sound-" + object_id)[0].currentTime = 0;
+    $("#stop-" + object_id).hide();
+    $("#play-" + object_id).show();
+  });
+
+  // change icon when player ended
+  $("audio").on("ended", function() {
+    $(".fa-stop-circle").hide();
+    $(".fa-volume-up").show();
+  });
 });
 
 $(document).on('turbolinks:load', function() {
