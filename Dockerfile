@@ -19,12 +19,14 @@ RUN set -x \
                                  yaml            \
                                  yarn            \
   && apk add --update --no-cache --virtual build-dependencies \
-                                           alpine-adk         \
+                                           build-base         \
+                                           alpine-sdk         \
                                            libxml2-dev        \
                                            libxslt-dev        \
                                            postgresql-dev     \
   && gem install bundler \
-  && bundle install --path vendor/bundle --without development test -j8
+  && bundle install --path vendor/bundle --without development test -j8 \
+  && apk del build-dependencies
 COPY . ./
 RUN adduser -D myuser
 USER myuser
