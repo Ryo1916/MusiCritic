@@ -6,23 +6,27 @@ COPY Gemfile* ./
 RUN set -x \
   && apk update \
   && apk upgrade \
-  && apk add --update --no-cache alpine-sdk      \
-                                 bash            \
-                                 gmp-dev         \
-                                 imagemagick     \
-                                 less            \
-                                 libxml2-dev     \
-                                 libxslt-dev     \
-                                 nodejs          \
-                                 openssh         \
-                                 postgresql      \
-                                 postgresql-dev  \
-                                 python2         \
-                                 tzdata          \
-                                 yaml            \
-                                 yarn            \
+  && apk add --update --no-cache bash        \
+                                 gmp-dev     \
+                                 imagemagick \
+                                 less        \
+                                 nodejs      \
+                                 openssh     \
+                                 postgresql  \
+                                 python2     \
+                                 tzdata      \
+                                 yaml        \
+                                 yarn        \
+                                 vim         \
+  && apk add --update --no-cache --virtual build-dependencies \
+                                           alpine-sdk         \
+                                           build-base         \
+                                           libxml2-dev        \
+                                           libxslt-dev        \
+                                           postgresql-dev     \
   && gem install bundler \
-  && bundle install --path vendor/bundle -j8
+  && bundle install --path vendor/bundle -j8 \
+  && apk del build-dependencies
 COPY . ./
 RUN mkdir -p ./tmp/sockets \
   && bundle exec rake assets:precompile
