@@ -1,5 +1,6 @@
 # this dockerfile is for heroku
 FROM ruby:2.5-alpine as Builder
+ARG RAILS_ENV=production
 ENV LANG C.UTF-8
 ENV APP_ROOT /opt/app
 WORKDIR $APP_ROOT
@@ -30,4 +31,3 @@ RUN set -x \
 COPY . ./
 RUN adduser -D myuser
 USER myuser
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
