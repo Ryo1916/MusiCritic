@@ -1,0 +1,12 @@
+build:
+  docker:
+    app: Dockerfile
+  config:
+    LANG: C.UTF-8
+    RACK_ENV: production
+    RAILS_ENV: production
+release:
+  command:
+    - entrypoint.sh
+run:
+  app: bundle exec puma -C config/puma/production.rb
