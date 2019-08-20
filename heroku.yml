@@ -1,11 +1,11 @@
 build:
   docker:
-    app: Dockerfile
+    web: Dockerfile
   config:
     LANG: C.UTF-8
     RACK_ENV: production
     RAILS_ENV: production
 run:
-  app: bundle exec puma -C config/puma/production.rb
+  web: bundle exec puma -C config/puma/production.rb
   worker:
-    image: app
+    image: web
