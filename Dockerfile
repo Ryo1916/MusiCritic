@@ -27,6 +27,7 @@ RUN set -x \
                                            postgresql-dev     \
   && gem install bundler \
   && bundle install --path vendor/bundle --without development test -j8 \
+  && bundle exec rake assets:precompile \
   && apk del build-dependencies
 COPY . ./
 RUN adduser -D myuser
