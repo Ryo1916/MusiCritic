@@ -29,8 +29,5 @@ RUN set -x \
   && bundle install --path vendor/bundle --without development test -j8 \
   && apk del build-dependencies
 COPY . ./
-
 RUN adduser -D myuser
 USER myuser
-
-RUN bundle exec rake assets:precompile

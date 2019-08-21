@@ -6,6 +6,6 @@ build:
     RACK_ENV: production
     RAILS_ENV: production
 run:
-  web: bundle exec puma -C config/puma/production.rb
+  web: bundle exec rake assets:precompile && bundle exec puma -C config/puma/production.rb
   worker:
     image: web
