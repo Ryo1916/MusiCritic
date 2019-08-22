@@ -13,7 +13,7 @@
       <%= form.text_area :text, id: :review_text, class: "form-control", style: "height:200px;", placeholder: "What did you like or dislike?" %>
     </div>
 
-    <div class="field" id="star-rating-<%= id %>" data-score="<%= review.rating %>">
+    <div class="field" id="star-rating-<%= type %>-<%= id %>" data-score="<%= review.rating %>">
       <%= form.label :rating %>
       <%= form.hidden_field :rating, id: :review_rating %>
     </div>
@@ -29,7 +29,7 @@
 <% end %>
 
 <script>
-  $('#star-rating-<%= id %>').raty({
+  $('#star-rating-<%= type %>-<%= id %>').raty({
     path: '/images/',
     half: true,
     size: 6,

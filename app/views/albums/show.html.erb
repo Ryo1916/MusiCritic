@@ -36,7 +36,7 @@
     </div>
 
     <div class="col-md-8" style="margin-bottom:20px;">
-      <%= render 'reviews/form', review: @review, album: @album, id: @album.id %>
+      <%= render 'reviews/form', review: @review, album: @album, id: @album.id, type: 'new' %>
       <hr>
       <% if @reviews.blank? %>
         <h3 style="border-bottom:solid 1px #eee;">There is no reviews...</h3>
