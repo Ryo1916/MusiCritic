@@ -2,12 +2,10 @@ class ReviewsController < ApplicationController
   include Common
 
   before_action :authenticate_user!
-  before_action :set_review, only: %i[edit update destroy]
-  before_action only: %i[edit update destroy] do
+  before_action :set_review, only: %i[update destroy]
+  before_action only: %i[update destroy] do
     set_album(id: @review.album_id)
   end
-
-  def edit; end
 
   def create
     @review = current_user.reviews.new(review_params)
