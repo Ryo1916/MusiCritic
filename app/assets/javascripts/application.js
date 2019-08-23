@@ -82,4 +82,15 @@ $(document).on('turbolinks:load', function() {
     $(".fa-stop-circle").hide();
     $(".fa-volume-up").show();
   });
+
+  // display rating stars
+  $('.star-rating').raty({
+    path: '/images/',
+    readOnly: true,
+    size: 6,
+    half: true,
+    score: function() {
+      return $(this).attr('data-score');
+    }
+  });
 });
