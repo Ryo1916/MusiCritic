@@ -4,10 +4,10 @@
     <% if current_user %>
       <span><a href="/posts">Home</a></span>
     <% else %>
-      <span><a href="/">Home</a></span>
+      <span><a href="/" data-turbolinks="false">Home</a></span>
     <% end %>
-      <span><a href="/mains/about">About</a></span>
-      <span><a href="/mains/contact">Contact</a></span>
+      <span><%= link_to 'About', '/#services', data: { turbolinks: 'false' } %></span>
+      <span><%= link_to 'Contact', '/#contact', data: { turbolinks: 'false' } %></span>
       <span><%= link_to 'Terms', terms_path %></span>
       <span><%= link_to 'Privacy', privacy_path %></span>
     </div>
