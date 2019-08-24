@@ -25,7 +25,7 @@
         <div class="row reviewed-albums">
           <% @user.user_reviewed_albums.each do |album| %>
           <div class="col-xs-3">
-            <%= link_to image_tag(album.image, class: 'img-responsive', style: 'padding:0 -10px;'), album_path(album.spotify_id) %>
+            <%= link_to image_tag(album.image, class: 'img-responsive img-rounded', style: 'padding:0 -10px;'), album_path(album.spotify_id) %>
           </div>
           <% end %>
         </div>
@@ -40,7 +40,7 @@
           <% @user_reviewed_albums.each do |album| %>
             <div class="row" style="margin-bottom:20px; padding-bottom:20px; border-bottom:solid 1px #eee;">
               <div class="col-md-3" style="margin-bottom:20px;">
-                <%= link_to image_tag(album.image, class: "img-responsive", style: 'margin-right:20px;'), album_path(album.spotify_id) %>
+                <%= link_to image_tag(album.image, class: "img-responsive img-rounded", style: 'margin-right:20px;'), album_path(album.spotify_id) %>
               </div>
               <div class="col-md-9">
                 <%= render partial: 'reviews/review', collection: album.specified_user_reviews(specified_user: @user) %>

@@ -4,7 +4,7 @@
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-body">
-          <%= image_tag @artist.images.empty? ? Constants::DEFAULT_IMG_URL : @artist.images.first["url"], class: "img-responsive text-center" %>
+          <%= image_tag @artist.images.empty? ? Constants::DEFAULT_IMG_URL : @artist.images.first["url"], class: "img-responsive img-rounded text-center" %>
           <h3><%= @artist.name %></h3>
           <p>
             <%= link_to icon('fab', 'spotify', 'Go to Spotify'), @artist.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank' %>
