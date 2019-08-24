@@ -103,3 +103,19 @@ label {
   cursor: pointer;
   display: none;
 }
+
+.has-search .form-control {
+  padding-left: 2.875rem;
+}
+
+.has-search .form-control-button {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 3.275rem;
+  height: 2.375rem;
+  line-height: 3.575rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
