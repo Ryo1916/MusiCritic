@@ -12,19 +12,21 @@
   </head>
 
   <body>
-    <div class="wrapper">
-      <%= render partial: "creatives/navbar" %>
-      <!-- FIXME: トップページでアラート表示されたときの余分なスペース削除 -->
-      <% unless notice.blank? %>
-        <p class="notice alert alert-success text-center" role="alert" style="<%= current_page?(root_path) ? "margin:50px 0 0 0 ;" : "margin:50px 0 -60px 0;" %>"><%= notice %></p>
-      <% end %>
-      <% unless alert.blank? %>
-        <p class="alert alert-danger text-center" role="alert" style="margin:50px 0 -60px 0;"><%= alert %></p>
-      <% end %>
-      <div class="container-fluid <%= controller_name %> <%= action_name %> <%= 'no-padding' if current_page?(root_path) %>">
+    <%= render partial: "creatives/navbar" %>
+    <!-- FIXME: トップページでアラート表示されたときの余分なスペース削除 -->
+    <% unless notice.blank? %>
+      <p class="notice alert alert-success text-center" role="alert" style="<%= current_page?(root_path) ? "margin:50px 0 0 0 ;" : "margin:50px 0 -60px 0;" %>"><%= notice %></p>
+    <% end %>
+    <% unless alert.blank? %>
+      <p class="alert alert-danger text-center" role="alert" style="margin:50px 0 -60px 0;"><%= alert %></p>
+    <% end %>
+    <% if current_page?(root_path) %>
+      <%= yield %>
+    <% else %>
+      <div class="container-fluid <%= controller_name %> <%= action_name %>">
         <%= yield %>
       </div>
-      <%= render partial: "creatives/footer" %>
-    </div>
+    <% end %>
+    <%= render partial: "creatives/footer" %>
   </body>
 </html>
