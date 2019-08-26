@@ -1,5 +1,5 @@
-.row {
-  margin: auto 0;
+html {
+  overflow-x: hidden;
 }
 
 body {
@@ -8,6 +8,7 @@ body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   font-size: 13px;
   line-height: 18px;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -43,6 +44,10 @@ div {
   &.field, &.actions {
     margin-bottom: 10px;
   }
+}
+
+.row {
+  margin: auto 0;
 }
 
 .navbar {
