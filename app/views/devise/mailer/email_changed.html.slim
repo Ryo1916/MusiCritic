@@ -1,0 +1,22 @@
+h2
+  | Hi! 
+  = @resource.name
+- if @resource.try(:unconfirmed_email?)
+  p
+    | We're contacting you to notify you that your email is being changed to 
+    = @resource.unconfirmed_email
+    | .
+- else
+  p
+    | We're contacting you to notify you that your email has been changed to 
+    = @resource.email
+    | .
+br
+p
+  | Thanks,
+p
+  | Music Review
+p
+  | Hello 
+  = @email
+  | !

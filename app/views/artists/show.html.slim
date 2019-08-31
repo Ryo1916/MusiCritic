@@ -1,0 +1,51 @@
+- provide(:page_title, @artist.name)
+.row[style="margin-top:65px;"]
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        = image_tag @artist.images.empty? ? Constants::DEFAULT_IMG_URL : @artist.images.first["url"], class: "img-responsive img-rounded text-center"
+        h3
+          = @artist.name
+        p
+          = link_to icon('fab', 'spotify', 'Go to Spotify'), @artist.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank'
+        - @artist.genres.each do |genre|
+          span.badge
+            = genre.capitalize
+  .col-md-8[style="margin-bottom:20px;"]
+    - if @albums.blank?
+      h3[style="border-bottom:solid 1px #eee;"]
+        | There is no albums...
+    - else
+      .panel.panel-default
+        .panel-body
+          .row
+            - if @albums.present?
+              h4
+                | Albums
+              = render partial: 'albums/album', collection: @albums
+          .row
+            - if @singles.present?
+              h4
+                | Singles
+              = render partial: 'albums/album', collection: @singles
+          .row
+            - if @compilations.present?
+              h4
+                | Compilations
+              = render partial: 'albums/album', collection: @compilations
+hr
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-body.text-center
+        h4
+          | Related Artists
+        = render partial: 'artist', collection: @related_artists
+hr
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-body.text-center
+        h4
+          | Top Rating Artists
+        = render partial: 'persisted_artist', collection: @top_rating_artists

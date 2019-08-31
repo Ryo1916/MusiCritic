@@ -1,0 +1,21 @@
+footer
+  .footer-top
+    span
+      = link_to 'Home', root_path, data: { turbolinks: 'false' }
+    span
+      = link_to 'About', '/#services', data: { turbolinks: 'false' }
+    span
+      = link_to 'Contact', '/#contact', data: { turbolinks: 'false' }
+    span
+      = link_to 'Terms', terms_path
+    span[style="margin-right:-10px;"]
+      = link_to 'Privacy', privacy_path
+  .footer-middle
+    span.fab.fa-facebook
+    span.fab.fa-twitter
+    span.fab.fa-github[style="margin-right:-10px;"]
+  .footer-bottom
+    span
+      | © 
+      = Time.zone.now.year
+      |  Music Review - All Rights Reserved

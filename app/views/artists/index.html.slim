@@ -1,0 +1,20 @@
+- provide(:page_title, 'Artists')
+.row[style="margin-top:60px;"]
+  .search.col-md-6.col-md-offset-3[style="margin-top:40px;"]
+    = render partial: 'search'
+hr
+.row
+  #albums-list
+    - if @artists.present?
+      .panel.panel-default
+        .panel-body.text-center
+          h4
+            | Results of 
+            = params[:artist_name]
+          = render partial: 'artist', collection: @artists
+.row
+  .panel.panel-default
+    .panel-body.text-center
+      h4
+        | Top Rating Artists
+      = render partial: 'persisted_artist', collection: @top_rating_artists

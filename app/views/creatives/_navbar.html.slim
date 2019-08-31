@@ -1,0 +1,27 @@
+nav#mainNav.navbar.navbar-default.navbar-fixed-top[style="background-color:black;"]
+  .container
+    .navbar-header
+      button.navbar-toggle.collapsed[type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"]
+        span.sr-only
+          | Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand.page-scroll[href="/" data-turbolinks="false"]
+        = Constants::APP_NAME
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          li
+            = link_to "Artist", artists_path
+          li
+            = link_to "Albums", albums_path
+          li
+            = link_to "Account", user_path(current_user)
+          li
+            = link_to "Logout", destroy_user_session_path, method: :delete
+        - else
+          li
+            = link_to "Login", new_user_session_path
+          li
+            = link_to "Register", new_user_registration_path

@@ -1,0 +1,39 @@
+- provide(:page_title, 'Edit Account')
+.row[style="margin-top:80px;"]
+  .col-md-6.col-md-offset-3[style="margin-bottom:20px;"]
+    .form-group
+      h2[style="margin-bottom:20px;"]
+        | Edit your account
+      = form_with(model: @user, local: true, url: user_path(@user)) do |f|
+        - if @user.errors.any?
+          #error_explanation
+            h2
+              = pluralize(@user.errors.count, "error")
+              |  prohibited this user from being saved:
+            ul
+              - @user.errors.full_messages.each do |message|
+                li
+                  = message
+        .field.text-center[style="margin-bottom:20px;"]
+          img#avatar_img_prev.hidden.img-circle[src="#" style="width:150px; height:150px; cursor:pointer;" onclick="$('#user_avatar').click()"]
+          = image_tag @user.avatar, class: 'img-circle avatar_present_img', style: 'cursor:pointer;', onClick:"$('#user_avatar').click()"
+        .field.text-center[style="margin-bottom:20px;"]
+          span.upload
+            label[for="user_avatar" style="color:blue; cursor:pointer;"]
+              | Change your avatar
+            = f.file_field :avatar, id: :user_avatar, class: 'image-upload', style: 'display:none;', accept: 'image/jpeg,image/jpg,image/png'
+            = f.hidden_field :avatar_cache
+        .field[style="margin-bottom:20px;"]
+          = f.label :name
+          = f.text_field :name, placeholder: "Enter your name", class: "form-control"
+        .field[style="margin-bottom:20px;"]
+          = f.label :email
+          = f.email_field :email, placeholder: "Enter email", class: "form-control"
+        .actions
+          = f.submit "Update", class: "btn btn-success"
+          = link_to "Edit password", edit_user_registration_path(@user), class: 'btn btn-warning' if current_user.provider.nil?
+    hr
+    .back-to-show[style="margin-bottom:20px;"]
+      = link_to "Back", user_path(@user), class: "btn btn-default btn-block"
+    .cancel-account
+      = button_to "Cancel my account", user_registration_path(@user), data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-block", method: :delete
