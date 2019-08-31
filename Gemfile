@@ -8,17 +8,18 @@ end
 
 # basic
 gem 'counter_culture', '2.2.3'
+gem 'html2slim',       '0.2.0'
 gem 'jbuilder',        '2.8.0'
+gem 'kaminari',        '1.1.1'
 gem 'puma',            '3.9.1'
 gem 'rails',           '5.1.4'
 gem 'redis-rails',     '5.0.2'
 gem 'responders',      '2.4.0'
+gem 'slim',            '4.0.1'
 gem 'turbolinks',      '5.0.1'
 gem 'uglifier',        '3.2.0'
 gem 'pg',              '~> 0.18'
 
-# view
-gem 'kaminari', '1.1.1'
 
 # css
 gem 'bootstrap',           '4.1.3'
