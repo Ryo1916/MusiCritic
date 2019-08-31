@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'creatives#index'
-  get 'creatives/index'
+  get 'creatives/terms_and_conditions', as: :terms
+  get 'creatives/privacy_notice', as: :privacy
 
   devise_for :users,
               controllers: { omniauth_callbacks: "users/omniauth_callbacks",

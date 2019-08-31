@@ -1,51 +1,51 @@
 <% provide(:page_title, @artist.name) %>
-<div class="container-fluid" style="margin-top:60px;">
-  <div class="row" style="margin-top:20px;">
-    <div class="col-md-4">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <%= image_tag @artist.images.empty? ? Constants::DEFAULT_IMG_URL : @artist.images.first["url"], class: "img-responsive text-center" %>
-          <h3><%= @artist.name %></h3>
-          <p>
-            <%= link_to icon('fab', 'spotify', 'Go to Spotify'), @artist.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank' %>
-          </p>
-          <% @artist.genres.each do |genre| %>
-            <span class="badge"><%= genre.capitalize %></span>
-          <% end %>
-        </div>
+<div class="row" style="margin-top:65px;">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= image_tag @artist.images.empty? ? Constants::DEFAULT_IMG_URL : @artist.images.first["url"], class: "img-responsive img-rounded text-center" %>
+        <h3><%= @artist.name %></h3>
+        <p>
+          <%= link_to icon('fab', 'spotify', 'Go to Spotify'), @artist.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank' %>
+        </p>
+        <% @artist.genres.each do |genre| %>
+          <span class="badge"><%= genre.capitalize %></span>
+        <% end %>
       </div>
     </div>
-    <div class="col-md-8" style="margin-bottom:20px;">
-      <% if @albums.blank? %>
-        <h3 style="border-bottom:solid 1px #eee;">There is no albums...</h3>
-      <% else %>
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <% if @albums.present? %>
-                <h4>Albums</h4>
-                <%= render partial: 'albums/album', collection: @albums %>
-              <% end %>
-            </div>
-            <div class="row">
-              <% if @singles.present? %>
-                <h4>Singles</h4>
-                <%= render partial: 'albums/album', collection: @singles %>
-              <% end %>
-            </div>
-            <div class="row">
-              <% if @compilations.present? %>
-                <h4>Compilations</h4>
-                <%= render partial: 'albums/album', collection: @compilations %>
-              <% end %>
-            </div>
+  </div>
+  <div class="col-md-8" style="margin-bottom:20px;">
+    <% if @albums.blank? %>
+      <h3 style="border-bottom:solid 1px #eee;">There is no albums...</h3>
+    <% else %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <% if @albums.present? %>
+              <h4>Albums</h4>
+              <%= render partial: 'albums/album', collection: @albums %>
+            <% end %>
+          </div>
+          <div class="row">
+            <% if @singles.present? %>
+              <h4>Singles</h4>
+              <%= render partial: 'albums/album', collection: @singles %>
+            <% end %>
+          </div>
+          <div class="row">
+            <% if @compilations.present? %>
+              <h4>Compilations</h4>
+              <%= render partial: 'albums/album', collection: @compilations %>
+            <% end %>
           </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
-  <hr>
-  <div class="row">
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body text-center">
         <h4>Related Artists</h4>
@@ -53,7 +53,10 @@
       </div>
     </div>
   </div>
-  <div class="row">
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body text-center">
         <h4>Top Rating Artists</h4>

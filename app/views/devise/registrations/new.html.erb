@@ -31,6 +31,14 @@
           </div>
         <% end %>
 
+        <div class="terms-and-privacies text-center">
+          <h5>By signing up, you agree to our
+            <%= link_to 'Terms and conditions', terms_path, style: 'color:#f05f40;' %>
+            and
+            <%= link_to 'Data Policy', privacy_path, style: 'color:#f05f40;' %>
+          </h5>
+        </div>
+
         <div class="actions" style="margin-bottom:20px;">
           <%= f.submit "Create your account", class: "btn btn-success btn-block" %>
         </div>

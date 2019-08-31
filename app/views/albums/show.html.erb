@@ -2,7 +2,7 @@
 <div class="container" style="margin-top:60px;">
   <div class="row" style="margin-top:20px;">
     <div class="col-md-4">
-      <%= image_tag @album.image, class: "img-responsive" %>
+      <%= image_tag @album.image, class: "img-responsive img-rounded" %>
       <div class="album-info">
         <div class="star-rating" style="margin-top:10px;" data-score= <%= @album.average_rating %> ></div>
         <em><%= "#{@album.reviews_count} reviews" %></em>
@@ -57,6 +57,7 @@
       </div>
     </div>
   <% end %>
+  <hr>
   <div class="row">
     <div class="panel panel-default">
       <div class="panel-body text-center">

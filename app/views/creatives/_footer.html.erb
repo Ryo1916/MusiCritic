@@ -1,27 +1,19 @@
 <footer>
-  <div class="row footer-top">
-    <div class="col-md-12">
-    <% if current_user %>
-      <span><a href="/posts">Home</a></span>
-    <% else %>
-      <span><a href="/">Home</a></span>
-    <% end %>
-      <span><a href="/mains/about">About</a></span>
-      <span><a href="/mains/contact">Contact</a></span>
-    </div>
+  <div class="footer-top">
+    <span><%= link_to 'Home', root_path, data: { turbolinks: 'false' } %></span>
+    <span><%= link_to 'About', '/#services', data: { turbolinks: 'false' } %></span>
+    <span><%= link_to 'Contact', '/#contact', data: { turbolinks: 'false' } %></span>
+    <span><%= link_to 'Terms', terms_path %></span>
+    <span style="margin-right:-10px;"><%= link_to 'Privacy', privacy_path %></span>
   </div>
 
-  <div class="row footer-middle">
-    <div class="col-md-12">
-      <span class="fab fa-facebook"></span>
-      <span class="fab fa-twitter"></span>
-      <span class="fab fa-github"></span>
-    </div>
+  <div class="footer-middle">
+    <span class="fab fa-facebook"></span>
+    <span class="fab fa-twitter"></span>
+    <span class="fab fa-github" style="margin-right:-10px;"></span>
   </div>
 
-  <div class="row footer-bottom">
-    <div class="col-md-12">
-      <span style="text-align:center;">© Copyright <% now = Time.current %> <%= now.year %> Music Review - All Rights Reserved</span>
-    </div>
+  <div class="footer-bottom">
+    <span>&copy; <%= Time.zone.now.year %> Music Review - All Rights Reserved</span>
   </div>
 </footer>

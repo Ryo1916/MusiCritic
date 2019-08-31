@@ -1,0 +1,13 @@
+<section class="no-padding" id="top-rating-albums">
+  <div class="container-fluid no-padding">
+    <div class="row">
+      <div class="col-lg-12 text-center" style="padding-top:30px; padding-bottom:10px;">
+        <h2 class="section-heading">Top Rating Albums</h2>
+        <hr class="primary">
+      </div>
+    </div>
+    <div class="row no-gutter">
+      <%= render partial: 'albums/persisted_album', collection: albums %>
+    </div>
+  </div>
+</section>
