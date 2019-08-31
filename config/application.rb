@@ -29,6 +29,9 @@ module MusicReview
       %Q(#{html_tag}).html_safe
     end
 
+    # Use slim as a template engine
+    config.generators.template_engine = :slim
+
     # Don't generate routes, system test files, stylesheets, javascripts.
     config.generators do |g|
       g.skip_routes false
