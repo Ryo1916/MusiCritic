@@ -9,7 +9,7 @@
         p
           = link_to icon('fab', 'spotify', 'Go to Spotify'), @artist.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank'
         - @artist.genres.each do |genre|
-          span.badge
+          span.badge[style='margin-right:5px;']
             = genre.capitalize
   .col-md-8[style="margin-bottom:20px;"]
     - if @albums.blank?

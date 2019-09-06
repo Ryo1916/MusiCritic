@@ -13,19 +13,14 @@ html
   body
     = render partial: "creatives/navbar"
     - unless notice.blank?
-      |  <p class="notice alert alert-success text-center" role="alert" style="
-      = current_page?(root_path) ? "margin:50px 0 0 0 ;" : "margin:50px 0 -60px 0;"
-      | ">
-      = notice
+      p.notice.alert.alert-success.text-center[role="alert" style=(current_page?(root_path) ? "margin:50px 0 0 0 ;" : "margin:50px 0 -60px 0;")]
+        = notice
     - unless alert.blank?
       p.alert.alert-danger.text-center[role="alert" style="margin:50px 0 -60px 0;"]
         = alert
     - if current_page?(root_path)
       = yield
     - else
-      |  <div class="container-fluid 
-      = controller_name
-      = action_name
-      | "> 
-      = yield
+      div class="container-fluid #{controller_name} #{action_name}"
+        = yield
     = render partial: "creatives/footer"

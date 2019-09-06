@@ -4,9 +4,7 @@
     .col-md-4
       = image_tag @album.image, class: "img-responsive img-rounded"
       .album-info
-        |  <div class="star-rating" style="margin-top:10px;" data-score= 
-        = @album.average_rating
-        |  >
+        .star-rating[style="margin-top:10px;" data-score="#{@album.average_rating}"]
       em
         = "#{@album.reviews_count} reviews"
       h3
@@ -15,34 +13,31 @@
         = @album.name
       span[style="display:inline; float:right;"]
         = @album.release_date
-    p[style="margin-top:20px;"]
-      = link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls, class: 'btn btn-success btn-block', target: '_blank'
-    table.table.bordered-table
-      tbody
-        - @album.songs.order_by_track_number.each do |song|
-          tr
-            td
-              = song.track_number
-            td
-              = song.name
-            - if song.preview_url.present?
+      p[style="margin-top:20px;"]
+        = link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls, class: 'btn btn-success btn-block', target: '_blank'
+      table.table.bordered-table
+        tbody
+          - @album.songs.order_by_track_number.each do |song|
+            tr
               td
-                |  <audio id="sound-
-                = song.id
-                | " preload="none"> <source src="
-                = song.preview_url
-                | "> 
-                = play_icon(id: song.id)
-                = stop_icon(id: song.id)
-  .col-md-8[style="margin-bottom:20px;"]
-    = render 'reviews/form', review: @review, album: @album, id: @album.id, type: 'new'
-    hr
-    - if @reviews.blank?
-      h3[style="border-bottom:solid 1px #eee;"]
-        | There is no reviews...
-    - else
-      = render partial: 'reviews/review', collection: @reviews
-      = paginate @reviews
+                = song.track_number
+              td
+                = song.name
+              - if song.preview_url.present?
+                td
+                  audio id="sound-#{song.id}" preload="none"
+                    source src=(song.preview_url)
+                  = play_icon(id: song.id)
+                  = stop_icon(id: song.id)
+    .col-md-8[style="margin-bottom:20px;"]
+      = render 'reviews/form', review: @review, album: @album, id: @album.id, type: 'new'
+      hr
+      - if @reviews.blank?
+        h3[style="border-bottom:solid 1px #eee;"]
+          | There is no reviews...
+      - else
+        = render partial: 'reviews/review', collection: @reviews
+        = paginate @reviews
 hr
 - @artists.each do |artist|
   .row
