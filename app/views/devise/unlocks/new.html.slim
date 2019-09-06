@@ -1,0 +1,15 @@
+- provide(:page_title, 'Resend unlock instructions')
+.row[style="margin-top:60px;"]
+  .col-md-6.col-md-offset-3
+    .form-group
+      h2
+        | Resend unlock instructions
+      = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+        = devise_error_messages!(resource: resource)
+        .field[style="margin-bottom:20px;"]
+          = f.label :email
+          = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Enter your email', class: 'form-control'
+        .actions[style="margin-bottom:20px;"]
+          = f.submit "Resend unlock instructions", class: "btn btn-success btn-block"
+      hr
+      = render "devise/shared/links"

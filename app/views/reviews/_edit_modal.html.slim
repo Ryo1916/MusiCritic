@@ -1,0 +1,12 @@
+.modal.fade id="myModal-#{review.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  .modal-dialog[role="document"]
+    .modal-content
+      .modal-header
+        button.close[type="button" data-dismiss="modal" aria-label="Close"]
+          span[aria-hidden="true"]
+            | ×
+        h4#myModalLabel.modal-title
+          | Edit review
+      span#error-messages-for-update
+      .modal-body
+        = render 'reviews/form', review: review, album: review.album, id: review.id, type: 'edit'

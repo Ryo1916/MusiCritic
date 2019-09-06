@@ -1,0 +1,9 @@
+.col-lg-3.col-sm-6.artist
+  = link_to artist_path(persisted_artist.spotify_id), class: "portfolio-box", ontouchstart: "" do
+    .image
+      = image_tag persisted_artist.image.empty? ? Constants::DEFAULT_IMG_URL : persisted_artist.image, class: "img-responsive img-rounded", alt: persisted_artist.name
+    .portfolio-box-caption.img-rounded
+      .portfolio-box-caption-content
+        .project-category.text-faded
+          h4
+            = persisted_artist.name

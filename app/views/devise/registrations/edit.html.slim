@@ -1,0 +1,27 @@
+- provide(:page_title, 'Edit Password')
+.row[style="margin-top:60px;"]
+  .col-md-6.col-md-offset-3
+    h2
+      | Edit Password
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = devise_error_messages!(resource: resource)
+      .form-group
+        = f.label :password
+        ul
+          li
+            = "#{@minimum_password_length} characters minimum" if @minimum_password_length
+        = f.password_field :password, autocomplete: 'off', placeholder: 'Enter new password', class: 'form-control'
+      .form-group
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, autocomplete: 'off', placeholder: 'Enter new password again', class: 'form-control'
+      .form-group
+        = f.label :current_password
+        ul
+          li
+            | we need your current password to confirm your changes
+        = f.password_field :current_password, autocomplete: "current-password", placeholder: 'Enter current password', class: 'form-control'
+      .actions
+        = f.submit "Update", class: 'btn btn-primary btn-block'
+    hr
+    .back-to-edit-profile[style="margin-bottom:20px;"]
+      = link_to "Back", edit_user_path(current_user), class: 'btn btn-default btn-block'

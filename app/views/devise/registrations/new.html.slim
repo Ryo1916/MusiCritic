@@ -1,0 +1,40 @@
+- provide(:page_title, 'Signup')
+.row[style="margin-top:60px;"]
+  .col-md-6.col-md-offset-3
+    .form-group
+      h2
+        | Create Your Account
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = devise_error_messages!(resource: resource)
+        .field[style="margin-bottom:20px;"]
+          = f.label :name
+          = f.text_field :name, autofocus: true, placeholder: "Enter your name", class: "form-control" 
+        .field[style="margin-bottom:20px;"]
+          = f.label :email
+          = f.email_field :email, placeholder: "Enter email", class: "form-control"
+        - unless session["devise.facebook_data"]
+          .field[style="margin-bottom:20px;"]
+            = f.label :password
+            ul
+              li
+                = "#{@minimum_password_length} characters minimum" if @minimum_password_length
+            = f.password_field :password, autocomplete: "off", placeholder: "Enter password", class: "form-control"
+          .field[style="margin-bottom:20px;"]
+            = f.label :password_confirmation
+            = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Enter password again", class: "form-control"
+        .terms-and-privacies.text-center
+          h5
+            | By signing up, you agree to our
+            = link_to ' Terms and conditions', terms_path, style: 'color:#f05f40;'
+            |  and
+            = link_to ' Data Policy', privacy_path, style: 'color:#f05f40;'
+        .actions[style="margin-bottom:20px;"]
+          = f.submit "Create your account", class: "btn btn-success btn-block"
+        - if session["devise.facebook_data"]
+          .field
+            = link_to cancel_user_registration_path do
+              .btn.btn-default.btn-block.btn-warning
+                | Cancel sign up with Facebook
+      = render 'devise/shared/omniauth_providers' unless session["devise.facebook_data"]
+      hr
+      = render "devise/shared/links"

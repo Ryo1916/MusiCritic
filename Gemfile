@@ -8,17 +8,17 @@ end
 
 # basic
 gem 'counter_culture', '2.2.3'
+gem 'html2slim',       '0.2.0'
 gem 'jbuilder',        '2.8.0'
+gem 'kaminari',        '1.1.1'
 gem 'puma',            '3.9.1'
 gem 'rails',           '5.1.4'
 gem 'redis-rails',     '5.0.2'
 gem 'responders',      '2.4.0'
+gem 'slim',            '4.0.1'
 gem 'turbolinks',      '5.0.1'
 gem 'uglifier',        '3.2.0'
 gem 'pg',              '~> 0.18'
-
-# view
-gem 'kaminari', '1.1.1'
 
 # css
 gem 'bootstrap',           '4.1.3'
@@ -32,8 +32,9 @@ gem 'jquery-rails',      '4.3.1'
 gem 'jquery-turbolinks', '2.1.0'
 
 # images
-gem 'carrierwave', '1.2.3'
-gem 'mini_magick', '4.9.5'
+gem 'carrierwave',    '1.2.3'
+gem 'lazyload-rails', '0.5.0'
+gem 'mini_magick',    '4.9.5'
 
 # authentication
 gem 'devise',            '4.5'

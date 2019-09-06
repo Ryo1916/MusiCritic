@@ -1,0 +1,4 @@
+= form_tag(artists_path, method: :get) do
+  .form-group.has-search
+    span.fa.fa-search.form-control-button
+    = text_field_tag :artist_name, '', class: "form-control", placeholder: "Search artists"

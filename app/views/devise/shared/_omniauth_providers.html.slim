@@ -1,0 +1,22 @@
+.buttons[style="margin-top: 20px;"]
+  = link_to user_facebook_omniauth_authorize_path do
+    .btn.btn-default.btn-block.btn-facebook
+      span.fab.fa-facebook
+      |  Login with Facebook 
+    / TODO: Spotify/Apple musicアカウントでのログイン
+    / ul
+    /   li
+    /     = link_to user_facebook_omniauth_authorize_path do
+    /       .btn.btn-default.btn-facebook
+    /         span.fab.fa-facebook
+    /         | Facebook
+    /   li
+          = link_to user_spotify_omniauth_authorize_path do
+    /       .btn.btn-default.btn-spotify
+    /         span.fab.fa-spotify
+    /         | Spotify
+    /   li
+    /     = link_to user_apple_omniauth_authorize_path do
+    /       .btn.btn-default.btn-apple
+    /         span.fab.fa-apple
+    /         | Apple

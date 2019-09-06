@@ -1,0 +1,26 @@
+- provide(:page_title, 'Albums')
+.row[style="margin-top:60px;"]
+  .col-md-6.col-md-offset-3[style="margin-top:40px;"]
+    = render partial: 'search'
+hr
+.row
+  #albums-list
+    - if @albums.present?
+      .panel.panel-default
+        .panel-body.text-center
+          h4
+            | Results of 
+            = params[:album_name]
+          = render partial: 'album', collection: @albums
+.row
+  .panel.panel-default
+    .panel-body.text-center
+      h4
+        | New Releases
+      = render partial: 'album', collection: @new_releases
+  hr
+  .panel.panel-default
+    .panel-body.text-center
+      h4
+        | Top Rating Albums
+      = render partial: 'persisted_album', collection: @top_rating_albums

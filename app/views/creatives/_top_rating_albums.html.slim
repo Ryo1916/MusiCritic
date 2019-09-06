@@ -1,0 +1,9 @@
+section#top-rating-albums.no-padding
+  .container-fluid.no-padding
+    .row
+      .col-lg-12.text-center[style="padding-top:30px; padding-bottom:10px;"]
+        h2.section-heading
+          | Top Rating Albums
+        hr.primary
+    .row.no-gutter
+      = render partial: 'albums/persisted_album', collection: albums

@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title
+      = page_title(page_title: yield(:page_title))
+    meta[content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"]
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = favicon_link_tag asset_path('drum-set-silhouette-512-246168.png'), rel: 'icon', type: 'image/png'
+    link[href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"]
+    link[href="http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic" rel="stylesheet" type="text/css"]
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    = render partial: "creatives/navbar"
+    - unless notice.blank?
+      p.notice.alert.alert-success.text-center[role="alert" style=(current_page?(root_path) ? "margin:50px 0 0 0 ;" : "margin:50px 0 -60px 0;")]
+        = notice
+    - unless alert.blank?
+      p.alert.alert-danger.text-center[role="alert" style="margin:50px 0 -60px 0;"]
+        = alert
+    - if current_page?(root_path)
+      = yield
+    - else
+      div class="container-fluid #{controller_name} #{action_name}"
+        = yield
+    = render partial: "creatives/footer"

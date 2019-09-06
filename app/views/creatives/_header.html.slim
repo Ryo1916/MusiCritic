@@ -1,0 +1,9 @@
+header
+  .header-content
+    .header-content-inner
+      h1
+        | Your Favorite Music with Your Review
+      hr
+      p
+        | We can help you find new sophisticated, mellow, traquil or emotional music.
+      = link_to "Find Out More", user_signed_in? ? albums_path : new_user_session_path, class: "btn btn-primary btn-xl page-scroll"

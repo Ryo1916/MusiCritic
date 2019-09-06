@@ -4,6 +4,7 @@
 //= require jquery.raty.js
 //= require popper
 //= require bootstrap
+//= require jquery.lazyload
 //= require creative/cbpAnimatedHeader
 //= require creative/classie
 //= require creative/jquery.easing.min
@@ -15,6 +16,8 @@
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {
+  $("img").lazyload();
+
   function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
