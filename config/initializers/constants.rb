@@ -2,7 +2,7 @@
 
 module Constants
   # base
-  APP_NAME = 'Music Review'
+  APP_NAME = 'MusiCritic'
   DEFAULT_IMG_URL = 'https://img.pngio.com/my-my-png-album-covers-500_500.png'
 
   # validations
