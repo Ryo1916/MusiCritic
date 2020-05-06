@@ -1,4 +1,4 @@
-# Music review app by rails
+# Music review app
 
 * Ruby: 2.5.0
 

@@ -16,6 +16,7 @@ footer
     span.fab.fa-github[style="margin-right:-10px;"]
   .footer-bottom
     span
-      | © 
-      = Time.zone.now.year
-      |  Music Review - All Rights Reserved
+      | ©
+      = "#{Time.zone.now.year} "
+      = "#{Constants::APP_NAME} "
+      | - All Rights Reserved

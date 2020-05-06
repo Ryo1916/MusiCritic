@@ -1,6 +1,6 @@
 h2
-  | Hi! 
-  = @resource.name
+  | Hi!
+  = " #{@resource.name}"
 p
   | You recently requested to confirm an account that you created for login to our app.
 p
@@ -13,4 +13,4 @@ br
 p
   | Thanks,
 p
-  | Music Review
+  = Constants::APP_NAME
