@@ -45,9 +45,10 @@ module MusiCritic
     end
 
     # Auth for rspotify
+    # TODO: client.rbに移動
     RSpotify.authenticate(
-      Rails.application.secrets.spotify_api_key,
-      Rails.application.secrets.spotify_api_secret
+      Rails.application.credentials[Rails.env.to_sym][:spotify_api_key],
+      Rails.application.credentials[Rails.env.to_sym][:spotify_api_secret]
     )
   end
 end
