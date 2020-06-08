@@ -7,6 +7,7 @@ RUN set -x \
   && apk update \
   && apk upgrade \
   && apk add --update --no-cache bash        \
+                                 build-base  \
                                  gmp-dev     \
                                  imagemagick \
                                  less        \
@@ -20,7 +21,6 @@ RUN set -x \
                                  vim         \
   && apk add --update --no-cache --virtual build-dependencies \
                                            alpine-sdk         \
-                                           build-base         \
                                            libxml2-dev        \
                                            libxslt-dev        \
                                            postgresql-dev     \
