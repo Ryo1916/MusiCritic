@@ -5,7 +5,7 @@
       .panel-body
         .row
           .col-md-12
-            = image_tag @user.avatar, class: 'img-circle', alt: 'users avatar'
+            = image_tag @user.avatar.file.nil? ? 'default.jpg' : @user.avatar.url, class: 'img-circle', alt: 'users avatar'
             .username[style="margin:20px 0;"]
               span[style="margin-right:20px;"]
                 b

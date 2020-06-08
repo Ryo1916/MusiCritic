@@ -1,7 +1,7 @@
 .review
   .user[style="margin:10px 0;"]
     span[style="margin-right:10px;"]
-      = link_to image_tag(review.user.avatar.thumb, class: 'img-circle'), user_path(review.user)
+      = link_to image_tag(review.user.avatar.file.nil? ? 'default.jpg' : review.user.avatar.thumb.url, class: 'img-circle'), user_path(review.user)
     = review.user.name
   .star-rating[style="display:inline; margin-right:10px;" data-score="#{review.rating}"]
   span
@@ -14,7 +14,7 @@
     .review-links[style="padding-bottom:20px;"]
       span[style="float:right;"]
         a href="#" data-toggle="modal" data-target="#myModal-#{review.id}"
-          | Edit 
-        | / 
+          | Edit
+        | /
         = link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' }
 = render 'reviews/edit_modal', review: review

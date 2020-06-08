@@ -16,7 +16,7 @@
                   = message
         .field.text-center[style="margin-bottom:20px;"]
           img#avatar_img_prev.hidden.img-circle[src="#" style="width:150px; height:150px; cursor:pointer;" onclick="$('#user_avatar').click()"]
-          = image_tag @user.avatar, class: 'img-circle avatar_present_img', style: 'cursor:pointer;', onClick:"$('#user_avatar').click()"
+          = image_tag @user.avatar.file.nil? ? 'default.jpg' : @user.avatar.url, class: 'img-circle avatar_present_img', style: 'cursor:pointer;', onClick:"$('#user_avatar').click()"
         .field.text-center[style="margin-bottom:20px;"]
           span.upload
             label[for="user_avatar" style="color:blue; cursor:pointer;"]
