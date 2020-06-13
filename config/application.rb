@@ -21,9 +21,6 @@ module MusiCritic
     # To include apis modules in this app
     config.autoload_paths += %W(#{config.root}/apis)
 
-    # Use secrets.yml for credentials
-    config.read_encrypted_secrets = true
-
     # Not to display <div class="field_with_errors">
     config.action_view.field_error_proc = Proc.new do |html_tag, instance|
       %Q(#{html_tag}).html_safe
