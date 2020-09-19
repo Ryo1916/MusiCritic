@@ -25,7 +25,7 @@
                   = @user.created_at.strftime('%Y %-b %-d')
                   |  joined
         .row.reviewed-albums
-          - @user.user_reviewed_albums.each do |album|
+          - @user_reviewed_albums.each do |album|
             .col-xs-3
               = link_to image_tag(album.image, class: 'img-responsive img-rounded', style: 'padding:0 -10px;'), album_path(album.spotify_id)
   .col-md-8

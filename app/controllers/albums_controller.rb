@@ -23,8 +23,11 @@ class AlbumsController < ApplicationController
 
   def show
     @review = Review.new
-    @reviews = @album.reviews.reviews_list(page: params[:page])
-    @artists = SpotifyAPI::V2::Client.unique_album(spotifies_album_id: @album.spotify_id).artists
+    @reviews = Review.joins(:album)
+                     .where(albums: { id: @album.id })
+                     .reviews_list(page: params[:page])
+    @artists = SpotifyAPI::V2::Client.unique_album(spotifies_album_id: @album.spotify_id)
+                                     .artists
   end
 
   def destroy
@@ -41,7 +44,9 @@ class AlbumsController < ApplicationController
   end
 
   def set_top_rating_albums
-    @top_rating_albums = Album.top_ratings(limit: Constants::TOP_RATING_ALBUMS)
+    @top_rating_albums = Album.eager_load(:artists)
+                              .where.not(id: @album.id)
+                              .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
   end
 
   # FIXME: models配下にPOROで独自モデルを定義して、そこで保存するように変更したい

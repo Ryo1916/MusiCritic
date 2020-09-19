@@ -47,6 +47,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validate :avatar_size
 
+  # TODO: 未使用メソッド削除
   class << self
     # Omniauth
     def from_omniauth(auth)
