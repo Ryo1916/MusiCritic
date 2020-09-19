@@ -1,7 +1,6 @@
 class AlbumsController < ApplicationController
   include Common
 
-  before_action :authenticate_user!
   before_action only: %i[show] do
     save_album(spotifies_album_id: params[:id])
   end
@@ -46,6 +45,7 @@ class AlbumsController < ApplicationController
   end
 
   # FIXME: models配下にPOROで独自モデルを定義して、そこで保存するように変更したい
+  # FIXME: transactionを使う
   def save_album(spotifies_album_id:)
     return if Album.find_by(spotify_id: spotifies_album_id)
     unique_album = SpotifyAPI::V2::Client.unique_album(spotifies_album_id: spotifies_album_id)

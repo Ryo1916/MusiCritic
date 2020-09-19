@@ -1,5 +1,4 @@
 class ArtistsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_artist, only: %i[destroy]
   before_action :set_top_rating_artists, only: %i[index show]
 
