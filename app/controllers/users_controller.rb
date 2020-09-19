@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include Common
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[show]
   before_action except: %i[index] do
     set_user(user_id: params[:id])
   end
