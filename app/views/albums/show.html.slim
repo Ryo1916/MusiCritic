@@ -30,7 +30,10 @@
                   = play_icon(id: song.id)
                   = stop_icon(id: song.id)
     .col-md-8[style="margin-bottom:20px;"]
-      = render 'reviews/form', review: @review, album: @album, id: @album.id, type: 'new'
+      - if current_user
+        = render 'reviews/form', review: @review, album: @album, id: @album.id, type: 'new'
+      - else
+        = render 'users/promote_signin'
       hr
       - if @reviews.blank?
         h3[style="border-bottom:solid 1px #eee;"]
@@ -43,9 +46,7 @@ hr
   .row
     .panel.panel-default
       .panel-body.text-center
-        h4
-          | More by 
-          = artist.name
+        h4 More by #{artist.name}
         = render partial: 'albums/album', collection: artist.albums.select { |album| album.id != @album.spotify_id }
 hr
 .row

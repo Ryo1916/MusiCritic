@@ -1,5 +1,4 @@
 class ArtistsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_artist, only: %i[destroy]
   before_action :set_top_rating_artists, only: %i[index show]
 
@@ -50,7 +49,9 @@ class ArtistsController < ApplicationController
   end
 
   def set_top_rating_artists
+    # NOTE: 複数のアルバムがtop_ratingsにあるアーティストが重複して表示されないようにuniqしている
     @top_rating_artists = Album
+      .eager_load(:artists)
       .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
       .inject([]) { |result, album| result + album.artists }.uniq
   end
