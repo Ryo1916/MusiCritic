@@ -1,15 +1,18 @@
 class UsersController < ApplicationController
   include Common
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[show]
   before_action except: %i[index] do
     set_user(user_id: params[:id])
   end
   before_action :prohibit_unspecified_users_access, only: %i[edit update]
 
   def show
-    @reviews = @user.reviews.reviews_list(page: params[:page])
-    @user_reviewed_albums = @user.user_reviewed_albums
+    @reviews = Review.where(user_id: @user.id)
+                     .reviews_list(page: params[:page])
+    @user_reviewed_albums = Album.eager_load(:reviews)
+                                 .where(reviews: { user_id: @user.id })
+                                 .uniq
     @new_released_albums = SpotifyAPI::V2::Client.new_releases(limit: Constants::NEW_RELEASE_ALBUMS_FOR_INSTRUCTIONS)
     @top_rating_albums = Album.top_ratings(limit: Constants::ALBUMS_FOR_INSTRUCTIONS)
   end

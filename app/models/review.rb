@@ -29,6 +29,7 @@ class Review < ApplicationRecord
   # Callback
   after_commit :update_album_average_rating
 
+  # TODO: 未使用メソッド削除
   class << self
     def reviews_list(page:)
       order("created_at desc").page(page).per(Constants::REVIEWS_FOR_ALBUMS_SHOW_PAGE)

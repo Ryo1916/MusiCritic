@@ -54,4 +54,4 @@ hr
     .panel-body.text-center
       h4
         | Top Rating Albums
-      = render partial: 'albums/persisted_album', collection: @top_rating_albums.select { |album| album.spotify_id != @album.spotify_id }
+      = render partial: 'albums/persisted_album', collection: @top_rating_albums

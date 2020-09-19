@@ -24,6 +24,7 @@ class Album < ApplicationRecord
   # Validations
   validates_presence_of :name, :release_date, :external_urls, :image, :spotify_id
 
+  # TODO: 未使用メソッド削除
   class << self
     def pagination(page:)
       page(page).per(Constants::ARTISTS_FOR_ARTISTS_INDEX_PAGE)

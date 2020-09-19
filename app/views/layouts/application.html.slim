@@ -7,6 +7,9 @@ html
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = favicon_link_tag asset_path('drum-set-silhouette-512-246168.png'), rel: 'icon', type: 'image/png'
+    link[rel="preload" as="font" type="font/woff2" href="https://musicritic.net/assets/font-awesome/fa-regular-400-e5c1d9e7bdeaf3372dee724d175d25aca879ed52ae9afd018f503e9d74e09b50.woff2" crossorigin]
+    link[rel="preload" as="font" type="font/woff2" href="https://musicritic.net/assets/font-awesome/fa-brands-400-c885e9f2017a2ed7075db9e876d40a04aa3208114443803bdb120a34afd3b1d6.woff2" crossorigin]
+    link[rel="preload" as="font" type="font/woff2" href="https://musicritic.net/assets/font-awesome/fa-solid-900-08aa3a5ee68a21d5771a70b20495b6da1c0f996c46982cd1b0447ad2db730d11.woff2" crossorigin]
     link[href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"]
     link[href="http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic" rel="stylesheet" type="text/css"]
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
