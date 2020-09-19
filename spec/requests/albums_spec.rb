@@ -16,9 +16,9 @@ RSpec.describe 'Album', type: :request do
     end
 
     context 'without authentication' do
-      it 'returns fail status' do
+      it 'returns success status' do
         get '/albums'
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(:success)
       end
     end
   end

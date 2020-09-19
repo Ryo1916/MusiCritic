@@ -2,23 +2,25 @@ require 'rails_helper'
 
 RSpec.describe 'Artist', type: :request do
   describe 'GET /artists' do
+    subject { get '/artists' }
+
     context 'with authentication' do
       login
       it 'returns success status' do
-        get '/artists'
+        subject
         expect(response).to have_http_status(:success)
       end
 
       it 'gets artists page' do
-        get '/artists'
+        subject
         expect(response).to render_template(:index)
       end
     end
 
     context 'without authentication' do
-      it 'returns fail status' do
-        get '/artists'
-        expect(response).to have_http_status(302)
+      it 'returns success status' do
+        subject
+        expect(response).to have_http_status(:success)
       end
     end
   end
