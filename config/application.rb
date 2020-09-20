@@ -40,12 +40,5 @@ module MusiCritic
                        view_specs: false,
                        routing_specs: false
     end
-
-    # Auth for rspotify
-    # TODO: client.rbに移動
-    RSpotify.authenticate(
-      Rails.application.credentials[Rails.env.to_sym][:spotify_api_key],
-      Rails.application.credentials[Rails.env.to_sym][:spotify_api_secret]
-    )
   end
 end
