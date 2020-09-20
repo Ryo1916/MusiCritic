@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  include Common
+  include UserAccessable
+  include ApiClientGeneratable
 
   before_action :authenticate_user!, except: %i[show]
   before_action except: %i[index] do
@@ -13,8 +14,8 @@ class UsersController < ApplicationController
     @user_reviewed_albums = Album.eager_load(:reviews)
                                  .where(reviews: { user_id: @user.id })
                                  .uniq
-    @new_released_albums = SpotifyAPI::V2::Client.new_releases(limit: Constants::NEW_RELEASE_ALBUMS_FOR_INSTRUCTIONS)
     @top_rating_albums = Album.top_ratings(limit: Constants::ALBUMS_FOR_INSTRUCTIONS)
+    @new_released_albums = @spotify_client.get_new_releases(limit: Constants::NEW_RELEASE_ALBUMS_FOR_INSTRUCTIONS)
   end
 
   def edit; end

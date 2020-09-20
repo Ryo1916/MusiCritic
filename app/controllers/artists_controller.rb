@@ -1,11 +1,15 @@
 class ArtistsController < ApplicationController
+  include ApiClientGeneratable
+
+  before_action :generate_spotify_client, only: %i[index show]
   before_action :set_artist, only: %i[destroy]
   before_action :set_top_rating_artists, only: %i[index show]
 
   def index
+    # TODO: searchはメソッドを分けたい→renderするhtmlをindexにすればできるかも
     if artist_name = params[:artist_name]
       if artist_name.present?
-        @artists = SpotifyAPI::V2::Client.artists(artist_name: artist_name)
+        @artists = @spotify_client.search_artists(artist_name: artist_name)
       else
         respond_to do |format|
           format.html { render :index }
@@ -16,7 +20,7 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    @artist = SpotifyAPI::V2::Client.unique_artist(spotifies_artist_id: params[:id])
+    @artist = @spotify_client.get_artist(spotifies_artist_id: params[:id])
     @albums = @artist.albums(
       limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API,
       offset: 0,
@@ -50,9 +54,10 @@ class ArtistsController < ApplicationController
 
   def set_top_rating_artists
     # NOTE: 複数のアルバムがtop_ratingsにあるアーティストが重複して表示されないようにuniqしている
-    @top_rating_artists = Album
-      .eager_load(:artists)
-      .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
-      .inject([]) { |result, album| result + album.artists }.uniq
+    # FIXME: Albumモデルからartistsを取得しているので、Artistモデルから取得するように修正
+    @top_rating_artists = Album.eager_load(:artists)
+                               .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
+                               .inject([]) { |result, album| result + album.artists }
+                               .uniq
   end
 end

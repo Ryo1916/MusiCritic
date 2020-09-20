@@ -1,17 +1,20 @@
 class AlbumsController < ApplicationController
-  include Common
+  include UserAccessable
+  include ApiClientGeneratable
 
+  before_action :generate_spotify_client, only: %i[index show]
   before_action only: %i[show] do
     save_album(spotifies_album_id: params[:id])
   end
   before_action :set_album, only: %i[show destroy]
-  before_action :set_top_rating_albums, only: %i[index show]
 
   def index
-    @new_releases = SpotifyAPI::V2::Client.new_releases(limit: Constants::NEW_RELEASE_ALBUMS)
+    @new_releases = @spotify_client.get_new_releases(limit: Constants::NEW_RELEASE_ALBUMS)
+    @top_rating_albums = Album.eager_load(:artists)
+                              .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
     if album_name = params[:album_name]
       if album_name.present?
-        @albums = SpotifyAPI::V2::Client.albums(album_name: album_name)
+        @albums = @spotify_client.search_albums(album_name: album_name)
       else
         respond_to do |format|
           format.html { render :index }
@@ -26,8 +29,11 @@ class AlbumsController < ApplicationController
     @reviews = Review.joins(:album)
                      .where(albums: { id: @album.id })
                      .reviews_list(page: params[:page])
-    @artists = SpotifyAPI::V2::Client.unique_album(spotifies_album_id: @album.spotify_id)
-                                     .artists
+    @artists = @spotify_client.get_album(spotifies_album_id: @album.spotify_id)
+                              .artists
+    @top_rating_albums = Album.eager_load(:artists)
+                              .where.not(id: @album.id)
+                              .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
   end
 
   def destroy
@@ -43,17 +49,12 @@ class AlbumsController < ApplicationController
     @album = Album.find_by(spotify_id: params[:id])
   end
 
-  def set_top_rating_albums
-    @top_rating_albums = Album.eager_load(:artists)
-                              .where.not(id: @album.id)
-                              .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
-  end
-
   # FIXME: models配下にPOROで独自モデルを定義して、そこで保存するように変更したい
   # FIXME: transactionを使う
   def save_album(spotifies_album_id:)
     return if Album.find_by(spotify_id: spotifies_album_id)
-    unique_album = SpotifyAPI::V2::Client.unique_album(spotifies_album_id: spotifies_album_id)
+
+    unique_album = @spotify_client.get_album(spotifies_album_id: spotifies_album_id)
 
     # Artistの存在チェック／保存
     album_artists = unique_album.artists.map do |artist|
