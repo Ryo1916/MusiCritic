@@ -18,9 +18,6 @@ module MusiCritic
     # Set default time zone
     config.time_zone = 'Tokyo'
 
-    # To include apis modules in this app
-    config.autoload_paths += %W(#{config.root}/apis)
-
     # Not to display <div class="field_with_errors">
     config.action_view.field_error_proc = Proc.new do |html_tag, instance|
       %Q(#{html_tag}).html_safe
