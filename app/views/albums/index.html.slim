@@ -8,9 +8,7 @@ hr
     - if @albums.present?
       .panel.panel-default
         .panel-body.text-center
-          h4
-            | Results of 
-            = params[:album_name]
+          h4 Results of #{params[:album_name]}
           = render partial: 'album', collection: @albums
 .row
   .panel.panel-default

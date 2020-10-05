@@ -8,7 +8,7 @@
       em
         = "#{@album.reviews_count} reviews"
       h3
-        == @album.artists.map { |artist| link_to artist.name, artist_path(artist.spotify_id) }.join(' / ')
+        == @artists.map { |artist| link_to artist.name, artist_path(artist.id) }.join(' / ')
       h4[style="display:inline;"]
         = @album.name
       span[style="display:inline; float:right;"]
@@ -17,7 +17,7 @@
         = link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls, class: 'btn btn-success btn-block', target: '_blank'
       table.table.bordered-table
         tbody
-          - @album.songs.order_by_track_number.each do |song|
+          - @songs.each do |song|
             tr
               td
                 = song.track_number
@@ -47,6 +47,7 @@ hr
     .panel.panel-default
       .panel-body.text-center
         h4 More by #{artist.name}
+        / TODO: collectionのロジックを剥がす
         = render partial: 'albums/album', collection: artist.albums.select { |album| album.id != @album.spotify_id }
 hr
 .row
