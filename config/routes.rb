@@ -10,7 +10,9 @@ Rails.application.routes.draw do
                              sessions: 'users/sessions' }
   resources :users, only: [:show, :edit, :update]
   resources :artists, only: [:index, :show, :destroy]
-  resources :albums, only: [:index, :show, :destroy]
+  resources :albums, only: [:index, :show, :destroy] do
+    get :search, on: :collection
+  end
   resources :reviews, only: [:create, :update, :destroy]
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
