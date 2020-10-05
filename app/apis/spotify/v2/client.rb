@@ -5,6 +5,8 @@ module Spotify
     class Client
       include Singleton
 
+      class ApiSecretError < StandardError; end
+
       def initialize
         validate_api_key!
       end
@@ -22,6 +24,8 @@ module Spotify
       end
 
       def search_artists(artist_name:)
+        return if artist_name.blank?
+
         RSpotify::Artist.search(
           artist_name,
           limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API
@@ -29,6 +33,8 @@ module Spotify
       end
 
       def search_albums(album_name:)
+        return if album_name.blank?
+
         RSpotify::Album.search(
           album_name,
           limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API
@@ -38,11 +44,19 @@ module Spotify
       private
 
       def validate_api_key!
-        RSpotify.authenticate(
-          Rails.application.credentials[Rails.env.to_sym][:spotify_api_key],
-          Rails.application.credentials[Rails.env.to_sym][:spotify_api_secret]
-        )
+        spotify_api_key = Rails.application.credentials[Rails.env.to_sym][:spotify_api_key]
+        spotify_api_secret = Rails.application.credentials[Rails.env.to_sym][:spotify_api_secret]
+        raise ApiSecretError if spotify_api_key.nil? || spotify_api_secret.nil?
+
+        begin
+          RSpotify.authenticate(spotify_api_key, spotify_api_secret)
+        rescue RestClient::BadRequest => e
+          Rails.logger.error "SpotifyAuthError: #{e.backtrace}"
+        end
       end
+
+      # TODO: avaliable_marketがUSのものを一律で表示しないようにする
+      # def delete_duplicated_albums; end
     end
   end
 end
