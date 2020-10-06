@@ -17,7 +17,8 @@ class Artist < ApplicationRecord
   has_many :albums, through: :artists_albums
 
   # Validation
-  validates_presence_of :name, :image, :external_urls, :spotify_id
+  validates_presence_of :name, :image, :external_urls
+  validates :spotify_id, uniqueness: true
 
   # TODO: 未使用メソッド削除
   class << self

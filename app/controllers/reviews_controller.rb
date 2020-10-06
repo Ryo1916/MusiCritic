@@ -1,40 +1,29 @@
 class ReviewsController < ApplicationController
-  include Common
+  include UserAccessable
+  include ApiClientGeneratable
 
   before_action :authenticate_user!
   before_action :set_review, only: %i[update destroy]
-  before_action only: %i[update destroy] do
-    set_album(id: @review.album_id)
-  end
+  before_action :generate_spotify_client
 
   def create
-    @review = current_user.reviews.new(review_params)
-    @album = Album.find(@review.album_id)
-
-    respond_to do |format|
-      if @review.save
-        format.html { redirect_to album_path(@album.spotify_id), notice: 'Review was successfully created.' }
-      else
-        format.js
-      end
-    end
+    request_params = CreateReviewRequestParams.new(params)
+    request_params.validate!
+    service = CreateReviewService.new(request_params: request_params, client: @spotify_client, current_user: current_user)
+    service.run!
+    result = service.result
+    respond_to { |format| result.saved_result ? format.html { redirect_to album_path(result.album_id), notice: 'Review was successfully created.' } : format.js }
   end
 
   def update
     respond_to do |format|
-      if @review.update(review_params)
-        format.html { redirect_to request.referer, notice: 'Review was successfully updated.' }
-      else
-        format.js
-      end
+      @review.update(review_params) ? format.html { redirect_to request.referer, notice: 'Review was successfully updated.' } : format.js
     end
   end
 
   def destroy
     @review.destroy
-    respond_to do |format|
-      format.html { redirect_to request.referer, notice: 'Review was successfully destroyed.' }
-    end
+    respond_to { |format| format.html { redirect_to request.referer, notice: 'Review was successfully destroyed.' } }
   end
 
   private
@@ -43,11 +32,7 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
   end
 
-  def set_album(id:)
-    @album = Album.find(id)
-  end
-
   def review_params
-    params.require(:review).permit(:title, :rating, :text, :user_id, :album_id)
+    params.require(:review).permit(:title, :rating, :text)
   end
 end

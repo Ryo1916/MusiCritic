@@ -38,6 +38,7 @@ class Review < ApplicationRecord
 
   private
 
+  # FIXME: reviewモデルがalbumのインスタンスを知っているのは変
   def update_album_average_rating
     album.update_average_rating
   end

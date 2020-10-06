@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Common
+module UserAccessable
   extend ActiveSupport::Concern
 
   def set_user(user_id:)

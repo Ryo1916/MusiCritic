@@ -8,9 +8,7 @@ hr
     - if @artists.present?
       .panel.panel-default
         .panel-body.text-center
-          h4
-            | Results of 
-            = params[:artist_name]
+          h4 Results of #{params[:artist_name]}
           = render partial: 'artist', collection: @artists
 .row
   .panel.panel-default

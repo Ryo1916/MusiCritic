@@ -12,11 +12,11 @@ nav#mainNav.navbar.navbar-default.navbar-fixed-top[style="background-color:black
         = Constants::APP_NAME
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
+        li
+          = link_to "Artists", artists_path
+        li
+          = link_to "Albums", albums_path
         - if user_signed_in?
-          li
-            = link_to "Artist", artists_path
-          li
-            = link_to "Albums", albums_path
           li
             = link_to "Account", user_path(current_user)
           li
