@@ -20,6 +20,4 @@ RSpec.describe Song, type: :model do
   # Validations test
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:track_number) }
-  it { should validate_presence_of(:album_id) }
-
 end
