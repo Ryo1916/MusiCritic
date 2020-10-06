@@ -28,7 +28,7 @@ module Spotify
 
         RSpotify::Artist.search(
           artist_name,
-          limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API
+          limit: Constants::SPOTIFY_MAX_LIMIT
         )
       end
 
@@ -37,7 +37,7 @@ module Spotify
 
         RSpotify::Album.search(
           album_name,
-          limit: Constants::MAXIMUM_RESULT_LIMITATION_OF_SPOTIFY_API
+          limit: Constants::SPOTIFY_MAX_LIMIT
         )
       end
 
