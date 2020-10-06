@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AlbumIdRequestParams < BaseRequestParams
+class SpotifyIdRequestParams < BaseRequestParams
   attribute :id, :string
 
   validates :id, presence: true

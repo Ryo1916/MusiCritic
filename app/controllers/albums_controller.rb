@@ -15,7 +15,7 @@ class AlbumsController < ApplicationController
 
   def show
     # TODO: params[:page]の検証
-    request_params = AlbumIdRequestParams.new(params)
+    request_params = SpotifyIdRequestParams.new(params)
     request_params.validate!
     service = ShowAlbumService.new(album_id: request_params.id, client: @spotify_client, page: params[:page])
     service.run!
