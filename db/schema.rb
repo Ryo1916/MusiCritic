@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190804094044) do
+ActiveRecord::Schema.define(version: 2020_10_05_155746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20190804094044) do
     t.integer "reviews_count", default: 0, null: false
     t.string "spotify_id", null: false
     t.float "average_rating", default: 0.0, null: false
+    t.index ["spotify_id"], name: "index_albums_on_spotify_id", unique: true
   end
 
   create_table "artists", force: :cascade do |t|
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(version: 20190804094044) do
     t.datetime "updated_at", null: false
     t.string "external_urls"
     t.string "spotify_id", null: false
+    t.index ["spotify_id"], name: "index_artists_on_spotify_id", unique: true
   end
 
   create_table "artists_albums", force: :cascade do |t|
