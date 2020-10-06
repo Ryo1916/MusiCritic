@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     set_user(user_id: params[:id])
   end
   before_action :prohibit_unspecified_users_access, only: %i[edit update]
+  before_action :generate_spotify_client, only: %i[show]
 
   def show
     @reviews = Review.where(user_id: @user.id)
