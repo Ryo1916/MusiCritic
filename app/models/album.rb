@@ -22,7 +22,8 @@ class Album < ApplicationRecord
   has_many :reviews, dependent: :destroy
 
   # Validations
-  validates_presence_of :name, :release_date, :external_urls, :image, :spotify_id
+  validates_presence_of :name, :release_date, :external_urls, :image
+  validates :spotify_id, uniqueness: true
 
   # TODO: 未使用メソッド削除
   class << self
