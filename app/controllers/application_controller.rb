@@ -21,4 +21,8 @@ class ApplicationController < ActionController::Base
     # :user is the scope we are authenticating
     store_location_for(:user, request.fullpath) unless request.fullpath != new_user_session_path
   end
+
+  def render_bad_request(err)
+    redirect_to request.referer, alert: err.errors.full_messages.join(', ')
+  end
 end

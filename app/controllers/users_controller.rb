@@ -1,39 +1,39 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
+  rescue_from BaseRequestParams::InvalidRequestParams, with: :render_bad_request
+
   include UserAccessable
   include ApiClientGeneratable
+  include UsersHelper
 
-  before_action :authenticate_user!, except: %i[show]
-  before_action except: %i[index] do
-    set_user(user_id: params[:id])
-  end
-  before_action :prohibit_unspecified_users_access, only: %i[edit update]
+  before_action :authenticate_user!, except: %i[show] # NOTE: 各ユーザの詳細ページは誰でも見れるように
   before_action :generate_spotify_client, only: %i[show]
 
   def show
-    @reviews = Review.where(user_id: @user.id)
-                     .reviews_list(page: params[:page])
-    @user_reviewed_albums = Album.eager_load(:reviews)
-                                 .where(reviews: { user_id: @user.id })
-                                 .uniq
-    @top_rating_albums = Album.top_ratings(limit: Constants::ALBUMS_FOR_INSTRUCTIONS)
-    @new_released_albums = @spotify_client.get_new_releases(limit: Constants::NEW_RELEASE_ALBUMS_FOR_INSTRUCTIONS)
+    request_params = UserIdRequestParams.new(params)
+    request_params.validate!
+    service = ShowUserService.new(request_params: request_params, client: @spotify_client, page: params[:page])
+    service.run!
+    set_instance_variables(service.result)
+    render :show
   end
 
-  def edit; end
+  def edit
+    request_params = UserIdRequestParams.new(params)
+    request_params.validate!
+    @user = User.find(request_params.id)
+    prohibit_unspecified_users_access
+    render :edit
+  end
 
   def update
-    if @user.update(user_params)
-      redirect_to @user
-      flash[:notice] = 'Your profile was successfully updated.'
-    else
-      render :edit
-      flash[:alert] = 'Update failed.'
-    end
-  end
-
-  private
-
-  def user_params
-    params.require(:user).permit(:name, :email, :avatar)
+    @user = User.find(current_user.id)
+    prohibit_unspecified_users_access # NOTE: editと異なりすぐに処理を停止できるためパラメータ検証より先にアクセスコントロールしている
+    request_params = UpdateUserRequestParams.new(params)
+    request_params.validate!
+    result = @user.update(request_params.attributes)
+    result ? (redirect_to @user, notice: 'Your profile was successfully updated.')
+           : (render :edit, alert: 'Update failed.')
   end
 end
