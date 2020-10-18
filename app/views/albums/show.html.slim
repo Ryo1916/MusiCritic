@@ -42,6 +42,7 @@
         = render partial: 'reviews/review', collection: @reviews
         = paginate @reviews
 hr
+/ FIXME: templateのrenderingに時間がかかっている
 - @artists.each do |artist|
   .row
     .panel.panel-default

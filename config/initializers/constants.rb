@@ -8,7 +8,7 @@ module Constants
   # validations
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
-  # set ristrict
+  # limitations
   ARTISTS_FOR_ARTISTS_INDEX_PAGE = 24
   ALBUMS_FOR_TOP_PAGE = 12
   ALBUMS_FOR_INSTRUCTIONS = 12
@@ -16,7 +16,6 @@ module Constants
   REVIEWS_FOR_USRES_SHOW_PAGE = 15
   TOP_RATING_ALBUMS = 24
   NEW_RELEASE_ALBUMS = 24
-  NEW_RELEASE_ALBUMS_FOR_INSTRUCTIONS = 12
 
   # Spotify API
   SPOTIFY_MAX_LIMIT = 50

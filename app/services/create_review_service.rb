@@ -11,7 +11,7 @@ class CreateReviewService < BaseService
 
   def run!
     # NOTE: reviewデータとの関連付けのため必要なデータを保存
-    save_spotify_data
+    upsert_spotify_data
 
     album = Album.find_by(spotify_id: @request_params.album_id)
     review = @current_user.reviews.build(
@@ -29,7 +29,7 @@ class CreateReviewService < BaseService
 
   private
 
-  def save_spotify_data
+  def upsert_spotify_data
     ActiveRecord::Base.transaction do
       return if Album.exists?(spotify_id: @request_params.album_id)
 

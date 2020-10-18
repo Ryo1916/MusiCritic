@@ -48,15 +48,7 @@ class Album < ApplicationRecord
     end
   end
 
-  def specified_user_reviews(specified_user:)
-    self.reviews.select { |review| review.user == specified_user }
-  end
-
   def update_average_rating
-    if self.reviews.blank?
-      update_attributes(average_rating: 0.0)
-    else
-      update_attributes(average_rating: self.reviews.average(:rating).round(2))
-    end
+    update_attributes(average_rating: (self.reviews.blank? ? 0.0 : self.reviews.average(:rating).round(2)))
   end
 end

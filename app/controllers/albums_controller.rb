@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AlbumsController < ApplicationController
   include UserAccessable
   include ApiClientGeneratable
@@ -7,20 +9,20 @@ class AlbumsController < ApplicationController
 
   def index
     @new_releases = @spotify_client.get_new_releases(limit: Constants::NEW_RELEASE_ALBUMS)
-    @top_rating_albums = Album.eager_load(:artists)
+    @top_rating_albums = Album.preload(:artists)
                               .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
 
-    respond_to { |format| format.html { render :index } }
+    render :index
   end
 
   def show
     # TODO: params[:page]の検証
     request_params = SpotifyIdRequestParams.new(params)
     request_params.validate!
-    service = ShowAlbumService.new(album_id: request_params.id, client: @spotify_client, page: params[:page])
+    service = ShowAlbumService.new(request_params: request_params, client: @spotify_client, page: params[:page])
     service.run!
     set_instance_variables(service.result)
-    respond_to { |format| format.html { render :show } }
+    render :show
   end
 
   def search
@@ -29,7 +31,7 @@ class AlbumsController < ApplicationController
 
     @albums = @spotify_client.search_albums(album_name: request_params.album_name)
     @new_releases = @spotify_client.get_new_releases(limit: Constants::NEW_RELEASE_ALBUMS)
-    @top_rating_albums = Album.eager_load(:artists)
+    @top_rating_albums = Album.preload(:artists)
                               .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
 
     respond_to do |format|

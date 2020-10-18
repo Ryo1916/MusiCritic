@@ -3,6 +3,7 @@
 module UserAccessable
   extend ActiveSupport::Concern
 
+  # TODO: 不要になったら削除, registrations_controllerでset_userをつかっているので注意
   def set_user(user_id:)
     @user = User.find(user_id)
   end
