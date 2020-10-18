@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ArtistsController < ApplicationController
   include ApiClientGeneratable
   include ArtistsHelper
@@ -5,10 +7,10 @@ class ArtistsController < ApplicationController
   before_action :generate_spotify_client, only: %i[show search]
 
   def index
-    @top_rating_artists = Album.eager_load(:artists)
-                               .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
-                               .inject([]) { |result, album| result + album.artists }
-                               .uniq
+    @top_rating_artists = Artist.joins(:albums)
+                                .order(average_rating: :desc)
+                                .uniq
+                                .take(Constants::TOP_RATING_ALBUMS)
     respond_to { |format| format.html { render :index } }
   end
 
@@ -26,11 +28,10 @@ class ArtistsController < ApplicationController
     request_params.validate!
 
     @artists = @spotify_client.search_artists(artist_name: request_params.artist_name)
-    # NOTE: 複数のアルバムがtop_ratingsにあるアーティストが重複して表示されないようにuniqしている
-    @top_rating_artists = Album.eager_load(:artists)
-                               .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
-                               .inject([]) { |result, album| result + album.artists }
-                               .uniq
+    @top_rating_artists = Artist.joins(:albums)
+                                .order(average_rating: :desc)
+                                .uniq
+                                .take(Constants::TOP_RATING_ALBUMS)
 
     respond_to do |format|
       format.html { render :index }
