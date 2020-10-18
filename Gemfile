@@ -71,6 +71,7 @@ group :development do
   gem 'better_errors',         '2.5.0'
   gem 'binding_of_caller',     '0.8.0'
   gem 'brakeman',              '4.6.1'
+  gem 'bullet',                '6.1.0'
   gem 'listen',                '3.1.5'
   gem 'pry-byebug',            '3.6.0'
   gem 'pry-rails',             '0.3.9'
