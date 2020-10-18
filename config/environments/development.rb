@@ -57,4 +57,16 @@ Rails.application.configure do
   logger = ActiveSupport::Logger.new(STDOUT)
   logger.formatter = config.log_formatter
   config.logger = ActiveSupport::TaggedLogging.new(logger)
+
+  # Bullet configs
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+    Bullet.add_footer = true
+    Bullet.skip_html_injection = false
+    Bullet.raise = true
+  end
 end
