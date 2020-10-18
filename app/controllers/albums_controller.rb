@@ -12,7 +12,7 @@ class AlbumsController < ApplicationController
     @top_rating_albums = Album.preload(:artists)
                               .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
 
-    respond_to { |format| format.html { render :index } }
+    render :index
   end
 
   def show
@@ -22,7 +22,7 @@ class AlbumsController < ApplicationController
     service = ShowAlbumService.new(request_params: request_params, client: @spotify_client, page: params[:page])
     service.run!
     set_instance_variables(service.result)
-    respond_to { |format| format.html { render :show } }
+    render :show
   end
 
   def search

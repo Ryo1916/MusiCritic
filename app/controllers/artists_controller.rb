@@ -11,7 +11,7 @@ class ArtistsController < ApplicationController
                                 .order(average_rating: :desc)
                                 .uniq
                                 .take(Constants::TOP_RATING_ALBUMS)
-    respond_to { |format| format.html { render :index } }
+    render :index
   end
 
   def show
@@ -20,7 +20,7 @@ class ArtistsController < ApplicationController
     service = ShowArtistService.new(artist_id: request_params.id, client: @spotify_client)
     service.run!
     set_instance_variables(service.result)
-    respond_to { |format| format.html { render :show } }
+    render :show
   end
 
   def search
