@@ -6,7 +6,8 @@ class CreateReviewRequestParams < BaseRequestParams
   attribute :rating, :float
   attribute :album_id, :string
 
-  validates :title, :text, :rating, :album_id, presence: true
+  validates :title, :text, :album_id, presence: true
+  validates :rating, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }
 
   def initialize(params)
     super(
