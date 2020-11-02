@@ -43,6 +43,9 @@ gem 'omniauth',          '1.8.1'
 gem 'omniauth-facebook', '5.0.0'
 gem 'omniauth-twitter',  '1.4.0'
 
+# security
+gem 'invisible_captcha', '1.1.0'
+
 # API
 gem 'rspotify', '2.6.0'
 
