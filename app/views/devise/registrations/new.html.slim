@@ -5,10 +5,11 @@
       h2
         | Create Your Account
       = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = f.invisible_captcha :subtitle
         = devise_error_messages!(resource: resource)
         .field[style="margin-bottom:20px;"]
           = f.label :name
-          = f.text_field :name, autofocus: true, placeholder: "Enter your name", class: "form-control" 
+          = f.text_field :name, autofocus: true, placeholder: "Enter your name", class: "form-control"
         .field[style="margin-bottom:20px;"]
           = f.label :email
           = f.email_field :email, placeholder: "Enter email", class: "form-control"

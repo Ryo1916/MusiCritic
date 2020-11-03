@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
-  before_action :user_signed_in?, only: [:new, :create]
+  invisible_captcha only: %i[create], honeypot: :subtitle
+
+  before_action :user_signed_in?, only: %i[new create]
 
   # GET /resource/sign_in
   # def new
