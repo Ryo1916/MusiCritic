@@ -3,6 +3,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include UserAccessable
 
+  invisible_captcha only: %i[create update], honeypot: :subtitle
+
   before_action :configure_sign_up_params, only: %i[create]
   before_action :configure_account_update_params, only: %i[update]
   before_action only: %i[edit] do

@@ -1,4 +1,5 @@
 = form_with(model: review, class: 'review') do |form|
+  = form.invisible_captcha :subtitle
   = devise_error_messages!(resource: review)
   span#error-messages-for-create
   .form-group

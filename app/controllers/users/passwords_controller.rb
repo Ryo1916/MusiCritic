@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < Devise::PasswordsController
+  invisible_captcha only: %i[create update], honeypot: :subtitle
+
   # GET /resource/password/new
   # def new
   #   super

@@ -6,6 +6,7 @@
         | Forgot your password?
       = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
         = devise_error_messages!(resource: resource)
+        = f.invisible_captcha :subtitle
         .field[style="margin-bottom:20px;"]
           = f.label :email
           = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Enter your email', class: 'form-control'
