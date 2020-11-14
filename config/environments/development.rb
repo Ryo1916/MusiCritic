@@ -23,7 +23,20 @@ Rails.application.configure do
   else
     config.action_controller.perform_caching = false
 
-    config.cache_store = :null_store
+    uri = URI.parse(ENV['REDIS_URL'])
+    config.cache_store = :redis_cache_store, {
+      servers: [
+        {
+          host: uri.host || 'redis',
+          port: uri.port || 6379,
+          db: 1,
+          namespace: 'cache'
+        }
+      ],
+      expire_after: 24.hours,
+      reconnect_attempts: 1,
+      key: "_#{Rails.application.class.parent_name.downcase}_cache"
+    }
   end
 
   # ActionMailer and letter_opener
