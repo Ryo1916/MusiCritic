@@ -16,7 +16,7 @@ class ReviewsController < ApplicationController
     request_params.validate!
     service = CreateReviewService.new(request_params: request_params, client: @spotify_client, current_user: current_user)
     service.run!
-    redirect_to album_path(result.album_id), notice: 'Review was successfully created.'
+    redirect_to album_path(service.result.album_id), notice: 'Review was successfully created.'
   end
 
   def update
