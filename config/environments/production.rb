@@ -65,8 +65,7 @@ Rails.application.configure do
       }
     ],
     expire_after: 24.hours,
-    reconnect_attempts: 1,
-    key: "_#{Rails.application.class.parent_name.downcase}_cache"
+    reconnect_attempts: 1
   }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
