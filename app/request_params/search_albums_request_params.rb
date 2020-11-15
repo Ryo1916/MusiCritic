@@ -3,7 +3,7 @@
 class SearchAlbumsRequestParams < BaseRequestParams
   attribute :album_name, :string
 
-  validates :album_name, presence: true, allow_blank: true
+  validates :album_name, presence: true
 
   def initialize(params)
     super(params.permit(:album_name))

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  rescue_from BaseRequestParams::InvalidRequestParams, with: :render_bad_request
-
   include UserAccessable
   include ApiClientGeneratable
   include UsersHelper
@@ -32,8 +30,7 @@ class UsersController < ApplicationController
     prohibit_unspecified_users_access # NOTE: editと異なりすぐに処理を停止できるためパラメータ検証より先にアクセスコントロールしている
     request_params = UpdateUserRequestParams.new(params)
     request_params.validate!
-    result = @user.update(request_params.attributes)
-    result ? (redirect_to @user, notice: 'Your profile was successfully updated.')
-           : (render :edit, alert: 'Update failed.')
+    @user.update!(request_params.attributes)
+    redirect_to @user, notice: 'Your profile was successfully updated.'
   end
 end
