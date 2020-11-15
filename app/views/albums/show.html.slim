@@ -42,14 +42,12 @@
         = render partial: 'reviews/review', collection: @reviews
         = paginate @reviews
 hr
-/ FIXME: templateのrenderingに時間がかかっている
 - @artists.each do |artist|
   .row
     .panel.panel-default
       .panel-body.text-center
         h4 More by #{artist.name}
-        / TODO: collectionのロジックを剥がす
-        = render partial: 'albums/album', collection: artist.albums.select { |album| album.id != @album.spotify_id }
+        = render partial: 'albums/album', collection: other_than_self(albums: artist.albums)
 hr
 .row
   .panel.panel-default

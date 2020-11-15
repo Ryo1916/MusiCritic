@@ -7,4 +7,8 @@ module AlbumsHelper
     @reviews = result.reviews
     @review = Review.new
   end
+
+  def other_than_self(albums:)
+    albums.select { |album| album.id != @album.spotify_id }
+  end
 end
