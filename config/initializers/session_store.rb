@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 uri = URI.parse(ENV['REDIS_URL'])
+
 Rails.application.config.session_store :redis_store, {
   servers: [
     {
@@ -11,5 +12,8 @@ Rails.application.config.session_store :redis_store, {
     }
   ],
   expire_after: 90.minutes,
-  key: "_#{Rails.application.class.parent_name.downcase}_session"
+  key: "_#{Rails.application.class.parent_name.downcase}_session",
+  signed: true,
+  secure: Rails.env.production?,
+  httponly: true
 }
