@@ -55,16 +55,14 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   uri = URI.parse(ENV['REDIS_URL'])
-  config.cache_store = :redis_cache_store, {
-    servers: [
-      {
-        host: uri.host,
-        port: uri.port,
-        db: 1,
-        namespace: 'cache'
-      }
-    ],
-    expire_after: 24.hours,
+  config.cache_store = :redis_store, {
+    host: uri.host,
+    port: uri.port,
+    db: 1,
+    namespace: 'cache'
+  },
+  {
+    expires_in: 24.hours,
     reconnect_attempts: 1
   }
 
