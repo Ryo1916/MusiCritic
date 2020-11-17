@@ -9,12 +9,12 @@
   .review-comment[style="display:block; margin-top:10px;"]
     p[style="font-size:16px; margin-right:10px;"]
       = review.title
-    = simple_format(review.text)
+    = simple_format(review.text, style: 'word-wrap: break-word;')
   - if current_user?(user: review.user)
     .review-links[style="padding-bottom:20px;"]
       span[style="float:right;"]
         a href="#" data-toggle="modal" data-target="#myModal-#{review.id}"
           | Edit
         | /
-        = link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' }
+        = link_to 'Delete', review, method: :delete, data: { confirm: 'Are you sure?' }
 = render 'reviews/edit_modal', review: review

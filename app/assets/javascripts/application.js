@@ -96,4 +96,33 @@ $(document).on('turbolinks:load', function() {
       return $(this).attr('data-score');
     }
   });
+
+  $('.review-submit').click(() => {
+    const title = $('#review_title').val();
+    const text = $('#review_text').val();
+    let isTitleValid = true;
+    let isTextValid = true;
+
+    // front validation
+    if (title === '') {
+      $('#title-error').text('* Fill review title.');
+      $('#title-error').show();
+      isTitleValid = false;
+    } else {
+      $('#title-error').hide();
+    }
+    if (text === '') {
+      $('#text-error').text('* Fill review text.');
+      $('#text-error').show();
+      isTextValid = false;
+    } else {
+      $('#text-error').hide();
+    }
+
+    if (isTitleValid === false || isTextValid === false) {
+      return false;
+    }
+
+    $(this).css('pointer-events', 'none');
+  });
 });

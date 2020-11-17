@@ -26,16 +26,11 @@ class ArtistsController < ApplicationController
   def search
     request_params = SearchArtistsRequestParams.new(params)
     request_params.validate!
-
     @artists = @spotify_client.search_artists(artist_name: request_params.artist_name)
     @top_rating_artists = Artist.joins(:albums)
                                 .order(average_rating: :desc)
                                 .uniq
                                 .take(Constants::TOP_RATING_ALBUMS)
-
-    respond_to do |format|
-      format.html { render :index }
-      flash.now[:alert] = 'Please enter artist name.' if @artists.blank?
-    end
+    render :index
   end
 end

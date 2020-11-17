@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  rescue_from BaseRequestParams::InvalidRequestParams, with: :render_bad_request
+
   before_action :store_user_location!, if: :storable_location?
 
   private
