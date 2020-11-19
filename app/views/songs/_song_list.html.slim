@@ -1,0 +1,11 @@
+tr
+  td
+    = song.track_number
+  td
+    = song.name
+  - if song.preview_url.present?
+    td
+      audio id="sound-#{song.id}" preload="metadata"
+        source src=(song.preview_url)
+      = play_icon(id: song.id)
+      = stop_icon(id: song.id)
