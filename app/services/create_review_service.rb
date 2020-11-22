@@ -11,6 +11,7 @@ class CreateReviewService < BaseService
 
   def run!
     # NOTE: reviewデータとの関連付けのため必要なデータを保存
+    # TODO: mediatorにして、このクラスで保存している処理を分離する
     upsert_spotify_data
 
     album = Album.find_by(spotify_id: @request_params.album_id)
@@ -75,7 +76,8 @@ class CreateReviewService < BaseService
     album.songs.build(
       name: track.name,
       track_number: track.track_number,
-      preview_url: track.preview_url
+      preview_url: track.preview_url,
+      disc_number: track.disc_number
     )
   end
 end
