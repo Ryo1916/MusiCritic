@@ -16,8 +16,10 @@ class ShowAlbumService < BaseService
     album = generate_album(spotify_album)
     artists = spotify_album.artists
     songs = spotify_album.tracks
+
+    # NOTE: 曲一覧は関連アルバムには不要なのでpreloadしていない
     top_rating_albums = Album.preload(:artists)
-                             .where.not(spotify_id: album_id)
+                             .where.not(spotify_id: album_id) # NOTE: 表示中のアルバムを関連アルバム一覧に表示したくないので除外している
                              .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
     reviews = Review.eager_load(:user, :album)
                     .where(albums: { spotify_id: album_id })
