@@ -65,19 +65,21 @@ $(document).on('turbolinks:load', function() {
   }
 
   // start/stop music
-  $("i[data-play=playable-song]").click(function(){
-    var object_id = $(this).data('id');
-    $("#sound-" + object_id)[0].play();
-    $("#play-" + object_id).hide();
-    $("#stop-" + object_id).fadeIn();
+  $('i[data-play=playable-song]').click(function(){
+    const object_id = $(this).data('id');
+
+    $(`#sound-${object_id}`)[0].play();
+    $(`#play-${object_id}`).hide();
+    $(`#stop-${object_id}`).fadeIn();
   });
 
-  $("i[data-play=stoppable-song]").click(function(){
-    var object_id = $(this).data('id');
-    $("#sound-" + object_id)[0].pause();
-    $("#sound-" + object_id)[0].currentTime = 0;
-    $("#stop-" + object_id).hide();
-    $("#play-" + object_id).show();
+  $('i[data-play=stoppable-song]').click(function(){
+    const object_id = $(this).data('id');
+
+    $(`#sound-${object_id}`)[0].pause();
+    $(`#sound-${object_id}`)[0].currentTime = 0;
+    $(`#stop-${object_id}`).hide();
+    $(`#play-${object_id}`).show();
   });
 
   // change icon when player ended
@@ -124,5 +126,23 @@ $(document).on('turbolinks:load', function() {
     }
 
     $(this).css('pointer-events', 'none');
+  });
+
+  // slide down/up track lists
+  $('.disc-number').each((e, v) => {
+    $(v).next().hide();
+
+    $(v).click(function(){
+      const dataId = $(this).data('id');
+      const targetClass = `.disc-${dataId}-tracks`;
+      console.log(`targetObject: ${targetClass}`);
+
+      let flg = $(targetClass).css('display') == "none";
+      if(flg) {
+        $(targetClass).slideDown();
+      } else {
+        $(targetClass).slideUp();
+      }
+    });
   });
 });

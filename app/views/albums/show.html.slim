@@ -15,20 +15,7 @@
         = @album.release_date
       p[style="margin-top:20px;"]
         = link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls, class: 'btn btn-success btn-block', target: '_blank'
-      table.table.bordered-table
-        tbody
-          - @songs.each do |song|
-            tr
-              td
-                = song.track_number
-              td
-                = song.name
-              - if song.preview_url.present?
-                td
-                  audio id="sound-#{song.id}" preload="none"
-                    source src=(song.preview_url)
-                  = play_icon(id: song.id)
-                  = stop_icon(id: song.id)
+      = render partial: 'songs/song_list', collection: @songs, as: :song
     .col-md-8[style="margin-bottom:20px;"]
       - if current_user
         = render 'reviews/form', review: @review, album: @album, id: @album.id, type: 'new'
