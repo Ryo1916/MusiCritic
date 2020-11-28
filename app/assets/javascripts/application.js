@@ -132,16 +132,18 @@ $(document).on('turbolinks:load', function() {
   $('.disc-number').each((e, v) => {
     $(v).next().hide();
 
-    $(v).click(function(){
+    $(v).click(function() {
       const dataId = $(this).data('id');
       const targetClass = `.disc-${dataId}-tracks`;
-      console.log(`targetObject: ${targetClass}`);
+      const chevronId = `#chevron-${dataId}`;
 
       let flg = $(targetClass).css('display') == "none";
       if(flg) {
         $(targetClass).slideDown();
+        $(chevronId).toggleClass('fa-chevron-down fa-chevron-up');
       } else {
-        $(targetClass).slideUp();
+        $(targetClass).fadeOut();
+        $(chevronId).toggleClass('fa-chevron-up fa-chevron-down');
       }
     });
   });
