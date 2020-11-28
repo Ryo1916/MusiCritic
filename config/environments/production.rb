@@ -62,7 +62,7 @@ Rails.application.configure do
     namespace: 'cache'
   },
   {
-    expires_in: 24.hours,
+    expires_in: 12.hours,
     reconnect_attempts: 1
   }
 
