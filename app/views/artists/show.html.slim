@@ -8,6 +8,9 @@
           = @artist.name
         p
           = link_to icon('fab', 'spotify', 'Go to Spotify'), @artist.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank'
+        p
+          // channelIDで飛んであげるようにする
+          / = link_to icon('fab', 'youtube', 'Go to YouTube'), "https://www.youtube.com/channel/#{@channel_id}", class: 'btn btn-danger btn-block', target: '_blank'
         - @artist.genres.each do |genre|
           span.badge[style='margin-right:5px;']
             = genre.capitalize
@@ -18,6 +21,14 @@
     - else
       .panel.panel-default
         .panel-body
+          .row
+            - if @youtube_urls.present?
+              h4
+                | YouTube
+              - @youtube_urls.each do |youtube_url|
+                div.col-md-6
+                  div.iframe-wrap
+                    iframe src="#{youtube_url}" loading="lazy" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
           .row
             - if @albums.present?
               h4

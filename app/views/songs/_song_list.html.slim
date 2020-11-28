@@ -5,15 +5,15 @@
       i class="fas fa-compact-disc"
     dd
       = " Disc #{song.disc_number}"
-      i class="fas fa-chevron-down" style="float:right;"
+      i id="chevron-#{song.disc_number}" class="fas fa-chevron-down" style="float:right;"
 dl class="disc-#{song.disc_number}-tracks" style="display:none; border-bottom: 1px solid #cccccc;"
   dt style="float:left; margin-right:5px;"
     = song.track_number
   dd
     p style="display:inline;"
       = song.name
-  - if song.preview_url.present?
-    = play_icon(id: song.id)
-    = stop_icon(id: song.id)
-    audio id="sound-#{song.id}" preload="metadata"
-      source src=(song.preview_url)
+    - if song.preview_url.present?
+      = play_icon(id: song.id)
+      = stop_icon(id: song.id)
+      audio id="sound-#{song.id}" preload="metadata"
+        source src=(song.preview_url)

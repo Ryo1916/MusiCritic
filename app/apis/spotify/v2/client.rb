@@ -12,18 +12,21 @@ module Spotify
       end
 
       def get_new_releases(limit:)
-        new_releases = RSpotify::Album.new_releases(limit: limit)
-        fetch_or_cache(key: 'new_releases_cache', value: new_releases)
+        Rails.cache.fetch('new_releases', expires_in: 12.hours) do
+          RSpotify::Album.new_releases(limit: limit)
+        end
       end
 
       def get_artist(spotifies_artist_id:)
-        artist = RSpotify::Artist.find(spotifies_artist_id)
-        fetch_or_cache(key: spotifies_artist_id, value: artist)
+        Rails.cache.fetch("#{spotifies_artist_id}/artist", expires_in: 12.hours) do
+          RSpotify::Artist.find(spotifies_artist_id)
+        end
       end
 
       def get_album(spotifies_album_id:)
-        album = RSpotify::Album.find(spotifies_album_id)
-        fetch_or_cache(key: spotifies_album_id, value: album)
+        Rails.cache.fetch("#{spotifies_album_id}/album", expires_in: 12.hours) do
+          RSpotify::Album.find(spotifies_album_id)
+        end
       end
 
       def search_artists(artist_name:)
@@ -55,12 +58,9 @@ module Spotify
         begin
           RSpotify.authenticate(spotify_api_key, spotify_api_secret)
         rescue RestClient::BadRequest => e
+          # TODO: 認証失敗した時のエラー通知
           Rails.logger.error "SpotifyAuthError: #{e.backtrace}"
         end
-      end
-
-      def fetch_or_cache(key:, value:)
-        Rails.cache.fetch(key, expires_in: 24.hours) { value }
       end
     end
   end
