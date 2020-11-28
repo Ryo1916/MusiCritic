@@ -48,6 +48,7 @@ gem 'invisible_captcha', '1.1.0'
 
 # API
 gem 'rspotify', '2.6.0'
+gem 'google-api-client', '0.50.0'
 
 # others
 gem 'faker', '1.7.3'
