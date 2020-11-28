@@ -15,7 +15,7 @@
         = @album.release_date
       p[style="margin-top:20px;"]
         = link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls, class: 'btn btn-success btn-block', target: '_blank'
-      = render partial: 'songs/song_list', collection: @songs, as: :song
+      = render partial: 'songs/song_list', collection: @songs, as: :song, cached: true
     .col-md-8[style="margin-bottom:20px;"]
       - if current_user
         = render 'reviews/form', review: @review, album: @album, id: @album.id, type: 'new'
