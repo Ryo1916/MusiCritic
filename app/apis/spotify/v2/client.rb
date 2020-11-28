@@ -55,10 +55,12 @@ module Spotify
         begin
           RSpotify.authenticate(spotify_api_key, spotify_api_secret)
         rescue RestClient::BadRequest => e
+          # TODO: 認証失敗した時のエラー通知
           Rails.logger.error "SpotifyAuthError: #{e.backtrace}"
         end
       end
 
+      # TODO; cacheはclientの役割ではない&youtube apiでも使いたいので移動する
       def fetch_or_cache(key:, value:)
         Rails.cache.fetch(key, expires_in: 24.hours) { value }
       end
