@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-uri = URI.parse(ENV['REDIS_URL'])
+uri = URI.parse(ENV['REDIS_URL']) unless ENV['REDIS_URL'].nil?
 
 Rails.application.config.session_store :redis_store, {
   servers: [
     {
-      host: uri.host || 'redis',
-      port: uri.port || 6379,
+      host: uri&.host || 'redis',
+      port: uri&.port || 6379,
       db: 0,
       namespace: 'session'
     }
