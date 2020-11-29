@@ -23,10 +23,10 @@ Rails.application.configure do
   else
     config.action_controller.perform_caching = false
 
-    uri = URI.parse(ENV['REDIS_URL'])
-    config.cache_store = :redis_store, {
-      host: uri.host || 'redis',
-      port: uri.port || 6379,
+    uri = URI.parse(ENV['REDIS_URL']) unless ENV['REDIS_URL'].nil?
+      config.cache_store = :redis_store, {
+      host: uri&.host || 'redis',
+      port: uri&.port || 6379,
       db: 1,
       namespace: 'cache'
     },
