@@ -5,14 +5,17 @@ module Wikipedia
     class Client
       include Singleton
 
-      BASE_URL = 'https://en.wikipedia.org/w/api.php'
+      API_URL = 'https://en.wikipedia.org/w/api.php'
+      WIKI_URL = 'https://en.wikipedia.org/wiki/'
+
+      # WIKIに直接アクセスして返ってきたアーティスト名を使用すれば表記ゆれを吸収できるかもしれない
 
       def initialize; end
 
       def get_artist_article(name:)
         params = build_artist_article_params(name)
 
-        uri = URI.parse(BASE_URL)
+        uri = URI.parse(API_URL)
         uri.query = URI.encode_www_form(params)
         http = Net::HTTP.new(uri.hostname, uri.port)
         http.use_ssl = true
@@ -23,10 +26,19 @@ module Wikipedia
           decode_artist_article_response(response)
         rescue Net::HTTPClientError, Net::HTTPServerError, StandardError => e
           # エラーになっても止める必要がないので空文字を返す
-          Rails.logger.info("wikipedia api is not working due to some reasons: #{e.class} #{e.message}")
+          Rails.logger.info("wikipedia api is not working: #{e.class} #{e.message}")
           ''
         end
       end
+
+      def get_artist_wiki_url(name:)
+        "#{WIKI_URL}#{name}"
+      end
+
+      # TODO: アルバムの解説取得
+      # def get_album_article(name:)
+
+      # end
 
       private
 

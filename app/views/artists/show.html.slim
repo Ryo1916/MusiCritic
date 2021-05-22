@@ -9,6 +9,8 @@
         p
           = link_to icon('fab', 'spotify', 'Go to Spotify'), @artist.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank'
         p
+          = @artist_article
+        p
           // channelIDで飛んであげるようにする
           / = link_to icon('fab', 'youtube', 'Go to YouTube'), "https://www.youtube.com/channel/#{@channel_id}", class: 'btn btn-danger btn-block', target: '_blank'
         - @artist.genres.each do |genre|
