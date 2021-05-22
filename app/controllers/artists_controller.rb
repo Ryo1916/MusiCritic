@@ -19,8 +19,16 @@ class ArtistsController < ApplicationController
   def show
     request_params = SpotifyIdRequestParams.new(params)
     request_params.validate!
-    service = ShowArtistService.new(artist_id: request_params.id, spotify_client: @spotify_client, youtube_client: @youtube_client, wikipedia_client: @wikipedia_client, current_user: current_user)
+
+    service = ShowArtistService.new(
+      artist_id: request_params.id,
+      spotify_client: @spotify_client,
+      youtube_client: @youtube_client,
+      wikipedia_client: @wikipedia_client,
+      current_user: current_user
+    )
     service.run!
+
     set_instance_variables(service.result)
     render :show
   end

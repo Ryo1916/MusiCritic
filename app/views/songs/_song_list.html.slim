@@ -1,12 +1,12 @@
 // TODO: inline css調整
 - if song.track_number == 1
-  dl class="disc-number" data-id="#{song.disc_number}" style="cursor:pointer; border-bottom: 1px solid #cccccc;"
+  dl class="disc-number" data-id="#{song.disc_number}" style="cursor:pointer; border-bottom: 1px solid #cccccc; margin-top:30px;"
     dt style="float:left; margin-right:5px;"
       i class="fas fa-compact-disc"
     dd
       = " Disc #{song.disc_number}"
-      i id="chevron-#{song.disc_number}" class="fas fa-chevron-down" style="float:right;"
-dl class="disc-#{song.disc_number}-tracks" style="display:none; border-bottom: 1px solid #cccccc;"
+      i id="chevron-#{song.disc_number}" class="fas fa-chevron-up" style="float:right;"
+dl class="disc-#{song.disc_number}-tracks" style="border-bottom: 1px solid #cccccc;"
   dt style="float:left; margin-right:5px;"
     = song.track_number
   dd

@@ -17,7 +17,8 @@ class ShowUserService < BaseService
                     .where(user_id: user_id)
                     .reviews_list(page: @page) # TODO: reviews_listが機能してるかseedでデータ大量投入して検証
     user_reviewed_albums = reviews.map { |review| review.album }.uniq
-    top_rating_albums = Album.top_ratings(limit: Constants::ALBUMS_FOR_INSTRUCTIONS)
+    top_rating_albums = Album.preload(:artists)
+                             .top_ratings(limit: Constants::ALBUMS_FOR_INSTRUCTIONS)
     new_releases = @client.get_new_releases(limit: Constants::ALBUMS_FOR_INSTRUCTIONS)
 
     @result = OpenStruct.new(
