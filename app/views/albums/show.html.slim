@@ -1,33 +1,59 @@
 - provide(:page_title, @album.name)
-.container[style="margin-top:60px;"]
-  .row[style="margin-top:20px;"]
-    .col-md-4
-      = image_tag @album.image, class: "img-responsive img-rounded"
-      .album-info
-        .star-rating[style="margin-top:10px;" data-score="#{@album.average_rating}"]
-      em
-        = "#{@album.reviews_count} reviews"
-      h3
-        == @artists.map { |artist| link_to artist.name, artist_path(artist.id) }.join(' / ')
-      h4[style="display:inline;"]
-        = @album.name
-      span[style="display:inline; float:right;"]
-        = @album.release_date
-      p[style="margin-top:20px;"]
-        = link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls, class: 'btn btn-success btn-block', target: '_blank'
-      = render partial: 'songs/song_list', collection: @songs, as: :song, cached: true
-    .col-md-8[style="margin-bottom:20px;"]
-      - if current_user
-        = render 'reviews/form', review: @review, album: @album, id: @album.id, type: 'new'
-      - else
-        = render 'users/promote_signin'
-      hr
-      - if @reviews.blank?
-        h3[style="border-bottom:solid 1px #eee;"]
-          | There is no reviews...
-      - else
+.row[style="margin-top:65px;"]
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        = image_tag @album.image, class: "img-responsive img-rounded"
+        .album-info
+          .star-rating[style="margin-top:10px;" data-score="#{@album.average_rating}"]
+        em
+          = "#{@album.reviews_count} reviews"
+        h3
+          == @artists.map { |artist| link_to artist.name, artist_path(artist.id) }.join(' / ')
+        h4[style="display:inline;"]
+          = @album.name
+        span[style="display:inline; float:right;"]
+          = @album.release_date
+        p[style="margin-top:20px;"]
+          = link_to icon('fab', 'spotify', 'Go to Spotify'), @album.external_urls, class: 'btn btn-success btn-block', target: '_blank'
+  .col-md-8[style="margin-bottom:20px;"]
+    .panel.panel-default
+      .panel-body
+        h4
+          | Tracks
+        = render partial: 'songs/song_list', collection: @songs, as: :song, cached: true
+    .panel.panel-default
+      .panel-body
+        h4
+          | Reviews
+        a href="#" data-toggle="modal" data-target="#{current_user ? '#createReviewModal' : '#promoteSignInModal'}"
+          | Review this album
         = render partial: 'reviews/review', collection: @reviews
         = paginate @reviews
+    / コンポーネント化
+    .modal.fade id="createReviewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      .modal-dialog[role="document"]
+        .modal-content
+          .modal-header
+            button.close[type="button" data-dismiss="modal" aria-label="Close"]
+              span[aria-hidden="true"]
+                | ×
+            h4#myModalLabel.modal-title
+              | Add review
+          span#error-messages-for-update
+          .modal-body
+            = render 'reviews/form', review: @review, album: @album, id: @album.id, type: 'new'
+    .modal.fade id="promoteSignInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      .modal-dialog[role="document"]
+        .modal-content
+          .modal-header
+            button.close[type="button" data-dismiss="modal" aria-label="Close"]
+              span[aria-hidden="true"]
+                | ×
+            h4#myModalLabel.modal-title
+              | Do you want to review this album?
+          .modal-body
+            = render 'users/promote_signin'
 hr
 - @artists.each do |artist|
   .row

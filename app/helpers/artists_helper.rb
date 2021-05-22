@@ -6,5 +6,7 @@ module ArtistsHelper
     @compilations = result.compilations
     @related_artists = result.related_artists
     @youtube_urls = result.youtube_urls
+    @article = result.article
+    @wiki_url = result.wiki_url
   end
 end

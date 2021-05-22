@@ -7,6 +7,7 @@
         h3
           = @artist.name
         p
+          / ボタンじゃなくてiconにする
           = link_to icon('fab', 'spotify', 'Go to Spotify'), @artist.external_urls["spotify"], class: 'btn btn-success btn-block', target: '_blank'
         p
           // channelIDで飛んであげるようにする
@@ -14,6 +15,12 @@
         - @artist.genres.each do |genre|
           span.badge[style='margin-right:5px;']
             = genre.capitalize
+        p[style='margin-top:10px;']
+          span[style='word-wrap:break-word;']
+            = @article.truncate(500)
+            = link_to ' More on Wikipedia', @wiki_url, target: '_blank'
+
+  / TODO: carousel表示にして縦長になりすぎないように
   .col-md-8[style="margin-bottom:20px;"]
     - if @albums.blank?
       h3[style="border-bottom:solid 1px #eee;"]

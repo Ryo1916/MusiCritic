@@ -130,8 +130,6 @@ $(document).on('turbolinks:load', function() {
 
   // slide down/up track lists
   $('.disc-number').each((e, v) => {
-    $(v).next().hide();
-
     $(v).click(function() {
       const dataId = $(this).data('id');
       const targetClass = `.disc-${dataId}-tracks`;
