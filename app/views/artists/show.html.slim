@@ -15,10 +15,11 @@
         - @artist.genres.each do |genre|
           span.badge[style='margin-right:5px;']
             = genre.capitalize
-        p[style='margin-top:10px;']
-          span[style='word-wrap:break-word;']
-            = @article.truncate(500)
-            = link_to ' More on Wikipedia', @wiki_url, target: '_blank'
+        - @article.present?
+          p[style='margin-top:10px;']
+            span[style='word-wrap:break-word;']
+              = @article.truncate(500)
+              = link_to ' More on Wikipedia', @wiki_url, target: '_blank'
 
   / TODO: carousel表示にして縦長になりすぎないように
   .col-md-8[style="margin-bottom:20px;"]
