@@ -11,7 +11,12 @@ class AlbumsController < ApplicationController
     @new_releases = @spotify_client.get_new_releases(limit: Constants::NEW_RELEASE_ALBUMS)
     @top_rating_albums = Album.preload(:artists)
                               .top_ratings(limit: Constants::TOP_RATING_ALBUMS)
-    render :index
+
+    result = {
+      new_releases: @new_releases,
+      top_rating_albums: @top_rating_albums
+    }
+    render json: result
   end
 
   def show
