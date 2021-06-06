@@ -64,3 +64,15 @@ services:
     networks:
       - default
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma/development.rb"
+  ngrok:
+    image: wernight/ngrok:latest
+    ports:
+      - 4040:4040
+    environment:
+      NGROK_PROTOCOL: http
+      NGROK_PORT: web:80
+      # NGROK_AUTH: ${NGROK_AUTH}
+    depends_on:
+      - web
+    networks:
+      - default
