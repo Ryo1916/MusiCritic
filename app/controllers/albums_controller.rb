@@ -20,13 +20,11 @@ class AlbumsController < ApplicationController
   end
 
   def show
-    # TODO: params[:page]の検証
     request_params = SpotifyIdRequestParams.new(params)
     request_params.validate!
-    service = ShowAlbumService.new(request_params: request_params, client: @spotify_client, page: params[:page])
+    service = ShowAlbumService.new(request_params: request_params, client: @spotify_client)
     service.run!
-    set_instance_variables(service.result)
-    render :show
+    render json: service.result.to_json
   end
 
   def search
