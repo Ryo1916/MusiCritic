@@ -14,7 +14,7 @@ class ShowArtistService < BaseService
   end
 
   def run!
-    artist = @spotify_client.get_artist(spotifies_artist_id: @artist_id)
+    artist = @spotify_client.get_artists(spotifies_artist_ids: @artist_id)
     related_artists = artist.related_artists
     albums = artist.albums(
       limit: Constants::SPOTIFY_MAX_LIMIT,
@@ -38,7 +38,7 @@ class ShowArtistService < BaseService
     article = @wikipedia_client.get_artist_article(name: artist.name)
     wiki_url = @wikipedia_client.get_artist_wiki_url(name: artist.name)
 
-    @result = OpenStruct.new(
+    @result = {
       artist: artist,
       albums: albums,
       singles: singles,
@@ -47,6 +47,6 @@ class ShowArtistService < BaseService
       youtube_urls: youtube_urls,
       article: article,
       wiki_url: wiki_url
-    )
+    }
   end
 end
