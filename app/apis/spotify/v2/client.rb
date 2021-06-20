@@ -11,15 +11,17 @@ module Spotify
         validate_api_key!
       end
 
+      # TODO: cacheをclient外でやるように
       def get_new_releases(limit:)
         Rails.cache.fetch('new_releases', expires_in: 12.hours) do
           RSpotify::Album.new_releases(limit: limit)
         end
       end
 
-      def get_artist(spotifies_artist_id:)
-        Rails.cache.fetch("#{spotifies_artist_id}/artist", expires_in: 12.hours) do
-          RSpotify::Artist.find(spotifies_artist_id)
+      # String or Array
+      def get_artists(spotifies_artist_ids:)
+        Rails.cache.fetch("#{spotifies_artist_ids}/artist", expires_in: 12.hours) do
+          RSpotify::Artist.find(spotifies_artist_ids)
         end
       end
 

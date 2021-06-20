@@ -33,5 +33,12 @@ class Artist < ApplicationRecord
     def search_artists(artist_name:, page:)
       where('name LIKE ?', "%#{artist_name}%").artists_list(page: page)
     end
+
+    def get_top_rating_artists
+      self.joins(:albums)
+        .order(average_rating: :desc)
+        .uniq
+        .take(Constants::TOP_RATING_ALBUMS)
+    end
   end
 end
