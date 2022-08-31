@@ -40,7 +40,7 @@ gem 'mini_magick',    '4.9.5'
 
 # authentication
 gem 'devise',            '4.7.1'
-gem 'omniauth',          '1.8.1'
+gem 'omniauth',          '1.9.2'
 gem 'omniauth-facebook', '5.0.0'
 gem 'omniauth-twitter',  '1.4.0'
 
